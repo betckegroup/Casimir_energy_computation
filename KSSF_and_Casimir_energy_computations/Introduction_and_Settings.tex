@@ -1,0 +1,105 @@
+Since late 1940s, the advanced understanding of vacuum sector of quantum electrodynamics has been developed and one of the most seminal predictions is
+the vacuum effects (quantum fluctuations of the electromagnetic field) can induce attractive forces between two uncharged, perfectly conducting, parallel 
+plates. This phenomenon is called \emph{Casimir effect}, which is firstly proposed by H.B.G. Casimir in 1940s \cite{casimir1948attraction}. To obtain the formula 
+of the Casimir energy, he considered the space between these two plates as a type of electromagnetic cavity, solved the classical Maxwell equations with 
+certain boundary condition for all the valid excitations of the electromagnetic field in this cavity and obtained countably infinite electromagnetic mode 
+frequencies $\{\omega_{n}(a)\}$, where $a$ is the surface-surface distance. Accordingly, the electromagnetic zero-point energy of the $n$th cavity mode is 
+$\frac{\hbar\omega_{n}(a)}{2}$ and by summing up all the contributions from the modes, he finally get the expression of the \emph{Casimir energy}:
+\begin{align*}
+    \mathcal{E}(a) = \frac{1}{2}\sum_{n}\hbar\omega_{n}(a),
+\end{align*}
+which is divergent. However, Casimir derived a finite result for the derivative of this infinite energy fluctuations, 
+which is the \emph{Casimir force per unit area}:
+\begin{align*}
+    F(a) = -\frac{1}{A}\frac{\partial\mathcal{E}}{\partial a} = -\frac{\hbar c\pi^{2}}{240a^{4}},
+\end{align*}
+where $A$ is the cross-sectional area of the boundary plates. 
+
+In 1960s, Lifshitz generalized this theory to the case of dielectric media \cite{dzyaloshinskii1961general}, which means the boundary surfaces are not perfect conductors but the real-world
+materials such us the solid consisting of the atomic constituents. He proposed that any microscopic volume $\Delta V$ of the plates contains a collection of 
+atomic-scale electric dipoles without uniform orientation due to the absence of the external forcing field. Once in a while, the quantum and thermal 
+fluctuations may make the dipoles align spontaneously, resulting in a net electric dipole moment. It is like van der Waals interaction between the 
+atoms and this dipole moment induces a net dipole field. Meanwhile, the dipoles in the opposite plate feel this field
+across the gap and align as well. Now, there are two net electric dipole moments which make two plates attract with each other. Lifshitz emphasized the 
+influence from the materials more than the fluctuations in the empty space between the plates and this interpretation provides little advantage on the 
+computation of the Casimir energy since it is unknown on how to compute each contribution from the volume $\Delta V$. 
+
+Afterwards, there is a decades absence of experimental input on the Casimir effect and finally in 1996, the precise measurements of the Casimir force between 
+the extended bodies have been done by S.K. Lamoreaux \cite{lamoreaux1997demonstration}. From 2000 to 2008, the Casimir force has been measured in various 
+experimental configurations, such as cylinder-cylinder \cite{ederth2000template}, plate-plate \cite{bressi2002measurement}, 
+sphere-plate \cite{krause2007experimental} and sphere-comb \cite{chan2008measurement}. The rapid growth in experimental investigation is followed by the 
+theoretical development. From 2007 to 2008, the asymptotic series of the Casimir energy have been explicitly computed by T. Emig's team in both scalar
+\cite{emig2008casimir} and vector \cite{emig2007casimir} cases. In 2009, Johnson's team put forward a method of computing the Casimir interactions between 
+arbitrary three-dimensional objects with arbitrary material properties \cite{reid2009efficient}, in which the Casimir energy between the perfectly
+conducting compact objects can be described as:
+
+\begin{align*}
+    \mathcal{E} = -\frac{\hbar c}{2\pi}\int_{0}^{\infty}dk\log\frac{\mathcal{Z}(k)}{\mathcal{Z}_{\infty}(k)},
+\end{align*}
+where 
+\begin{align}\label{functional integration}
+    \mathcal{Z}(k) = \int \mathcal{D}\boldsymbol{J}(\boldsymbol{x})e^{\frac{1}{2}\int\int d\boldsymbol{x}d\boldsymbol{y}\boldsymbol{J}(\boldsymbol{x}) \cdot \boldsymbol{G}_{k}(\boldsymbol{x}, \boldsymbol{y}) \cdot \boldsymbol{J}(\boldsymbol{y})}
+\end{align}
+is a functional integration extending over all possible surface current distributions $\boldsymbol{J}(\boldsymbol{x})$ on the objects and 
+$\mathcal{Z}_{\infty}(k)$ is $\mathcal{Z}(k)$ computed with all the objects removed to infinite separation. Moreover, in \eqref{functional integration},
+\begin{align*}
+    \boldsymbol{G}_{k}(\boldsymbol{x}, \boldsymbol{y}) = \left[1 + \frac{1}{k^{2}}\nabla_{\boldsymbol{x}}\otimes\nabla_{\boldsymbol{y}}\right]\frac{e^{\mathrm{i}k|\boldsymbol{x} - \boldsymbol{y}|}}{4\pi|\boldsymbol{x} - \boldsymbol{y}|}
+\end{align*}
+is the dyadic/tensor Green's function and $k$ is the wavenumber. Johnson proposed that one could formally apply contour integral arguments to obtain the integral 
+along the imaginary axis on which the integrand is nicely behaved (non-oscillatory and exponentially decaying). In this case, the Casimir energy formula 
+is rewritten as 
+\begin{align}\label{rotated CasE}
+    \mathcal{E} = -\frac{\hbar c}{2\pi}\int_{0}^{\infty}dk\log\frac{\mathcal{Z}(\mathrm{i}k)}{\mathcal{Z}_{\infty}(\mathrm{i}k)},
+\end{align}
+where 
+\begin{align}
+    \mathcal{Z}(\mathrm{i}k) = \int \mathcal{D}\boldsymbol{J}(\boldsymbol{x})e^{\frac{1}{2}\int\int d\boldsymbol{x}d\boldsymbol{y}\boldsymbol{J}(\boldsymbol{x}) \cdot \boldsymbol{G}_{\mathrm{i}k}(\boldsymbol{x}, \boldsymbol{y}) \cdot \boldsymbol{J}(\boldsymbol{y})}
+\end{align}
+and 
+
+\begin{align*}
+    \boldsymbol{G}_{\mathrm{i}k}(\boldsymbol{x}, \boldsymbol{y}) = \left[1 - \frac{1}{k^{2}}\nabla_{\boldsymbol{x}}\otimes\nabla_{\boldsymbol{y}}\right]\frac{e^{-k|\boldsymbol{x} - \boldsymbol{y}|}}{4\pi|\boldsymbol{x} - \boldsymbol{y}|}.
+\end{align*}
+
+This $ \boldsymbol{G}_{\mathrm{i}k}$ is called the Wick-rotated dyadic/tensor Green's function. One can notice that this Green's function is strongly singular 
+due to the second order form ($\nabla_{\boldsymbol{x}}\otimes\nabla_{\boldsymbol{y}}$). In Section \ref{Numerical methods for computing the Casimir energy}, we 
+will use the integration by parts to make the integral \eqref{rotated CasE} become a numerically computable form. Moreover, after some mathematical manipulations, 
+we can obtain the formula of the Casimir energy in terms of the integral operators, which will also be discussed in Section \ref{Numerical methods for computing the Casimir energy}.
+
+
+However, a more rigorous mathematical 
+derivation was recently provided by Hanisch, Strohmaier and Waters \cite{hanisch2020relative} who have shown that the natural and well-defined object is the 
+integral along the imaginary axis. They also provided a mathematical framework to connect the integral to families of trace formulas and the Casimir 
+energy is one of the examples. To be specific, by assuming that the objects $\Omega$ is assembled from individual objects $\Omega_{j}$, for $j = 1, \dots, N$ and 
+$\partial\Omega_{j}$ are the $N$ connected components of the boundary $\partial\Omega$. Then, several self-adjoint operators on $L^{2}(\mathbb{R}^{d})$
+can be defined for constructing the \emph{Birman-Krein formula} later:
+\begin{itemize}
+    \item The operator $\Delta$ is the Laplace operator with Dirichlet boundary conditions on $\partial\Omega$.
+    \item For $j = 1, \dots, N$, the operator $\Delta_{j}$ is the Laplace operator with Dirichlet boundary conditions on $\partial\Omega_{j}$.
+    \item The operator $\Delta_{0}$ is the `free' Laplace operator on $\mathbb{R}^{d}$ with domain $H^{2}(\mathbb{R}^{d})$.
+\end{itemize}
+
+Now, the Birman-Krein formula can be written as 
+\begin{align}\label{B-K formula}
+    \text{Tr}\left(f(\Delta^{\frac{1}{2}}) - f(\Delta_{0}^{\frac{1}{2}}) - \left(\sum_{j = 1}^{N}[f(\Delta_{j}^{\frac{1}{2}}) - f(\Delta_{0}^{\frac{1}{2}})]\right)\right)  = \int_{0}^{\infty}f'(k)\xi(k)dk,
+\end{align}
+where 
+\begin{align*}
+    \xi(k) = \frac{1}{2\pi \mathrm{i}}\log\left(\frac{\det(S(k))}{\det(S_{1,k})\cdots\det(S_{N,k})}\right)
+\end{align*}
+is called the \emph{Krein spectral shift function}. Here, $\det(S_{j,k})$ are the scattering matrices of $\Delta_{j}$ associated to the objects $\Omega_{j}$.
+
+According to \cite{hanisch2020relative}, by setting $f(x) = x$, \eqref{B-K formula} becomes 
+\begin{align*}
+    \text{Tr}\left(\Delta^{\frac{1}{2}} + (N - 1)\Delta_{0}^{\frac{1}{2}} - \sum_{j = 1}^{N}\Delta_{j}^{\frac{1}{2}}\right)  = \int_{0}^{\infty}\xi(k)dk.
+\end{align*}
+This formula can be used to compute the Casimir energy and it can be an alternative efficient method based on the numerical evaluation of scattering matrices
+whose dimension depends on the number of the spherical harmonic functions used in the spherical expansion of the incident/scattering waves.
+
+In this paper, we are going to introduce the numerical framework of computing the Casimir energy based on the evaluation of the log determinant of the integral 
+operators in both acoustic and electromagnetic cases in Section \ref{Numerical methods for computing the Casimir energy} and discuss the spectral properties 
+of the block matrices constructed from the integral operators in Section \ref{Spectral property of the integral operators}. Afterwards, with these properties, 
+an inverse-free method of computing the integrand of the Casimir energy will be illustrated in Section \ref{Krylov subspace for generalized eigenvalue problem}
+which makes us compute the large-scale problem efficiently. In Section \ref{Numerical experiments}, several examples on computing the Casimir energy between 
+the compact objects will be shown and we will also compare our results with others computed in other methods. Finally, Section \ref{Conclusion} will conclude 
+our paper and discuss the future plan as well.
