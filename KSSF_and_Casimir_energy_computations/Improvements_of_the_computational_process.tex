@@ -1,15 +1,16 @@
 By Section \ref{Numerical methods for computing the Casimir energy}, to compute the Casimir energy, we need to evaluate 
 $\log\frac{\det\mathsf{V}_{\mathrm{i}k}}{\det\tilde{\mathsf{V}}_{\mathrm{i}k}} = \log\det(\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1})$ 
-with different values of $k$. In this section, an efficient inverse-free method will be introduced to compute this log determinant.
+with different values of $k$. In this section, an efficient inverse-free and a LU decomposition based method will be introduced to compute this log determinant.
 
 The log determinant of the matrix $\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$ is equal to the sum of the logarithm of each eigenvalue of 
-$\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$. From Figure \ref{eigenvalues of VVtilde}, we can notice that most of the eigenvalues are just 
-equal to 1, which contributes nothing on the value of Casimir energy. Therefore, the computation process for the large-scale problem can become efficient if we only approximate the extreme eigenvalues 
+$\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$. Since $\tilde{\mathsf{V}}_{\mathrm{i}k}$ is a compact perturbation of $\mathsf{V}_{\mathrm{i}k}$,
+most of the eigenvalues are close enough to 1, which contributes nothing on the value of Casimir energy and this fact is shown in the Figure \ref{eigenvalues of VVtilde}.
+Therefore, the computation process for the large-scale problem can become efficient if we only approximate the extreme eigenvalues 
 which mainly contribute to the log determinant. In addition, we should also avoid directly computing the inverse of the matrix $\tilde{\mathsf{V}}_{\mathrm{i}k}$
 since the computational complexity is cubic with respect to the matrix dimension.
 
 In what follows, an inverse-free Krylov subspace method will be introduced to computed multiple smallest (or largest) eigenvalues of the generalized eigenvalue
-problems simultaneously. Afterwards, we will discuss another inverse-free method based on $LU$ decomposition of the diagonal block matrix of $\tilde{\mathsf{V}}_{\mathrm{i}k}$. 
+problems simultaneously. Afterwards, we will discuss another efficient method based on $LU$ decomposition of the diagonal block matrix of $\tilde{\mathsf{V}}_{\mathrm{i}k}$. 
 Finally, the comparison of these two methods will be shown.
 \begin{figure}[H]
     \centering
@@ -57,8 +58,8 @@ $(-A, B)$ and by adding the negative sign in front of these eigenvalues, we can 
 
 We denote the $p$ smallest (or largest) eigenvalues obtained from this method as 
 \begin{align}
-    \Lambda_{\text{Kry}}^{\text{smallest}} = \left\{\lambda_{0}^{(s)}, \lambda_{1}^{(s)}, \dots, \lambda_{p-1}^{(s)}\right\},\label{smallest Eigevalues in Krylov}\\
-    \Lambda_{\text{Kry}}^{\text{largest}} = \left\{\lambda_{0}^{(l)}, \lambda_{1}^{(l)}, \dots, \lambda_{p-1}^{(l)}\right\}. \label{largest Eigevalues in Krylov}
+    \Lambda_{\text{inv\_free}}^{\text{smallest}} = \left\{\lambda_{0}^{(s)}, \lambda_{1}^{(s)}, \dots, \lambda_{p-1}^{(s)}\right\},\label{smallest Eigevalues in Krylov}\\
+    \Lambda_{\text{inv\_free}}^{\text{largest}} = \left\{\lambda_{0}^{(l)}, \lambda_{1}^{(l)}, \dots, \lambda_{p-1}^{(l)}\right\}. \label{largest Eigevalues in Krylov}
 \end{align}
 Then, the value of  $\log\det(\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1})$ can be approximated by 
 \begin{align*}
@@ -66,7 +67,7 @@ Then, the value of  $\log\det(\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathr
 \end{align*}
 
 \subsection{Method II: $LU$ decomposition for inverting the matrix}
-Another inverse-free way to compute $\log\det(\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1})$ is to find the $LU$ decomposition of 
+Another inverse-free way to compute $\log\det(\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1})$ is to find the $LU$ decomposition for 
 each diagonal block matrix and solve the linear system on each subdomain. To be specific, the inverse of the matrix $\tilde{\mathsf{V}}_{\mathrm{i}k}$ is
 \begin{align*}
     \tilde{\mathsf{V}}_{\mathrm{i}k}^{-1} =  \tilde{\mathsf{V}}(\mathrm{i}k)^{-1} = \begin{bmatrix}
@@ -95,17 +96,17 @@ We denote the inverse of the matrix $\tilde{\mathsf{V}}_{\mathrm{i}k}$ computed 
 $\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1,\text{LU}}$ and to approximate multiple extreme eigenvalues of 
 $\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1,\text{LU}}$, we would like to firstly construct the Krylov subspace  
 $K_{m}(\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1,\text{LU}}, \boldsymbol{b})$, where $\boldsymbol{b}$ is some 
-initial vector and $m$ is the dimension of this subspace. Afterwards, we implement the Arnold iteration to obtain the orthogonal basis of this $m$th Krylov 
+initial vector and $m$ is the dimension of this subspace. Afterwards, we implement the Arnoldi iteration to obtain the orthogonal basis of this $m$th Krylov 
 subspace and project the matrix $\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1,\text{LU}}$ onto this basis. 
 This projection matrix is called the Hessenberg matrix and we denote it as $H_{m}$. By \cite{saad2011numerical}, the eigenvalues of $H_{m}$ (which are also 
 called Ritz eigenvalues) can give good approximations to some eigenvalues of $\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1,\text{LU}}$.
 Therefore, we denote the the eigenvalues of $H_{m}$ as 
 \begin{align}\label{Eigenvalues of Hessenberg}
-    \Lambda_{\text{Hess}} = \left\{\lambda_{0}^{(\text{Hess})}, \lambda_{1}^{(\text{Hess})}, \dots, \lambda_{m-1}^{(\text{Hess})}\right\}
+    \Lambda_{\text{Arno}} = \left\{\lambda_{0}^{(\text{Arno})}, \lambda_{1}^{(\text{Arno})}, \dots, \lambda_{m-1}^{(\text{Arno})}\right\}
 \end{align}
 and the value of  $\log\det(\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1})$ can be approximated by
 \begin{align*}
-    \log\det(\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}) \approx \sum_{i = 0}^{m-1}\log\left(\lambda_{i}^{(\text{Hess})}\right).
+    \log\det(\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}) \approx \sum_{i = 0}^{m-1}\log\left(\lambda_{i}^{(\text{Arno})}\right).
 \end{align*}
 
 
@@ -137,18 +138,18 @@ relative error between them in Figure \ref{relative error of GEP for m = 50}.
 To more intuitively see which inverse-free method is better, we would like to fix the dimension of the Krylov subspace as $m = 50$ and increase the number of 
 the approximated eigenvalues from 2 to 50 and then plot the relative error in each case. The procedure is as follows.
 
-For example, when the number of the approximated eigenvalue is 2, the relative error for the Method I (Krylov) is computed by:
+For example, when the number of the approximated eigenvalue is 2, the relative error for the Method I (inverse-free) is computed by:
 \begin{align*}
-    \text{Err}^{(2)}_{\text{Kry}} = \frac{\left(\log(\lambda_{0}^{(s)}) + \log(\lambda_{p-1}^{(l)})\right) - \text{exact\_logdet}}{\text{exact\_logdet}},
+    \text{Err}^{(2)}_{\text{inv\_free}} = \frac{\left(\log(\lambda_{0}^{(s)}) + \log(\lambda_{p-1}^{(l)})\right) - \text{exact\_logdet}}{\text{exact\_logdet}},
 \end{align*}
 where \text{exact\_logdet} is the exact value of the log determinant of $\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$ and  
-$\lambda_{0}^{(s)}$, $\lambda_{p-1}^{(l)}$ are from the sorted sets $\Lambda_{\text{Kry}}^{\text{smallest}}$ in \eqref{smallest Eigevalues in Krylov} and 
-$\Lambda_{\text{Kry}}^{\text{largest}}$ in \eqref{largest Eigevalues in Krylov}, respectively;
-and the relative error for the Method II (Hessenberg) is computed by
+$\lambda_{0}^{(s)}$, $\lambda_{p-1}^{(l)}$ are from the sorted sets $\Lambda_{\text{inv\_free}}^{\text{smallest}}$ in \eqref{smallest Eigevalues in Krylov} and 
+$\Lambda_{\text{inv\_free}}^{\text{largest}}$ in \eqref{largest Eigevalues in Krylov}, respectively;
+and the relative error for the Method II (standard Arnoldi) is computed by
 \begin{align*}
-    \text{Err}^{(2)}_{\text{Hess}} = \frac{\left(\log(\lambda_{0}^{\text{Hess}}) + \log(\lambda_{m-1}^{\text{Hess}})\right) - \text{exact\_logdet}}{\text{exact\_logdet}},
+    \text{Err}^{(2)}_{\text{Arno}} = \frac{\left(\log(\lambda_{0}^{\text{Arno}}) + \log(\lambda_{m-1}^{\text{Arno}})\right) - \text{exact\_logdet}}{\text{exact\_logdet}},
 \end{align*}
-where $\lambda_{0}^{\text{Hess}}$ and $\lambda_{m-1}^{\text{Hess}}$ are both from the sorted set $\Lambda_{\text{Hess}}$ in \eqref{Eigenvalues of Hessenberg}.
+where $\lambda_{0}^{\text{Arno}}$ and $\lambda_{m-1}^{\text{Hess}}$ are both from the sorted set $\Lambda_{\text{Arno}}$ in \eqref{Eigenvalues of Hessenberg}.
 
 The following graph plots the relative error computed in both cases and we can see that their relative errors shares the same trend at the beginning and 
 the Method II (Hessenberg) becomes worse when the number of the approximated eigenvalues becomes close to the dimension of the Krylov subspace.

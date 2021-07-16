@@ -74,7 +74,7 @@ The following theorem links the single-layer boundary operator with the Krein sp
 via the scattering matrix or integral operator. 
 \begin{theorem}\cite{hanisch2020relative}
     Consider $\Omega$ as a domain assembling from individual objects $\Omega_{i}$. Let $V_{k}$ be the single-layer boundary operator defined on the boundary 
-    $\partial\Omega = \bigcup_{i = 1}^{N}\partial\Omega_{i}$, and $\tilde{V}_{k}^{-1}$ is the `diagonal part' of $V_{k}$ by restricting the integral 
+    $\partial\Omega = \bigcup_{i = 1}^{N}\partial\Omega_{i}$, and $\tilde{V}_{k}$ is the ``diagonal part'' of $V_{k}$ by restricting the integral 
     kernel to the subset $\bigcup_{i = 1}^{N}\partial\Omega_{i}\times\partial\Omega_{i}\subset\partial\Omega\times\partial\Omega$ then the operator 
     $V_{k}\tilde{V}_{k}^{-1}$ is trace-class and 
     \begin{align*}
@@ -124,7 +124,7 @@ and typically, we use the following $P_{h}^{1}(\Gamma)$ space to discretize $H^{
 \end{align*}
 with 
 \begin{align*}
-    \phi_{j}(\boldsymbol{x}_{j}) = \begin{cases}
+    \phi_{j}(\boldsymbol{x}_{i}) = \begin{cases}
         1, & i = j,\\
         0, & i\neq j.
     \end{cases}
@@ -151,10 +151,10 @@ and the matrix $\tilde{V}_{k}$ is the diagonal part of $V_{k}$:
 \end{align*}
 Therefore, the element in the $m$th row and $n$th column of the block matrix $\mathsf{V}_{ij}(k)$ is 
 \begin{align}\label{Elements in matrix V}
-    \mathsf{V}_{ij}^{(m,n)} (k) = \langle V_{ij}(k)\phi_{m}^{i}, \phi_{n}^{j}\rangle = 
+    \mathsf{V}_{ij}^{(m,n)} (k) = \langle V_{ij}(k)\phi_{m}^{(i)}, \phi_{n}^{(j)}\rangle = 
     \int_{\Gamma}\overline{\phi_{n}^{(j)}}(\boldsymbol{x})\int_{\Gamma}g_{k}(\boldsymbol{x}, \boldsymbol{y})\phi_{m}^{(i)}(\boldsymbol{y})dS_{\boldsymbol{y}}dS_{\boldsymbol{x}},
 \end{align}
-where $\boldsymbol{\phi}^{i} = \begin{bmatrix}
+where $\boldsymbol{\phi}^{(i)} = \begin{bmatrix}
     \phi_{1}^{(i)} & \phi_{2}^{(i)} & \dots & \phi_{N}^{(i)}
 \end{bmatrix}$ is the set of basis functions defined on the $i$th object and 
 \begin{align*}

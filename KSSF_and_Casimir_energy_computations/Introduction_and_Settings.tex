@@ -89,7 +89,7 @@ where
 \begin{align*}
     \xi(k) = \frac{1}{2\pi \mathrm{i}}\log\left(\frac{\det(S(k))}{\det(S_{1,k})\cdots\det(S_{N,k})}\right)
 \end{align*}
-is called the \emph{Krein spectral shift function}. Here, $\det(S_{j,k})$ are the scattering matrices of $\Delta_{j}$ associated to the objects $\Omega_{j}$.
+is called the \emph{Krein spectral shift function}. Here, $S_{j,k}$ are the scattering matrices of $\Delta_{j}$ associated to the objects $\Omega_{j}$.
 
 According to \cite{hanisch2020relative}, by setting $f(x) = x$, \eqref{B-K formula} becomes 
 \begin{align*}
@@ -101,7 +101,7 @@ whose dimension depends on the number of the spherical harmonic functions used i
 In this paper, we are going to introduce the numerical framework of computing the Casimir energy based on the evaluation of the log determinant of the integral 
 operators in both acoustic and electromagnetic cases in Section \ref{Numerical methods for computing the Casimir energy} and discuss the spectral properties 
 of the block matrices constructed from the integral operators in Section \ref{Spectral property of the integral operators}. Afterwards, with these properties, 
-an inverse-free method of computing the integrand of the Casimir energy will be illustrated in Section \ref{Krylov subspace for generalized eigenvalue problem}
+two efficient methods for computing the integrand of the Casimir energy will be illustrated in Section \ref{Krylov subspace for generalized eigenvalue problem}
 which makes us compute the large-scale problem efficiently. In Section \ref{Numerical experiments}, several examples on computing the Casimir energy between 
 the compact objects will be shown and we will also compare our results with others computed in other methods. Finally, Section \ref{Conclusion} will conclude 
 our paper and discuss the future plan as well.
