@@ -1,4 +1,4 @@
-In this section, we are going to compute the Casimir energy between two perfectly conducting objects, which are spheres, merger-sponges, ice crystals and 
+In this section, we are going to compute the Casimir energy between two perfectly conducting objects, which are spheres, menger-sponges, ice crystals and 
 ellipsoids. The reference value of the Casimir energy is computed by the Richardson extrapolation method which is often used 
 for obtaining the higher-order estimate at zero grid spacing. We denote $\mathcal{E}_{\text{fine}}$ and $\mathcal{E}_{\text{coarse}}$ as the Casimir energy 
 numerically computed by \eqref{KSSF and CasE} when the grid size $h$ is set as $h_{\text{fine}}$ and $h_{\text{coarse}}$ ($h_{\text{fine}}<h_{\text{coarse}}$), separately. Then the high-accuracy 
@@ -68,8 +68,8 @@ are at a large distance, we would have a better approximation on the Casimir ene
     \label{Two spheres with unequal radii}
 \end{figure}
 
-When the perfectly conducting spheres have different radii (see Figure \ref{Two spheres with unequal radii}), $R_{1}$ and $R_{2}$ and the centre distance 
-is $L = 2R+Z$, the asymptotic expansion of the Casimir energy at asymptotically large distance can be written as:
+When the perfectly conducting spheres have different radii $R_{1}$, $R_{2}$ (see Figure \ref{Two spheres with unequal radii}) and the centre distance is denoted as
+$L = R_{1} + R_{2} + Z$, the asymptotic expansion of the Casimir energy at asymptotically large distance can be written as:
 \begin{align}\label{Asymptotic unequal radii}
     \mathcal{E} = -\frac{\hbar c}{\pi}\frac{1}{L}\sum_{n=0}^{\infty}\tilde{b}_{n}(\eta)\left(\frac{R_{1}}{L}\right)^{n+2},
 \end{align}
@@ -79,21 +79,40 @@ where the coefficients $\{\tilde{b}_{n}\}$ depend on the parameter $\eta = R_{2}
     \tilde{b}_{4} &= -\frac{8352(\eta + \eta^{5})+ 1995(\eta^{2} + \eta^{4}) + 38980\eta^{3}}{5760}, \ \ \ \ \ \tilde{b}_{5} = -\frac{-1344(\eta+\eta^{6}) + 5478(\eta^{2} + \eta^{5})+2357(\eta^{3} + \eta^{4})}{2304}.
 \end{align*}
 
-In the following experiment, the radii of the spheres shown in Figure \ref{Two spheres with unequal radii} are set as $R_{1} = 0.5, R_{2} = 1$. (Continue to write)
+In the following experiment, the radii of the spheres shown in Figure \ref{Two spheres with unequal radii} are set as $R_{1} = 0.5$ and $ R_{2} = 1$. 
+Afterwards, the exact value of the Casimir energy was computed through the Richardson extrapolation formula \eqref{Richardson extrapolation}, 
+where the coarse and fine grid size are $h_{\text{coarse}} = 0.1$ and $h_{\text{fine}} = 0.05$, separately. The asymptotic value of the Casimir energy was 
+estimated by the series \eqref{Asymptotic unequal radii} and the comparison between the exact value and asymptotic one is shown in Figure 
+\ref{Casimir energy between spheres with unequal radii}. It can be noticed that when the distance between two spheres decreases, the asymptotic value gets 
+close to the exact one and the reason for this is clearly stated in the above equal radii's case.
 \begin{figure}[H]
     \includegraphics[scale = 0.7]{figures/Spheres_unequal_CasE.pdf}
-    \caption{Normalized Casimir energy in two spheres with unequal radii's case}
+    \caption{Normalized Casimir energy in two spheres with unequal radii's case. The exact value of the (normalized) Casimir energy has been written 
+    beside the data point, which is round up to 4 significant digits.}
+    \label{Casimir energy between spheres with unequal radii}
 \end{figure}
+
+By keeping all the experimental settings being the same with the equal radii's case, the experiment on testing the performance of the inverse-free and 
+standard Arnoldi methods has been done in the unequal radii's case and the results are shown in Figure \ref{unequal_radii_rel_dist}. 
+The main conclusion is similar to the previous case, that is the relative distance between the exact one and the estimate decreases when the distance between 
+the spheres are getting away from each other. 
 
 \begin{figure}[H]
     \includegraphics[scale = 0.7]{figures/relative_distance_unequal_radii.pdf}
-    \caption{Relative distance between the reference value (computed by Richardson extrapolation) with the asymptotic series, the estimates evaluated when the 
-    grid size $h = 0.05$ and 0.1, the estimates evaluated by the standard Arnoldi method and inverse-free Krylov subspace method.}
+    \caption{Relative distance between the reference value (computed by Richardson extrapolation) with the asymptotic series and the estimates evaluated from 
+    the standard Arnoldi method and inverse-free Krylov subspace method by setting the dimension of the Krylov subspace as $m = 20$ and 50 and for the inverse-free
+    Krylov subspace method, the number of the approximated smallest (or largest) eigenvalues is set as $p = 10$ and 25, respectively.}
     \label{unequal_radii_rel_dist}
 \end{figure}
+
 \subsection{Realistic objects case}
+In this part, the Casimir energy between the objects with special shapes such as the menger sponges, ice crystals and ellipsoids is computed and 
+the values labelled in the following figures are always round up to 4 significant digits. 
 
-
+Figure \ref{Menger sponges} plots the menger sponges in different levels $l = 0, 1, 2$ and the length of the level-0 sponge (cube) is 1. Afterwards, the Casimir 
+energy between two menger sponges in the same level are plotted in Figure \ref{Normalized Casimir energy in two menger sponges' case}. By comparing the data 
+point in these subfigures, it is easy to find that the Casimir energy decreases as the number of the iteration increases since the cross-sectional 
+area gets smaller.
 
 \begin{figure}[H]
     \centering
@@ -102,16 +121,17 @@ In the following experiment, the radii of the spheres shown in Figure \ref{Two s
     \subfloat[Level 1]{{\includegraphics[width=0.4\textwidth]{figures/merger_sponge_level1.jpg} }}
     \qquad
     \subfloat[Level 2]{{\includegraphics[width=0.4\textwidth]{figures/merger_sponge_level2.jpg} }}
-    \caption{Merger sponges}
+    \caption{Menger sponges in different levels}
+    \label{Menger sponges}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \hspace*{-1.5cm}\includegraphics[width=1.2\textwidth]{figures/Cas_merger_spongers.pdf}
-    \caption{Casimir energy in two merger sponges' case}
+    \hspace*{-1.5cm}\includegraphics[width=1.2\textwidth]{figures/Cas_menger_spongers.pdf}
+    \caption{Normalized Casimir energy in two menger sponges' case}
+    \label{Normalized Casimir energy in two menger sponges' case}
 \end{figure}
-
-
+%==========================================================================================
 
 \begin{figure}[H]
     \begin{subfigure}{0.3\linewidth}
@@ -139,7 +159,7 @@ In the following experiment, the radii of the spheres shown in Figure \ref{Two s
     \includegraphics[scale = 0.4]{figures/6branches}
     \caption{Six branches}
     \end{subfigure}
-    \caption{Two ellipsoids}
+    \caption{Ice crystals with different number of branches}
     \end{figure}
 
     \begin{figure}[H]
