@@ -98,13 +98,8 @@ The equation \eqref{slp and matrix} is used to compute the Casimir energy betwee
 \end{align}
 
 \begin{remark}
-    Note that the integral $\frac{\hbar c}{2}\int_{0}^{\infty}\xi(k)dk$ in \eqref{KSSF and CasE} is not Lebesgue integrable. Therefore, if one wants to compute the
-    Casimir energy via the scattering matrix method, we should take use of the Gaussian exponential to help us compute this integral, which looks like:
-\begin{align}\label{new SSF}
-    \frac{\hbar c}{2}\int_{0}^{\infty}\xi(k)dk = \lim_{t\rightarrow 0}\frac{\hbar c}{2}\int_{0}^{\infty}e^{-tk^2}\xi(k)dk.
-\end{align}
-The method of evaluating this integral is to firstly evaluate the function $\xi(k)$ in several interpolation points and then compute the numerical 
-integral for various values of $t$ and make $t$ tend to zero.
+    Note that the integral $\frac{\hbar c}{2}\int_{0}^{\infty}\xi(k)dk$ in \eqref{KSSF and CasE} is not Lebesgue convergence but might be Riemann integrable. 
+    Therefore, one should compute Casimir energy via the integral operator method but not the scattering matrix method.
 \end{remark}
 \subsection{Galerkin discretization and boundary element spaces}
 In order to compute the integral \eqref{KSSF and CasE}, we need to compute the log determinant of the operators $V_{k}\tilde{V}_{k}^{-1}$. In our numerical 
@@ -186,16 +181,15 @@ $\int_{0}^{\infty}\Xi(\mathrm{i}k)dk = \int_{0}^{\infty}\log\frac{\det\mathsf{V}
 \begin{figure}[H]
     \begin{minipage}[b]{.47\textwidth}
     \centering
-    \includegraphics[width=1\textwidth]{figures/integ_exp_decay.pdf}
-    \caption{The integrand of the Casimir energy whose value exponentially decays with increasing imaginary wavenumber $\mathrm{i}k$.}
+    \includegraphics[scale = 0.5]{figures/integ_exp_decay.pdf}
+    \caption{The integrand of the Casimir energy whose value exponentially decays with increasing imaginary  wavenumber.}
     \label{The integrand decays exponentially}
     \end{minipage}
     \hfill
     \begin{minipage}[b]{.47\textwidth}
     \centering
-    \includegraphics[width=1\textwidth]{figures/integ_exp_not_decay.pdf}
+    \includegraphics[scale = 0.5]{figures/integ_exp_not_decay.pdf}
     \caption{The integrand of the Casimir energy after changing the variable for applying the trapezoid quadrature rule.}
     \label{The integrand does not decay exponentially}
     \end{minipage}
     \end{figure}
-

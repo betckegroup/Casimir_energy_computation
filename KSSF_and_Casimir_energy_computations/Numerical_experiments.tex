@@ -109,7 +109,7 @@ the spheres are getting away from each other.
 In this part, the Casimir energy between the objects with special shapes such as the menger sponges, ice crystals and ellipsoids is computed and 
 the values labelled in the following figures are always round up to 4 significant digits. 
 
-Figure \ref{Menger sponges} plots the menger sponges in different levels $l = 0, 1, 2$ and the length of the level-0 sponge (cube) is 1. Afterwards, the Casimir 
+Figure \ref{Menger sponges} plots the menger sponges in different levels $l = 0, 1, 2$ and the length of these sponges is 1. Afterwards, the Casimir 
 energy between two menger sponges in the same level are plotted in Figure \ref{Normalized Casimir energy in two menger sponges' case}. By comparing the data 
 point in these subfigures, it is easy to find that the Casimir energy decreases as the number of the iteration increases since the cross-sectional 
 area gets smaller.
@@ -132,6 +132,12 @@ area gets smaller.
     \label{Normalized Casimir energy in two menger sponges' case}
 \end{figure}
 %==========================================================================================
+In the next example, the scatterers are ice crystals with different number of branches ranging from 2 to 6 (see Figure \ref{Ice crystals with different number of branches}).
+By Figure \ref{Normalized Casimir energy in ice crystals' case}, when the number of branches increases from 2 to 4, the Casimir energy increases as expected. But 
+when the branches number added up to 5 and 6, the Casimir energy is smaller than them since the main cross-sectional part cannot be as close as the 
+2, 3, 4-branches cases. 
+
+However rotation different result
 
 \begin{figure}[H]
     \begin{subfigure}{0.3\linewidth}
@@ -151,7 +157,7 @@ area gets smaller.
                 \end{subfigure}\\[1ex]
     \begin{subfigure}{.5\linewidth}
     \centering
-    \includegraphics[scale = 0.4]{figures/5branches}
+    \hspace*{-1cm}\includegraphics[scale = 0.4]{figures/5branches}
     \caption{Five branches}
     \end{subfigure}%
     \begin{subfigure}{.5\linewidth}
@@ -160,32 +166,54 @@ area gets smaller.
     \caption{Six branches}
     \end{subfigure}
     \caption{Ice crystals with different number of branches}
+    \label{Ice crystals with different number of branches}
     \end{figure}
 
     \begin{figure}[H]
         \centering
         \hspace*{-1cm}\includegraphics[scale = 0.5]{figures/CasE_ice_crystals.pdf}
-        \caption{Casimir energy in ice crystals' case}
+        \caption{Normalized Casimir energy in ice crystals' case. To make the figure keep clear, only the 4-branches and 6-branches's case data points 
+        are labelled in the figure.}
+        \label{Normalized Casimir energy in ice crystals' case}
     \end{figure}
-    
+%==================================================================================================
+
+
+It is not hard to imagine that the Casimir energy would change as the scatterers rotates. Therefore, in the last example, we would see how the Casimir energy 
+between two identical ellipsoids changes as one of the ellipsoids rotates.
+
+In Figure \ref{Without rotation}, the above ellipsoid is centering at $(0,0,0)$ and 
+the points $(0.5, 0, 0), (0, 1, 0)$ and $(0, 0, 0.5)$ are on the surface and if the distance between these two ellipsoids is denoted as $Z$, then the below one
+is centering at $(0, 0, -(0.5+0.5+Z))$ and the points $(0.5, 0, -(0.5+0.5+Z)), (0, 1, -(0.5+0.5+Z))$ and $(0, 0, 0.5-(0.5+0.5+Z))$ are on it. Without rotation, 
+the Casimir energy between them with different distance $Z$ is plotted in Figure \ref{Casimir energy between two ellipsoids with different distances}.
+
+To explore how the rotation affects the change of Casimir energy, we always keep one ellipsoid fixed and rotate the other one. The Figure 
+\ref{Rotation around z-axis} and \ref{Rotation around x-axis} describe the case when one of the ellipsoids rotates around $z-$ and $x-$axis, respectively.
+From the Figure \ref{Casimir energy when one of the ellipsoids rotates}, the Casimir energy changes periodically since we rotate one ellipsoid around 
+$z-$ or $x-$ axis by 360 degrees. 
+
 
 \begin{figure}[H]
     \begin{subfigure}{\linewidth}
         \centering
         \includegraphics[scale = 0.4]{figures/two_ellipsoids}
         \caption{Without rotation}
+        \label{Without rotation}
         \end{subfigure}\\[1ex]
     \begin{subfigure}{.5\linewidth}
     \centering
     \includegraphics[scale = 0.4]{figures/Ellipsoid_z_axis}
     \caption{Rotation around z-axis}
+    \label{Rotation around z-axis}
     \end{subfigure}%
     \begin{subfigure}{.5\linewidth}
     \centering
     \includegraphics[scale = 0.4]{figures/Ellipsoid_x_axis}
     \caption{Rotation around x-axis}
+    \label{Rotation around x-axis}
     \end{subfigure}
     \caption{Two ellipsoids}
+    \label{Two ellipsoids}
     \end{figure}
 
     \begin{figure}[H]
@@ -193,12 +221,14 @@ area gets smaller.
             \centering
             \includegraphics[scale = 0.5]{figures/CasE_ellipsoids.pdf}
             \caption{Casimir energy between two ellipsoids with different distances}
+            \label{Casimir energy between two ellipsoids with different distances}
             \end{subfigure}\\[1ex]
     
         \begin{subfigure}{\linewidth}
         \centering
         \hspace*{-1cm}\includegraphics[scale = 0.5]{figures/CasE_ellipsoids_with_rotation.pdf}
         \caption{Casimir energy when one of the ellipsoids rotates}
+        \label{Casimir energy when one of the ellipsoids rotates}
         \end{subfigure}
         \caption{Two ellipsoids}
         \end{figure}
