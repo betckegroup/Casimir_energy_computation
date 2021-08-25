@@ -1,8 +1,8 @@
-In this section, we are going to compute the Casimir energy between two perfectly conducting objects, which are spheres, menger-sponges, ice crystals and 
-ellipsoids. The reference value of the Casimir energy is computed by the Richardson extrapolation method which is often used 
-for obtaining the higher-order estimate at zero grid spacing. We denote $\mathcal{E}_{\text{fine}}$ and $\mathcal{E}_{\text{coarse}}$ as the Casimir energy 
-numerically computed by \eqref{KSSF and CasE} when the grid size $h$ is set as $h_{\text{fine}}$ and $h_{\text{coarse}}$ ($h_{\text{fine}}<h_{\text{coarse}}$), separately. Then the high-accuracy 
-result $\mathcal{E}_{\text{exact}}$ can be generated from the following formula:
+In this section, we are going to show the numerical results for computing the Casimir energy between two perfectly conducting objects, which are spheres, 
+menger sponges, ice crystals and ellipsoids. The reference value of the Casimir energy is computed by the Richardson extrapolation method which is often used 
+for obtaining the higher-order estimate at zero grid spacing. Denote $\mathcal{E}_{\text{fine}}$ and $\mathcal{E}_{\text{coarse}}$ as the Casimir energy 
+numerically computed from the formula \eqref{KSSF and CasE} by setting the grid size $h$ as $h_{\text{fine}}$ and $h_{\text{coarse}}$ 
+($h_{\text{fine}}<h_{\text{coarse}}$), separately. Then, the high-accuracy result $\mathcal{E}_{\text{exact}}$ can be generated from the following formula:
 \begin{align}\label{Richardson extrapolation}
     \mathcal{E}_{\text{exact}} \approx \mathcal{E}_{\text{fine}} + \frac{h_{\text{coarse}}^{2}\mathcal{E}_{\text{fine}} - h_{\text{fine}}^{2}\mathcal{E}_{\text{coarse}}}{h_{\text{coarse}}^{2} - h_{\text{fine}}^{2}}.
 \end{align}
@@ -16,27 +16,29 @@ for both equal and unequal radii's cases.
     \label{Two spheres with equal radii}
 \end{figure}
 
-Consider two perfectly conducting spheres with equal radii, which is shown in the Figure \ref{Two spheres with equal radii}. Inside the figure, $R$ is the radius 
-of the spheres and the distance between them is denoted as $Z$. We firstly estimate the Casimir energy between the spheres with radius $R = 1$ and distance $Z$ 
-ranging from 0.5 to 3.0 by using the equation \eqref{KSSF and CasE} with grid size set as $h_{\text{fine}} = 0.05$ and $h_{\text{coarse}} = 0.1$. Afterwards,
-the extrapolation result can be obtained by substituting these Casimir energy estimates into the formula \eqref{Richardson extrapolation}. This result would be 
-regarded as the exact value of the Casimir energy and be used to compare with the estimates derived from the asymptotic series introduced below. 
+Consider two perfectly conducting spheres with equal radii, which are shown in the Figure \ref{Two spheres with equal radii}. Inside the figure, $R$ is the radius 
+of the spheres and the distance between them is denoted as $Z$. We begin with estimating the Casimir energy between two spheres with radius $R = 1$ at the 
+distance of $Z$ via the formula \eqref{KSSF and CasE} in two different refinement levels: $h_{\text{fine}} = 0.05$ and $h_{\text{coarse}} = 0.1$ and the 
+distance $Z$ between them is ranging from 0.5 to 3.0. Afterwards, the extrapolation result can be obtained by substituting these Casimir energy estimates into 
+the formula \eqref{Richardson extrapolation}. This result would be regarded as the exact value of the Casimir energy and can be used to compare with the 
+estimates derived from the asymptotic series introduced below. 
 
-According to \cite{emig2008casimir}, the Casimir energy between these spheres (with equal radii $R$) at asymptotically 
+According to \cite{emig2008casimir}, the Casimir energy between two spheres (with equal radii $R$) at asymptotically 
 large separations can be obtained as a series in terms of the ratio of centre distance $L$ ($L = 2R + Z$) to sphere radius $R$:
 \begin{align}\label{Asymptotic equal radii}
    \mathcal{E} = -\frac{\hbar c}{\pi}\frac{1}{L}\sum_{n=0}^{\infty}b_{n}\left(\frac{R}{L}\right)^{n+2},
 \end{align}
 where the first six coefficients are 
-$b_{0} = -1/4$, $b_{1} = -1/4$,  $b_{2} = -77/48$,  $b_{3} = -25/16$,  $b_{4} = -29837/2880$, $b_{5} = -6491/1152$. The value of Casimir energy computed from the 
-asymptotic series \eqref{Asymptotic equal radii} is compared with the exact value evaluated through \eqref{KSSF and CasE} in Figure 
-\ref{Casimir energy between spheres with equal radii}. In this figure, the asymptotic value gradually approaches to the exact value as the distance between the 
-spheres increases since the asymptotic expansion \eqref{Asymptotic equal radii} only works when the distance between two spheres is asymptotically large.
+$b_{0} = -1/4$, $b_{1} = -1/4$,  $b_{2} = -77/48$,  $b_{3} = -25/16$,  $b_{4} = -29837/2880$, $b_{5} = -6491/1152$. Figure 
+\ref{Casimir energy between spheres with equal radii} shows the comparison between the Casimir energy computed from asymptotic series 
+\eqref{Asymptotic equal radii} and the exact value evaluated through {Richardson extrapolation}. Here, we observe that the asymptotic value gradually 
+approaches to the exact value as the distance $Z$ increases since the asymptotic expansion \eqref{Asymptotic equal radii} only works when the distance 
+between two spheres is asymptotically large.
 
 \begin{figure}[H]
     \includegraphics[scale = 0.7]{figures/Spheres_equal_CasE.pdf}
-    \caption[Caption for LOF]{Normalized Casimir energy\protect\footnotemark in two spheres with equal radii's case. The exact value of the (normalized) Casimir 
-    energy has been written beside the data point, which is round up to 4 significant digits.}
+    \caption[Caption for LOF]{Normalized Casimir energy\protect\footnotemark in two spheres with equal radii's case. The radius is $R = 1$ and the distance $Z$ 
+    ranges from 0.5 to 3.0. The exact value of the (normalized) Casimir energy has been written beside the data point, which is round up to 4 significant digits.}
     \label{Casimir energy between spheres with equal radii}
 \end{figure}
 \footnotetext{The normalized Casimir energy is $\mathcal{E}/\hbar c$, for $\mathcal{E}$ defined in \eqref{KSSF and CasE}.}
@@ -44,19 +46,25 @@ spheres increases since the asymptotic expansion \eqref{Asymptotic equal radii} 
 Afterwards, in order to test the performance of the two efficient methods introduced in Section \ref{Krylov subspace for generalized eigenvalue problem}, we
 would use them to evaluate the Casimir energy between two spheres described above. For the inverse-free Krylov subspace method, the dimension of the Krylov subspace is set as $m = 20$ and 50 and the 
 number of approximated smallest (or largest) eigenvalues is $p = 10$ and 25, respectively. For the standard Arnoldi method, the dimension of the 
-Krylov subspace is also set as $m = 20$ and 50. In Figure \ref{equal_radii_rel_dist}, we can easily find the inverse-free Krylov subspace method behaves better 
-than the standard Arnoldi method no matter when the dimension $m$ is 20 or 50 and as we increase the Krylov subspace dimension, the relative distance decreases.
+Krylov subspace is also set as $m = 20$ and 50. 
+
+Figure \ref{equal_radii_rel_dist} shows the relative distance between the estimates computed through inverse-free Krylov subspace method 
+(dashed/solid green triangles), standard Arnoldi method (dashed/solid blue circles), asymptotic series (solid black square) and the exact values.
+Here, we can easily see that the inverse-free Krylov subspace method behaves better than the standard Arnoldi method no matter when the dimension $m$ is 
+20 or 50 and as we increase the Krylov subspace dimension, the relative error decreases.
+
 In addition, it can be noticed that when the distance $Z$ between the spheres increases, the relative error 
-for both methods goes down. The reason is when the spheres are getting away from each other, the cross interaction between them becomes weaker and the compact 
-perturbation $\tilde{\mathsf{V}}_{k}$ becomes close to $\mathsf{V}_{k}$, which implies the number of the eigenvalues that mainly contribute on the log 
-determinant of $\mathsf{V}_{k}\tilde{\mathsf{V}}_{k}^{-1}$ decreases. Therefore, if we keep setting the same dimension of Krylov subspace when the spheres
-are at a large distance, we would have a better approximation on the Casimir energy.
+for both methods goes down. The reason appears to be that the cross interaction between them becomes weaker as the spheres are getting away from each other. 
+This leads the compact perturbation $\tilde{\mathsf{V}}_{k}$ to become close to $\mathsf{V}_{k}$, which reduces the number of the eigenvalues that mainly 
+contribute on the log determinant of $\mathsf{V}_{k}\tilde{\mathsf{V}}_{k}^{-1}$. Therefore, if we keep setting the same dimension of Krylov subspace 
+for the spheres are at a large distance, we would have a better approximation on the Casimir energy.
 
 
 \begin{figure}[H]
     \includegraphics[scale = 0.7]{figures/relative_distance_equal_radii.pdf}
-    \caption{Relative distance between the reference value (computed by Richardson extrapolation) with the asymptotic series and the estimates evaluated from 
-    the standard Arnoldi method and inverse-free Krylov subspace method by setting the dimension of the Krylov subspace as $m = 20$ and 50 and for the inverse-free
+    \caption{Relative distance between the reference value (computed by Richardson extrapolation) with the asymptotic series (solid black square)  
+    and the estimates evaluated from the standard Arnoldi method (dashed/solid blue circles) and inverse-free Krylov subspace method (dashed/solid green triangles) 
+    by setting the dimension of the Krylov subspace as $m = 20$ and 50 and for the inverse-free
     Krylov subspace method, the number of the approximated smallest (or largest) eigenvalues is set as $p = 10$ and 25, respectively.}
     \label{equal_radii_rel_dist}
 \end{figure}
@@ -80,36 +88,38 @@ where the coefficients $\{\tilde{b}_{n}\}$ depend on the parameter $\eta = R_{2}
 \end{align*}
 
 In the following experiment, the radii of the spheres shown in Figure \ref{Two spheres with unequal radii} are set as $R_{1} = 0.5$ and $ R_{2} = 1$. 
-Afterwards, the exact value of the Casimir energy was computed through the Richardson extrapolation formula \eqref{Richardson extrapolation}, 
-where the coarse and fine grid size are $h_{\text{coarse}} = 0.1$ and $h_{\text{fine}} = 0.05$, separately. The asymptotic value of the Casimir energy was 
-estimated by the series \eqref{Asymptotic unequal radii} and the comparison between the exact value and asymptotic one is shown in Figure 
-\ref{Casimir energy between spheres with unequal radii}. It can be noticed that when the distance between two spheres decreases, the asymptotic value gets 
+As in the previous example, the exact value of the Casimir energy is computed through the Richardson extrapolation formula \eqref{Richardson extrapolation}, 
+where the coarse and fine grid size are $h_{\text{coarse}} = 0.1$ and $h_{\text{fine}} = 0.05$, separately. In this case, the asymptotic value of the Casimir 
+energy was estimated by the series \eqref{Asymptotic unequal radii} and the comparison between the exact value and asymptotic one is shown in Figure 
+\ref{Casimir energy between spheres with unequal radii}. Again we see that when the distance between two spheres decreases, the asymptotic value gets 
 close to the exact one and the reason for this is clearly stated in the above equal radii's case.
 \begin{figure}[H]
     \includegraphics[scale = 0.7]{figures/Spheres_unequal_CasE.pdf}
-    \caption{Normalized Casimir energy in two spheres with unequal radii's case. The exact value of the (normalized) Casimir energy has been written 
+    \caption{Normalized Casimir energy in two spheres with unequal radii's case. The radius is $R = 1$ and the distance $Z$ 
+    ranges from 0.5 to 3.0. The exact value of the (normalized) Casimir energy has been written 
     beside the data point, which is round up to 4 significant digits.}
     \label{Casimir energy between spheres with unequal radii}
 \end{figure}
 
-By keeping all the experimental settings being the same with the equal radii's case, the experiment on testing the performance of the inverse-free and 
-standard Arnoldi methods has been done in the unequal radii's case and the results are shown in Figure \ref{unequal_radii_rel_dist}. 
-The main conclusion is similar to the previous case, that is the relative distance between the exact one and the estimate decreases when the distance between 
-the spheres are getting away from each other. 
+By keeping all the experimental settings being the same with the equal radii's case, the numerical experiments on testing the performance of the inverse-free and 
+standard Arnoldi methods have been done in the unequal radii's case and the results are shown in Figure \ref{unequal_radii_rel_dist}, from which we observe that 
+the results between these two efficient methods have no big difference except the standard Arnoldi case when the dimension $m = 20$.  Compared with the previous
+case, it is supposed to be due to the smaller scatterer, leading to the smaller number of eigenvalues that makes significant influence on the log determinant.
 
 \begin{figure}[H]
     \includegraphics[scale = 0.7]{figures/relative_distance_unequal_radii.pdf}
-    \caption{Relative distance between the reference value (computed by Richardson extrapolation) with the asymptotic series and the estimates evaluated from 
-    the standard Arnoldi method and inverse-free Krylov subspace method by setting the dimension of the Krylov subspace as $m = 20$ and 50 and for the inverse-free
+    \caption{Relative distance between the reference value (computed by Richardson extrapolation) with the asymptotic series (solid black square)  
+    and the estimates evaluated from the standard Arnoldi method (dashed/solid blue circles) and inverse-free Krylov subspace method (dashed/solid green triangles) 
+    by setting the dimension of the Krylov subspace as $m = 20$ and 50 and for the inverse-free
     Krylov subspace method, the number of the approximated smallest (or largest) eigenvalues is set as $p = 10$ and 25, respectively.}
     \label{unequal_radii_rel_dist}
 \end{figure}
 
 \subsection{Realistic objects case}
-In this part, the Casimir energy between the objects with special shapes such as the menger sponges, ice crystals and ellipsoids is computed and 
+In this part, the Casimir energy between the objects with special shapes such as the menger sponges, ice crystals and ellipsoids will be computed and 
 the values labelled in the following figures are always round up to 4 significant digits. 
 
-Figure \ref{Menger sponges} plots the menger sponges in different levels $l = 0, 1, 2$ and the length of these sponges is 1. Afterwards, the Casimir 
+Figure \ref{Menger sponges} plots the menger sponges in different levels $(0, 1 $ and $ 2)$ and the length of these sponges is always 1. Afterwards, the Casimir 
 energy between two menger sponges in the same level are plotted in Figure \ref{Normalized Casimir energy in two menger sponges' case}. By comparing the data 
 point in these subfigures, it is easy to find that the Casimir energy decreases as the number of the iteration increases since the cross-sectional 
 area gets smaller.
@@ -121,23 +131,21 @@ area gets smaller.
     \subfloat[Level 1]{{\includegraphics[width=0.4\textwidth]{figures/merger_sponge_level1.jpg} }}
     \qquad
     \subfloat[Level 2]{{\includegraphics[width=0.4\textwidth]{figures/merger_sponge_level2.jpg} }}
-    \caption{Menger sponges in different levels}
+    \caption{Menger sponges in different levels. The length of each sponge is 1.}
     \label{Menger sponges}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \hspace*{-1.5cm}\includegraphics[width=1.2\textwidth]{figures/Cas_menger_spongers.pdf}
-    \caption{Normalized Casimir energy in two menger sponges' case}
+    \caption{Normalized Casimir energy in two menger sponges' case. The length of each sponge is 1.}
     \label{Normalized Casimir energy in two menger sponges' case}
 \end{figure}
 %==========================================================================================
 In the next example, the scatterers are ice crystals with different number of branches ranging from 2 to 6 (see Figure \ref{Ice crystals with different number of branches}).
 By Figure \ref{Normalized Casimir energy in ice crystals' case}, when the number of branches increases from 2 to 4, the Casimir energy increases as expected. But 
-when the branches number added up to 5 and 6, the Casimir energy is smaller than them since the main cross-sectional part cannot be as close as the 
+when the branches number added up to 5 and 6, the Casimir energy is much smaller since the main cross-sectional part cannot be as close as the 
 2, 3, 4-branches cases. 
-
-However rotation different result
 
 \begin{figure}[H]
     \begin{subfigure}{0.3\linewidth}
@@ -179,15 +187,15 @@ However rotation different result
 %==================================================================================================
 
 
-It is not hard to imagine that the Casimir energy would change as the scatterers rotates. Therefore, in the last example, we would see how the Casimir energy 
-between two identical ellipsoids changes as one of the ellipsoids rotates.
+It is not hard to imagine that the Casimir energy would be different after the scatterers rotate while keeping the distance between them unchanged. Therefore, 
+in the last example, we would see how the Casimir energy between two identical ellipsoids changes as one of the ellipsoids rotates.
 
 In Figure \ref{Without rotation}, the above ellipsoid is centering at $(0,0,0)$ and 
-the points $(0.5, 0, 0), (0, 1, 0)$ and $(0, 0, 0.5)$ are on the surface and if the distance between these two ellipsoids is denoted as $Z$, then the below one
+the points $(0.5, 0, 0), (0, 1, 0)$ and $(0, 0, 0.5)$ are located on this surface and if the distance between these two ellipsoids is denoted as $Z$, then the below one
 is centering at $(0, 0, -(0.5+0.5+Z))$ and the points $(0.5, 0, -(0.5+0.5+Z)), (0, 1, -(0.5+0.5+Z))$ and $(0, 0, 0.5-(0.5+0.5+Z))$ are on it. Without rotation, 
 the Casimir energy between them with different distance $Z$ is plotted in Figure \ref{Casimir energy between two ellipsoids with different distances}.
 
-To explore how the rotation affects the change of Casimir energy, we always keep one ellipsoid fixed and rotate the other one. The Figure 
+To explore how the rotation affects the change of the Casimir energy, one can always keep one ellipsoid fixed and rotate the other one. The Figure 
 \ref{Rotation around z-axis} and \ref{Rotation around x-axis} describe the case when one of the ellipsoids rotates around $z-$ and $x-$axis, respectively.
 From the Figure \ref{Casimir energy when one of the ellipsoids rotates}, the Casimir energy changes periodically since we rotate one ellipsoid around 
 $z-$ or $x-$ axis by 360 degrees. 
@@ -212,7 +220,7 @@ $z-$ or $x-$ axis by 360 degrees.
     \caption{Rotation around x-axis}
     \label{Rotation around x-axis}
     \end{subfigure}
-    \caption{Two ellipsoids}
+    \caption{Two ellipsoids with or without rotation}
     \label{Two ellipsoids}
     \end{figure}
 
@@ -230,6 +238,6 @@ $z-$ or $x-$ axis by 360 degrees.
         \caption{Casimir energy when one of the ellipsoids rotates}
         \label{Casimir energy when one of the ellipsoids rotates}
         \end{subfigure}
-        \caption{Two ellipsoids}
+        \caption{The dependence of the Casimir energy and rotation angle of one of the ellipsoids.} 
         \end{figure}
 
