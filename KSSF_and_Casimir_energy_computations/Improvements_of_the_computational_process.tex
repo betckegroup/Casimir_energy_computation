@@ -141,58 +141,36 @@ $\log\det(\mathsf{V}_{\mathrm{i}k_{j}}\tilde{\mathsf{V}}_{\mathrm{i}k_{j}}^{-1})
   \end{equation}
 
 \subsection{Method II: Standard Arnoldi method}
-Another efficient approach for computing $\log\det(\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1})$ is to initially find the inverse of 
-$\tilde{\mathsf{V}}_{\mathrm{i}k}$ by computing the LU decomposition for each diagonal block matrix and solving the linear system on each subdomain. Afterwards, 
-by applying the standard Arnoldi iterations on $\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$, we can obtain its the Hessenberg matrix,
-whose eigenvalues can be used to approximate the ones of $\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$. 
-
-To be specific, the inverse of the matrix $\tilde{\mathsf{V}}_{\mathrm{i}k}$ is
-\begin{align*}
-    \tilde{\mathsf{V}}_{\mathrm{i}k}^{-1} =  \tilde{\mathsf{V}}(\mathrm{i}k)^{-1} = \begin{bmatrix}
-        \mathsf{V}_{11}(\mathrm{i}k) & 0      & \cdots & 0 \\
-    0      & \mathsf{V}_{22}(\mathrm{i}k) & \cdots & 0\\
-    \vdots & \vdots & \ddots & \vdots \\
-    0      & 0      & \cdots & \mathsf{V}_{NN}(\mathrm{i}k) \\
-\end{bmatrix}^{-1}
-= \begin{bmatrix}
-    \mathsf{V}_{11}^{-1}(\mathrm{i}k) & 0      & \cdots & 0 \\
-0      & \mathsf{V}_{22}^{-1}(\mathrm{i}k) & \cdots & 0\\
-\vdots & \vdots & \ddots & \vdots \\
-0      & 0      & \cdots & \mathsf{V}_{NN}^{-1} (\mathrm{i}k)\\
-\end{bmatrix}.
-\end{align*}
-
-We can compute LU decomposition of each diagonal block matrix $\mathsf{V}_{ii} = \mathsf{V}_{ii}(\mathrm{i}k)$ for $i = 1, 2, \dots, N$ and the decomposition is 
-written as $\mathsf{V}_{ii} = \mathsf{L}_{ii}\mathsf{U}_{ii} $, where $\mathsf{L}_{ii}$ and $\mathsf{U}_{ii}$ are lower and upper triangular matrices, respectively.
-Afterwards, by solving the linear system $\mathsf{L}_{ii}\mathsf{U}_{ii}\boldsymbol{x}_{j} = \boldsymbol{e}_{j}$, for each 
-$j = 1, 2, \dots, N_{\mathsf{V}_{ii}}$, where $\boldsymbol{e}_{j}$ denotes the vector with a 1 in the $j$th coordinate and 0's elsewhere and 
-$N_{\mathsf{V}_{ii}}$ is the dimension of the block $\mathsf{V}_{ii}$, we obtain the inverse of $\mathsf{V}_{ii}$ with expression
-$\mathsf{V}_{ii}^{-1} = \begin{bmatrix}
-    \boldsymbol{x}_{1} & \cdots & \boldsymbol{x}_{N_{\mathsf{V}_{ii}}}
-\end{bmatrix}$.
-
-Denote the inverse of the matrix $\tilde{\mathsf{V}}_{\mathrm{i}k}$ computed by the above inverse-free $LU$ decomposition method as 
-$\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1,\text{LU}}$. To approximate multiple extreme eigenvalues of 
-$\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1,\text{LU}}$, we would like to firstly construct the Krylov subspace  
-$K_{m}(\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1,\text{LU}}, \boldsymbol{b})$, where $\boldsymbol{b}$ is some 
+Another efficient approach for computing $\log\det(\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1})$ is to initially construct the Krylov subspace  
+$K_{m}(\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}, \boldsymbol{b})$, where $\boldsymbol{b}$ is some 
 initial vector and $m$ is the dimension of this Krylov subspace. Afterwards, we implement the standard Arnoldi iteration to obtain the orthogonal basis of 
-this order-$m$ Krylov subspace and project the matrix $\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1,\text{LU}}$ onto this basis. 
+this order-$m$ Krylov subspace and project the matrix $\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$ onto this basis. 
 This projection matrix is called the Hessenberg matrix and we denote it as $H_{m}$. By \cite{saad2011numerical}, the eigenvalues of $H_{m}$ (which are also 
-called Ritz eigenvalues) can give good approximations on extreme eigenvalues of $\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1,\text{LU}}$.
+called Ritz eigenvalues) can give good approximations on extreme eigenvalues of $\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$.
 The following algorithm lists the general steps described above.
+
 
 \begin{algorithm}[H]
     \SetAlgoLined
     Input: Block matrix $A\in\mathbb{R}^{n\times n}$, diagonal block matrix $B\in\mathbb{R}^{n\times n}$ and the dimension of the Krylov subspace $m\geq 1$\\
     Output: The approximated extreme eigenvalue of $AB^{-1}\boldsymbol{x} = \mu \boldsymbol{x}$\\
     \begin{algorithmic}[1]
-        \STATE Use LU decomposition to compute the inverse of each diagonal block matrix in $B$
         \STATE Use standard Arnoldi method to compute the Hessenberg matrix $H_{m}$ of $AB^{-1}$
         \STATE Compute all the eigenpairs $\{(\mu_{i}, \boldsymbol{x}_{i})\}_{i = 1, \dots, m}$ of $H_{m}$
         \end{algorithmic}
     \caption{Standard Arnoldi method for computing multiple extreme eigenvalues of the eigenvalue problem $AB^{-1}\boldsymbol{x} = \mu\boldsymbol{x}$}
     \label{Alg for arno method}
     \end{algorithm}
+
+\begin{remark}
+    During the Arnoldi iteration process, one needs to multiply the inverse matrix $\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$ with some vector 
+$\boldsymbol{v} = \begin{bmatrix}\boldsymbol{v}_{1}\\ \vdots \\ \boldsymbol{v}_{N} \end{bmatrix}$. In order to avoid directly computing 
+the matrix inversion, one can firstly compute LU decomposition for each diagonal 
+block matrix $\mathsf{V}_{ii}(\mathrm{i}k) = \mathsf{L}_{ii}\mathsf{U}_{ii} $, for $i = 1, 2, \dots, N$, where $\mathsf{L}_{ii}$ and $\mathsf{U}_{ii}$ are lower and upper triangular matrices, 
+respectively and solve the linear system $\mathsf{L}_{ii}\mathsf{U}_{ii}\boldsymbol{x}_{i} = \boldsymbol{v}_{i}$ for $i = 1, 2, \dots, N$. Finally, the resulting 
+vector is $\boldsymbol{x} = \begin{bmatrix}\boldsymbol{x}_{1}\\ \vdots \\ \boldsymbol{x}_{1} \end{bmatrix}$.
+\end{remark}
+
 
 By denoting the the eigenvalues of $H_{m}$ as $\{\mu_{i}\}_{i = 1, \dots, m}$, the value of  
 $\log\det(\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1})$ can be approximated by
@@ -212,20 +190,19 @@ recycling process.
     \begin{algorithmic}[1]
         \STATE When $i = 1$:
         \begin{itemize}
-            \item[(a)] Use LU decomposition to compute the inverse of each diagonal block matrix in $B^{(1)}$
             
-            \item[(b)]Apply the standard Arnoldi method to compute the Arnoldi vectors $Z_{m}^{(1)}$ and Hessenberg matrix $H_{m}^{(1)}$ for $A^{(1)}\left(B^{(1)}\right)^{-1}$, which satisfy $H_{m}^{(1)} = Z_{m}^{(1)H}\left(A^{(1)}\left(B^{(1)}\right)^{-1}\right)Z_{m}^{(1)}$
+            \item[(a)]Apply the standard Arnoldi method to compute the Arnoldi vectors $Z_{m}^{(1)}$ and Hessenberg matrix $H_{m}^{(1)}$ for $A^{(1)}\left(B^{(1)}\right)^{-1}$, which satisfies $H_{m}^{(1)} = Z_{m}^{(1)H}\left(A^{(1)}\left(B^{(1)}\right)^{-1}\right)Z_{m}^{(1)}$
     
-            \item[(c)] Compute the eigenvalues $\boldsymbol{\mu}^{(1)} = \{\mu_{1}^{(1)}, \dots, \mu_{m}^{(1)}\}$ and eigenvectors $\boldsymbol{X}_{m}^{(1)} = \left[\boldsymbol{x}_{1}^{(1)}, \dots, \boldsymbol{r}_{m}^{(1)}\right]$ for $H_{m}^{(1)}$
+            \item[(b)] Compute the eigenvalues $\boldsymbol{\mu}^{(1)} = \{\mu_{1}^{(1)}, \dots, \mu_{m}^{(1)}\}$ and eigenvectors $\boldsymbol{X}_{m}^{(1)} = \left[\boldsymbol{x}_{1}^{(1)}, \dots, \boldsymbol{r}_{m}^{(1)}\right]$ for $H_{m}^{(1)}$
             
-            \item[(d)] Extract $s_{1}$ eigenvectors from $\boldsymbol{X}_{m}^{(1)}$, which correspond to $s_{1}$ extreme eigenvalues and relabel them as $\boldsymbol{X}_{s_{1}}^{(1)} = \left[\boldsymbol{x}_{1}^{(1)}, \dots, \boldsymbol{x}_{s_{1}}^{(1)}\right]$
+            \item[(c)] Extract $s_{1}$ eigenvectors from $\boldsymbol{X}_{m}^{(1)}$, which correspond to $s_{1}$ extreme eigenvalues and relabel them as $\boldsymbol{X}_{s_{1}}^{(1)} = \left[\boldsymbol{x}_{1}^{(1)}, \dots, \boldsymbol{x}_{s_{1}}^{(1)}\right]$
             
-            \item[(e)] Recover the eigenvectors for $A^{(1)}\left(B^{(1)}\right)^{-1}x = \mu x$ by computing $Z_{m}^{(1)}\boldsymbol{X}_{s_{1}}^{(1)}$ and orthogonalize it to obtain the temporary basis $\tilde{Z}_{s_{1}}^{(2)} = \text{orth}\left(Z_{m}^{(1)}\boldsymbol{X}_{s_{1}}^{(1)}\right)$ for the second eigenvalue problem $A^{(2)}\left(B^{(2)}\right)^{-1}\boldsymbol{x} = \lambda \boldsymbol{x}$
+            \item[(d)] Recover the eigenvectors for $A^{(1)}\left(B^{(1)}\right)^{-1}x = \mu x$ by computing $Z_{m}^{(1)}\boldsymbol{X}_{s_{1}}^{(1)}$ and orthogonalize it to obtain the temporary basis $\tilde{Z}_{s_{1}}^{(2)} = \text{orth}\left(Z_{m}^{(1)}\boldsymbol{X}_{s_{1}}^{(1)}\right)$ for the second eigenvalue problem $A^{(2)}\left(B^{(2)}\right)^{-1}\boldsymbol{x} = \lambda \boldsymbol{x}$
         \end{itemize}
         
         \STATE When $i = 2$:
         \begin{itemize}
-            \item[(a)] Repeat Step 1(a) on $B^{(2)}$ and project $A^{(2)}\left(B^{(2)}\right)^{-1}$ on $\tilde{Z}_{s_{1}}^{(2)}$: 
+            \item[(a)] Project $A^{(2)}\left(B^{(2)}\right)^{-1}$ on $\tilde{Z}_{s_{1}}^{(2)}$: 
             \begin{align*}
                 \tilde{H}_{s_{1}}^{(2)} &= \tilde{Z}_{s_{1}}^{(2)H}\left(A^{(2)}\left(B^{(2)}\right)^{-1}\right) \tilde{Z}_{s_{1}}^{(2)}
             \end{align*}
@@ -269,8 +246,8 @@ $\log\det(\mathsf{V}_{\mathrm{i}k_{j}}\tilde{\mathsf{V}}_{\mathrm{i}k_{j}}^{-1})
 In this part, the performances on approximating the $\log\det\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$ and the complexity 
 of Algorithm \ref{Alg for computing the evals kry}-\ref{Alg for computing the evals arno recycled} will be compared.
 Consider two spheres with equal radii $r_{1} = r_{2} = 1$ and the minimal distance between them is denoted as $Z$, which is set as 0.5, 1.5 and 3.0. 
-The dimension of the Krylov subspace $m$ in Algorithm \ref{Alg for computing the evals kry}, Algorithm \ref{Alg for arno method},  
-Step 1(a), Algorithm \ref{Alg for computing the evals kry recycled} and Step 1(b), Algorithm \ref{Alg for computing the evals arno recycled} 
+The dimension of the Krylov subspace $m$ in Algorithm \ref{Alg for computing the evals kry}, Algorithm \ref{Alg for computing the evals kry recycled}, Step 1 of Algorithm \ref{Alg for computing the evals kry recycled},
+Algorithm \ref{Alg for arno method} and Step 1 of Algorithm \ref{Alg for computing the evals arno recycled} 
 is $m = 100$. The rule for extracting the eigenvectors in recycled scheme is that only the eigenvector associated with the extreme eigenvalue whose 
 logarithm value is greater than $10^{-5}$ would be recycled.
 

@@ -10,23 +10,30 @@ on which the boundary operators are well-defined and Dirichlet trace operator, t
 spectral shift function with this operator will be introduced and finally, the numerical framework for computing the Casimir energy in the scalar case 
 via the Galerkin discretization of the single-layer boundary operator.
 \subsection{Scalar function space and trace operator}
-For the bounded interior domain $\Omega^{\pm}$ or the unbounded exterior domain $\Omega^{+}$, the space of the square integrable functions is 
+For the bounded interior domain $\Omega^{-}$ or the unbounded exterior domain $\Omega^{+}$, the space of the (locally) square integrable functions is 
 \begin{align*}
-    L^{2}(\Omega^{\pm}) := \left\{f:\Omega^{\pm}\rightarrow\mathbb{C}, f \text{ is Lebesgue measurable and} \int_{\Omega^{\pm}}|f|^{2} < \infty \right\}
+    L^{2}(\Omega^{-}) &:= \left\{f:\Omega^{\pm}\rightarrow\mathbb{C}, f \text{ is Lebesgue measurable and} \int_{\Omega^{-}}|f|^{2} < \infty \right\},\\
+    L_{\text{loc}}^{2}(\Omega^{+}) &:= \left\{f:\Omega^{+}\rightarrow\mathbb{C},\ f \text{ is Lebesgue measurable and} \int_{K}|f|^{2} < \infty, \ \text{for all compact}\ K \subset \Omega^{+} \right\}
 \end{align*}
-and the Sobolev space $H^{s}(\Omega^{\pm})$ is defined as 
+and note that the subscript ``loc'' can be removed if the domain is bounded (i.e. $L_{\text{loc}}^{2}(\Omega^{-}) = L^{2}(\Omega^{-})$).
+We define the (local) Sobolev space $H_{\text{loc}}^{s}(\Omega^{\pm})$ as 
 \begin{align*}
-    H^{s}(\Omega^{\pm}):=\left\{f\in L^{2}(\Omega^{\pm}), \forall\alpha \text{ s.t.} |\alpha|\leq s, D^{\alpha}f\in L^{2}(\Omega^{\pm})\right\},
+    H_{\text{loc}}^{s}(\Omega^{\pm}):=\left\{f\in L_{\text{loc}}^{2}(\Omega^{\pm}), \forall\alpha \text{ s.t.} |\alpha|\leq s, D^{\alpha}f\in L_{\text{loc}}^{2}(\Omega^{\pm})\right\},
 \end{align*}
 where $\alpha = (\alpha_{1}, \alpha_{2}, \dots, \alpha_{d})$ is a multi-index and $|\alpha| = \alpha_{1} + \alpha_{2} + \dots + \alpha_{d}$, and 
 the derivative is defined in the weak sense.
 
 To construct the single-layer boundary operator, we also need the Dirichlet trace operator 
-$\gamma_{\text{D}}^{\pm}: H^{1}(\Omega^{\pm})\rightarrow H^{\frac{1}{2}}(\Gamma)$: for sufficiently smooth function $p$,
+$\gamma_{\text{D}}^{\pm}: H_{\text{loc}}^{1}(\Omega^{\pm})\rightarrow H^{\frac{1}{2}}(\Gamma)$: for sufficiently smooth function $p$,
 \begin{align*}
     \gamma_{\text{D}}^{\pm}p(\boldsymbol{x}):=\lim_{\Omega^{\pm}\ni\boldsymbol{x'}\rightarrow\boldsymbol{x}\in\Gamma}p(\boldsymbol{x'}),
 \end{align*}
 where the subscripts $^{-}$ and $^{+}$ denote the interior and exterior traces, respectively. 
+
+In what follows, the average $\{\cdot\}_{\Gamma}$ and jump $\llbracket \cdot \rrbracket$ operations on the trace are given respectively by
+\begin{align*}
+    \{\gamma_{*}\}_{\Gamma}f := \frac{1}{2}(\gamma_{*}^{+}f + \gamma_{*}^{-})f, \ \ \ \ \ \ \llbracket \gamma_{*}f \rrbracket := \gamma_{*}^{+}f - \gamma_{*}^{-}f.
+\end{align*}
 
 \subsection{Single-layer boundary integral operator}%==========================================================================================
 Typically, the \emph{single-layer potential operator} $\mathcal{V}_{k}: H^{-\frac{1}{2}}(\Gamma)\rightarrow H^{1}(\Omega^{\pm})$ can be represented as 
