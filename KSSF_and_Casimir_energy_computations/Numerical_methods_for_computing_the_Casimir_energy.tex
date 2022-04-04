@@ -73,7 +73,7 @@ By \cite{hanisch2020relative}, the Krein spectral shift function is defined as
 \begin{align*}
     \xi(k) = \frac{1}{2\pi \mathrm{i}}\log\left(\frac{\det(S(k))}{\det(S_{1,k})\cdots\det(S_{N,k})}\right),
 \end{align*}
-where $S_{i,n}$ is the scattering matrix associated with the $n$th scatterer. These scattering matrices can be constructed  $S_{i,n} = I + T_{i,n}$, where 
+where $S_{i,n}$ is the scattering matrix associated with the $n$th scatterer. These scattering matrices can be constructed  $S_{i,n} = I + 2T_{i,n}$, where 
 $I$ is the identity matrix and $T_{i,n}$ is the $T$-matrix and the method of computing the $T$-matrix is fully discussed in \cite{waterman1969new} and 
 \cite{ganesh2008far}.
 
@@ -88,11 +88,11 @@ via the scattering matrix or integral operator.
         \Xi(k) = \log\det\left(V_{k}\tilde{V}_{k}^{-1}\right).
     \end{align*}
 
-    Then for $k >0$, we have 
+    Then for $k > 0$, we have 
     \begin{align*}
         -\frac{1}{\pi}\emph{\text{Im}}\Xi(k) = \frac{\mathrm{i}}{2\pi}(\Xi(k) - \Xi(-k)) = \xi(k)
     \end{align*}
-    and by choosing $f(x) = x$ in \eqref{B-K formula}, this gives the formula 
+    and by choosing $h(x) = x$ in \eqref{B-K formula}, this gives the formula 
     \begin{align}\label{slp and matrix}
         \emph{\text{Tr}}\left(\Delta^{\frac{1}{2}} + (N - 1)\Delta_{0}^{\frac{1}{2}} - \sum_{i = 1}^{N}\Delta_{j}^{\frac{1}{2}}\right)  = 
         \int_{0}^{\infty}\xi(k)dk = -\frac{1}{\pi}\int_{0}^{\infty}\Xi(\mathrm{i}k)dk.
