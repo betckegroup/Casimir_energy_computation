@@ -96,8 +96,8 @@ s.t. $\overline{\mathcal{T}_{h}} = \bigcup_{l}\overline{\tau_{l}}$, where $h$ is
 \begin{align*}
     P_{h}^{1}(\Gamma) = \{v_{h}\in C^{0}(\Gamma): v_{h}|_{\tau_{l}}\in\mathbb{P}_{1}(\tau_{l}), \ \text{for} \ \ \tau_{l}\in\mathcal{T}_{h}\},
 \end{align*}
-where $\mathbb{P}_{1}(\tau_{l})$ denotes the space of polynomials of order less than or equal to 1 on $\tau_{1}$
-and typically, we use the following $P_{h}^{1}(\Gamma)$ space to discretize $H^{-\frac{1}{2}}(\Gamma)$:
+where $\mathbb{P}_{1}(\tau_{l})$ denotes the space of polynomials of order less than or equal to 1 on $\tau_{\ell}$. We have
+
 \begin{align*}
     P_{h}^{1}(\Gamma) := \text{span}\{\phi_{j}\} \subset H^{-\frac{1}{2}}(\Gamma)
 \end{align*}
@@ -105,14 +105,19 @@ with
 \begin{align*}
     \phi_{j}(\boldsymbol{x}_{i}) = \begin{cases}
         1, & i = j,\\
-        0, & i\neq j.
+        0, & i\neq j
     \end{cases}
 \end{align*}
+being the nodal basis functions.
 
-Having defined the basis function $P_{h}^{1}(\Gamma)$, we can represent each element inside the Galerkin discretization form. Assume there are $N$ objects,
+\begin{remark}
+Since $H^{-1/2}(\Gamma)$ does not require continuity we could use a space of simple piecewise constant functions. The reason why we choose piecewise linear functions is the size of the arising matrix systems for dense calculations. The computation of the log-determinant requires $\mathcal{O}(n^3)$ operations, where $n$ is the dimension of our approximation basis. For sphere-like and other similar geometries there are in practice roughly twice as many triangles as nodes in the mesh. Hence, while the assembly cost with piecewise linear functions is higher, the resulting matrix has only half the dimension, resulting in roughly a factor eight reduction of computational complexity for the log determinant. A disadvantage is that on geometries with corners or edges the converges close to these singularities is suboptimal with continuous piecewise linear functions.
+\end{remark}
+
+Having defined the basis function $\phi_j$, we can represent each element inside the Galerkin discretization form. Assume there are $N$ objects,
 then the matrix of the operator $V_{k}$ is an $N$ by $N$ block matrix, written as 
 \begin{align}\label{matrix V}
-    \mathsf{V}_{k} = \mathsf{V}(k) = \begin{bmatrix}
+    \mathsf{V}(k) = \begin{bmatrix}
         \mathsf{V}_{11}(k) & \mathsf{V}_{12}(k) & \cdots & \mathsf{V}_{1N}(k) \\
         \mathsf{V}_{21}(k) & \mathsf{V}_{22}(k) & \cdots & \mathsf{V}_{2N}(k) \\
         \vdots & \vdots & \ddots & \vdots \\
@@ -121,7 +126,7 @@ then the matrix of the operator $V_{k}$ is an $N$ by $N$ block matrix, written a
 \end{align}
 and the matrix $\tilde{V}_{k}$ is the diagonal part of $V_{k}$:
 \begin{align}\label{matrix tilde V}
-    \tilde{\mathsf{V}}_{k} =  \tilde{\mathsf{V}}(k) = \begin{bmatrix}
+    \tilde{\mathsf{V}}(k) = \begin{bmatrix}
         \mathsf{V}_{11}(k) & 0      & \cdots & 0 \\
     0      & \mathsf{V}_{22}(k) & \cdots & 0\\
     \vdots & \vdots & \ddots & \vdots \\
@@ -131,40 +136,36 @@ and the matrix $\tilde{V}_{k}$ is the diagonal part of $V_{k}$:
 Therefore, the element in the $m$th row and $n$th column of the block matrix $\mathsf{V}_{ij}(k)$ is 
 \begin{align}\label{Elements in matrix V}
     \mathsf{V}_{ij}^{(m,n)} (k) = \langle V_{ij}(k)\phi_{m}^{(i)}, \phi_{n}^{(j)}\rangle = 
-    \int_{\Gamma}\overline{\phi_{n}^{(j)}}(\boldsymbol{x})\int_{\Gamma}g_{k}(\boldsymbol{x}, \boldsymbol{y})\phi_{m}^{(i)}(\boldsymbol{y})dS_{\boldsymbol{y}}dS_{\boldsymbol{x}},
+    \int_{\Gamma}\overline{\phi_{m}^{(j)}}(\boldsymbol{x})\int_{\Gamma}g_{k}(\boldsymbol{x}, \boldsymbol{y})\phi_{n}^{(i)}(\boldsymbol{y})dS_{\boldsymbol{y}}dS_{\boldsymbol{x}},
 \end{align}
 where $\boldsymbol{\phi}^{(i)} = \begin{bmatrix}
     \phi_{1}^{(i)} & \phi_{2}^{(i)} & \dots & \phi_{N}^{(i)}
 \end{bmatrix}$ is the set of basis functions defined on the $i$th object and 
 \begin{align*}
-    \langle f, g \rangle = \int_{\Gamma}\overline{f(\boldsymbol{x})}g(\boldsymbol{x})dS_{x}
+    \langle f, g \rangle = \int_{\Gamma}{f(\boldsymbol{x})}\overline{g(\boldsymbol{x})}dS_{x}
 \end{align*}
 denotes the standard $L^{2}(\Gamma)$ inner product.
 
 
-By \eqref{Elements in matrix V}, the explicit form of each element in matrix $\mathsf{V}_{k}$ and $\tilde{\mathsf{V}}_{k}$ is known, therefore,
-the value of $\Xi(\mathrm{i}k)$ = $\log\det(V_{\mathrm{i}k}\tilde{V}_{\mathrm{i}k}^{-1})$ can be evaluated by computing 
-$\log\frac{\det\mathsf{V}_{\mathrm{i}k}}{\det\tilde{\mathsf{V}}_{\mathrm{i}k}}$ with 
-different values of $k$, which is the integrand of the Casimir formula \eqref{KSSF and CasE}. However, by plotting the value of this integrand 
-with respect to different values of $\mathrm{i}k$, we found that this function is exponentially decays with increasing the imaginary wavenumber 
-$\mathrm{i}k$ (see Figure \ref{The integrand decays exponentially} (Left)) and shares the same trend with $e^{-2Zk}$,  where $Z$ is the minimal distance 
-between two objects. This result is proved and summarized in the following theorem. 
-
+The value of $\Xi(\mathrm{i}k)$ = $\log\det(V(ik)\tilde{V}(ik)^{-1})$ can be evaluated by computing 
+$\log\frac{\det\mathsf{V}(ik)}{\det\tilde{\mathsf{V}}(ik)}$, which is the integrand of the Casimir formula \eqref{KSSF and CasE}. The integrand $\Xi(\mathrm{i}k)$ has a nice numerical property that simplifies the numerical integration, namely it decays exponentially for growing $ik$ along the imaginary axis. While it is possible to demonstrate this decay from analytical properties of the KSSF, in the following we give a simple argument based on matrix perturbation theory.
 
 \begin{theorem}
-    Let $\mathsf{V}_{\mathrm{i}k}$ and $\tilde{\mathsf{V}}_{\mathrm{i}k}$ be the positive definite block matrices defined in \eqref{matrix V} and \eqref{matrix tilde V} 
-    and they are partitioned as 
-    2 by 2 block matrices
+
+   {\color{red} Result not correct. Needs to be worked over.}
+    Let $\mathsf{V}(\mathrm{i}k)$ and $\tilde{\mathsf{V}}(\mathrm{i}k)$ be the positive definite block matrices defined in \eqref{matrix V} and \eqref{matrix tilde V} 
+    for the case of two scatterers (the case of more than two scatterers can be treated similarly), defined by
     \begin{align*}
-        \mathsf{V}_{\mathrm{i}k} = \begin{bmatrix}
+        \mathsf{V}(\mathrm{i}k) = \begin{bmatrix}
             \mathbb{V}_{11}(\mathrm{i}k) & \mathbb{V}_{12}(\mathrm{i}k)\\
             \mathbb{V}_{21}(\mathrm{i}k) & \mathbb{V}_{22}(\mathrm{i}k)
-        \end{bmatrix} \ \ \text{and} \ \   \tilde{\mathsf{V}}_{\mathrm{i}k} = \begin{bmatrix}
+        \end{bmatrix} \ \ \text{and} \ \   \tilde{\mathsf{V}}(\mathrm{i}k) = \begin{bmatrix}
             \mathbb{V}_{11}(\mathrm{i}k) & 0\\
             0 & \mathbb{V}_{22}(\mathrm{i}k)
         \end{bmatrix}.
-    \end{align*} Denote 
-    $\{\lambda_{i}\}_{i}$ and $\{\tilde{\lambda}_{i}\}_{i}$ as the eigenvalues of them, separately and $Z$ be the minimal distance between the objects.
+    \end{align*} 
+    Let $\lambda_i$ be the $i$th eigenvalue of $\mathsf{V}(\mathrm{i}k)$ and correspondingly $\tilde{\lambda}_i$ the $i$th eigenvalue of 
+    $ \tilde{\mathsf{V}}(\mathrm{i}k) $, and let $Z$ be the distance between the two scatterers.
     Then, \begin{align*}
         ||\mathsf{V}_{\mathrm{i}k} - \tilde{\mathsf{V}}_{\mathrm{i}k}||_{2} = \mathcal{O}(e^{-Zk})
     \end{align*}
@@ -192,21 +193,14 @@ between two objects. This result is proved and summarized in the following theor
     Green's function $g_{\mathrm{i}k}$ \eqref{Green's function}, we can conclude $||E_{\mathrm{i}k}||_{2} = \mathcal{O}(e^{-Zk})$, where
     $Z$ is the minimal distance between the objects. 
 
-    To prove \eqref{logdet trend}, we firstly assume the eigenvalues of the matrices $\mathsf{V}_{\mathrm{i}k} $ and $\tilde{\mathsf{V}}_{\mathrm{i}k}$
-    are  $\{\lambda_{i}\}_{i}$ and $\{\tilde{\lambda}_{i}\}_{i}$, respectively. Then, according to \cite[Theorem 1]{nakatsukasa2015off}, since $E_{\mathrm{i}k}$ and $\tilde{\mathsf{V}}_{\mathrm{i}k}$
-    are symmetric matrices, we have the eigenvalue perturbation bound
+    The bound on the log determinant in  \eqref{logdet trend} is now a consequence of the perturbation bound \cite{MathiasRoy1998QRBf}
     \begin{align}\label{gap}
-        |\lambda_{i} - \tilde{\lambda}_{i}| \leq \frac{||E_{\mathrm{i}k}||_{2}^{2}}{\text{gap}_{i}},
+        |\lambda_{i} - \tilde{\lambda}_{i}| \leq \frac{||E_{\mathrm{i}k}||_{2}^{2}}{\text{gap}_{i}}.
     \end{align}
-    where 
-    \begin{align*}
-        \text{gap}_{i}:= \begin{cases}
-            \text{min}_{\tilde{\lambda}_{j}\in\mathbb{V}_{22}}|\tilde{\lambda_{i}} - \tilde{\lambda_{j}}|, \ \ \text{if}\ \ \tilde{\lambda}_{i} \in \lambda(\mathbb{V}_{11})\\
-            \text{min}_{\tilde{\lambda}_{j}\in\mathbb{V}_{11}}|\tilde{\lambda_{i}} - \tilde{\lambda_{j}}|, \ \ \text{if}\ \  \tilde{\lambda}_{i} \in \lambda(\mathbb{V}_{22}).
-        \end{cases}
-    \end{align*} 
+
+
     Since  $||E_{\mathrm{i}k}||_{2} = \mathcal{O}(e^{-Zk})$, \eqref{gap} becomes $\lambda_{i} - \tilde{\lambda}_{i} = \frac{\mathcal{O}(e^{-2Zk})}{\text{gap}_{i}}$.
-    By setting $\tilde{\lambda}_{\text{min}} = \text{min}_{i}\tilde{\lambda}_{i}$ and $\text{gap}_{\text{min}} = \text{min}_{i}\text{gap}_{i}$, we have 
+    By setting $\tilde{\lambda}_{\text{min}} = \text{min}_{i}\tilde{\lambda}_{i}$ and $\text{gap}_{\text{min}} = \text{min}_{i}\,\text{gap}_{i}$, we have 
     \begin{align*}
         \log\frac{\det\mathsf{V}_{\mathrm{i}k}}{\det\tilde{\mathsf{V}}_{\mathrm{i}k}} &= \sum_{i}\log\frac{\lambda_{i}}{\tilde{\lambda}_{i}}\\
         &= \sum_{i}\log\left[1+\frac{\mathcal{O}(e^{-2Zk})}{\tilde{\lambda}_{i}\text{gap}_{i}}\right]\\
