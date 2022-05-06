@@ -147,54 +147,42 @@ where $\boldsymbol{\phi}^{(i)} = \begin{bmatrix}
 denotes the standard $L^{2}(\Gamma)$ inner product.
 
 
-The value of $\Xi(\mathrm{i}k) = \log\det(\mathrm{V}(\mathrm{i}k)\tilde{V}(\mathrm{i}k)^{-1})$ can be evaluated by computing 
-$\log\frac{\det\mathsf{V}(\mathrm{i}k)}{\det\tilde{\mathsf{V}}(\mathrm{i}k)}$, which is the integrand of the Casimir formula \eqref{KSSF and CasE}. 
-By denoting $Z$ as the minimal distance between the obstacles, 
-one has the bound $\Xi(\mathrm{i}k) = \mathcal{O}(e^{-2Zk})$ when the obstacles strictly convex near the points that have the distance $Z$ to other 
-boundary components \cite[Theorem 4.1]{fang2022trace}. This bound can also be derived from the matrix perturbation theory introduced in \cite{nakatsukasa2015off}. 
-To be specific, let $\mathsf{V}(\mathrm{i}k)$ and $\tilde{\mathsf{V}}(\mathrm{i}k)$ be the positive definite block matrices defined in \eqref{matrix V} and \eqref{matrix tilde V} 
-for the case of two scatterers (the case of more than two scatterers can be treated similarly), defined by
-\begin{align*}
-    \mathsf{V}(\mathrm{i}k) = \begin{bmatrix}
-        \mathsf{V}_{11}(\mathrm{i}k) & \mathsf{V}_{12}(\mathrm{i}k)\\
-        \mathsf{V}_{21}(\mathrm{i}k) & \mathsf{V}_{22}(\mathrm{i}k)
-    \end{bmatrix} \ \ \text{and} \ \   \tilde{\mathsf{V}}(\mathrm{i}k) = \begin{bmatrix}
-        \mathsf{V}_{11}(\mathrm{i}k) & 0\\
-        0 & \mathsf{V}_{22}(\mathrm{i}k)
-    \end{bmatrix}.
-\end{align*}
-Let $\lambda_i$ be the $i$th eigenvalue of $\mathsf{V}(\mathrm{i}k)$ and correspondingly $\tilde{\lambda}_i$ the $i$th eigenvalue of $\tilde{\mathsf{V}}(\mathrm{i}k)$.
-Then, one have the perturbation bound \cite[Theorem 4.1]{fang2022trace}
-\begin{align}\label{gap}
-    |\lambda_{i} - \tilde{\lambda}_{i}| \leq \frac{||E_{\mathrm{i}k}||_{2}^{2}}{\text{gap}_{i}}, 
-\end{align}
-where $E(\mathrm{i}k) = \mathsf{V}(\mathrm{i}k) - \tilde{\mathsf{V}}(\mathrm{i}k)$ and $\text{gap}_{i}:= \begin{cases}
-    \text{min}_{\tilde{\lambda}_{j}\in\lambda(\mathsf{V}_{22})}|\tilde{\lambda_{i}} - \tilde{\lambda_{j}}|, \ \ \text{if}\ \ \tilde{\lambda}_{i} \in \lambda(\mathsf{V}_{11})\\
-    \text{min}_{\tilde{\lambda}_{j}\in\lambda(\mathsf{V}_{11})}|\tilde{\lambda_{i}} - \tilde{\lambda_{j}}|, \ \ \text{if}\ \  \tilde{\lambda}_{i} \in \lambda(\mathsf{V}_{22})
-\end{cases}$. Since the elements in $\mathsf{V}_{12}(\mathrm{i}k)$ and 
-$\mathsf{V}_{21}(\mathrm{i}k)$ are constructed by \eqref{Elements in matrix V} which includes the 
-Green's function $g_{\mathrm{i}k}$ \eqref{Green's function}, we can conclude $||E(\mathrm{i}k)||_{2} = \mathcal{O}(e^{-Zk})$ and \eqref{gap} becomes 
-$\lambda_{i} - \tilde{\lambda}_{i} = \frac{\mathcal{O}(e^{-2Zk})}{\text{gap}_{i}}$.
-By setting $\tilde{\lambda}_{\text{min}} = \text{min}_{i}\tilde{\lambda}_{i}$ and $\text{gap}_{\text{min}} = \text{min}_{i}\,\text{gap}_{i}$, we have 
-    \begin{align}\label{logdet trend}
-        \Xi(\mathrm{i}k) = \log\frac{\det\mathsf{V}(\mathrm{i}k)}{\det\tilde{\mathsf{V}}(\mathrm{i}k)} 
-        &= \sum_{i}\log\frac{\lambda_{i}}{\tilde{\lambda}_{i}}\nonumber\\
-        &= \sum_{i}\log\left[1+\frac{\mathcal{O}(e^{-2Zk})}{\tilde{\lambda}_{i}\text{gap}_{i}}\right]\nonumber\\
-        &= \sum_{i} \frac{\mathcal{O}(e^{-2Zk})}{\tilde{\lambda}_{i}\text{gap}_{i}} + \text{h.o.t}\nonumber\\
-        &\leq \sum_{i}\frac{\mathcal{O}(e^{-2Zk})}{\tilde{\lambda}_{\text{min}}\text{gap}_{\text{min}}} + \text{h.o.t}\nonumber\\
-        &= \frac{\mathcal{O}(e^{-2Zk})}{\tilde{\lambda}_{\text{min}}\text{gap}_{\text{min}}}. 
-    \end{align}
-It can be noticed that the bound \eqref{logdet trend} holds only when the two scatterers are different, otherwise the minimum of the eigenvalue gap would be zero. 
-However, in practice, when the two scatterers are identical, we can still observe the exponential decay of $\Xi$ along the imaginary 
-axis (see Figure \ref{The integrand decays exponentially}(Left)).
+The value of $\Xi(\mathrm{i}k) = \log\det(\mathrm{V}(\mathrm{i}k)\tilde{V}(\mathrm{i}k)^{-1})$ can now be explicitly computed by evaluating the corresponding log determinants.
+
+The function $\Xi(\mathrm{i}k)$ has a very favourable decay behaviour for growing $k$ that we can use to limit the number of quadrature points necessary to evaluate the corresponding Casimir integral, namely under certain convexity assumptions on the obstacles it holds that
+$$
+\Xi(\mathrm{i}k) = \mathcal{O}(e^{-2Zk}).
+$$
+Here, $Z$ is the minimum distance between the obstacles  \cite[Theorem 4.1]{fang2022trace}.
+
+This result can be justified heuristically, using a simple matrix perturbation argument. Consider a symmetric matrix $A$ partitioned as
+$$
+A = \begin{bmatrix}A_1 & 0\\
+                              0   & A_2
+       \end{bmatrix}.
+$$
+and a symmetric matrix $E$ partitioned as
+$$
+E= \begin{bmatrix}0 & E_1^T\\
+     E_1 & 0
+     \end{bmatrix}
+$$
+Then it holds for the $i$th eigenvalue $\lambda_i(A)$ and the $i$th eigenvalue $\lambda_i(A+E)$ that
+$$
+|\lambda_i(A) - \lambda_i(A+E)| \leq \frac{\|E\|^2}{\text{gap}_i},
+$$
+where $\text{gap}_i$ is the distance of $\lambda_i(A)$ to the spectrum of $A_2$ if $\lambda_i(A)$ is an eigenvalue of $A_1$, and to the spectrum of $A_1$ if $\lambda_i(A)$ is an eigenvalue of $A_2$. Details can be found in  \cite{nakatsukasa2015off} {\color{red} The reference to Roy Matthias is suddenly missing}.
+
+Now assume that we have two different obstacles. Then we have $A_1 = V_{11}(k)$, $A_2 = V_{22}(k)$ and $E_1 = V_{21}$ as the matrix of cross interactions between the two obstacles. The Green's function between two obstacles decays exponentially like $e^{-Zk}$, where $Z$ is the minimal distance between them, resulting in a matrix perturbation result of the form $\lambda_i(V) - \lambda_i(\tilde{V})| = O(e^{-2Zk})$ for increasing $k$, from which the corresponding perturbation result for the log determinant follows.
+
+This purely linear algebraic consideration is not fully robust as it ignores the importance of the eigenvalue gap in the perturbation result. But we can heuristically explain the $\text{gap}$ as follows. On the continuous level the perturbations $E_1$ and $E_2$ are compact, so the tail end of the spectrum that converges to zero with small values of $\text{gap}_i$, is little effected by $E$, and the corresponding eigenvalues have a contribution of $\log \left|\frac{\lambda_(A)}{\lambda_i(A+E)}\right| \approx 0$ to the value of $\Xi$. The relevant eigenvalues are the larger ones who for distinct obstacles have a sufficiently large value of $\text{gap}_i$.
+
+While the linear algebra argument is useful to give a heuristical explanation, it is not as rigorous as the analytical result in \cite{fang2022trace}. In particular, we want to emphasize that the exponential decay bound with the quadratic factor also holds if the two obstacles are identical, which is not obvious from pure linear algebraic considerations. An example of this is given in Figure \ref{The integrand decays exponentially}.
 
 \begin{figure}[H]
     \centering
     \hspace*{-1cm}\includegraphics[scale = 0.4]{figures/integ_exp_decay.pdf}
-    \caption{(Left) The integrand of the Casimir energy whose value exponentially decays with increasing imaginary wavenumber $\mathrm{i}k$. The integrand function 
-    shares the same trend with $e^{-2Zk}$, where $Z$ is the minimal distance between two objects. The scatterers are two spheres with equal radii 
-    $R = 1$ with minimal distance $Z = 1.5$. (Right) The integrand of the Casimir energy after changing the 
-    variable for applying the trapezoid quadrature rule.}
+    \caption{(Left) Exponential decay of $\Xi(\textrm{i}k)$ for two identical spheres with radius $R=1$ and minimum distance $Z=1.5$. The red line is the decay bound and the blue line is the actual decay. (Right). The integrand $\Xi(ik)$ after varlable transformation to apply a numerical trapezoid rule for its evaluation.}
     \label{The integrand decays exponentially}
 \end{figure}
 
