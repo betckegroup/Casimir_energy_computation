@@ -1,13 +1,18 @@
-In this section, we are going to show the numerical results for computing the Casimir energy between two perfectly conducting objects, which are spheres, 
-menger sponges, ice crystals and ellipsoids. The reference value of the Casimir energy is computed by the Richardson extrapolation method which is often used 
-for obtaining the higher-order estimate at zero grid spacing. Denote $\mathcal{E}_{\text{fine}}$ and $\mathcal{E}_{\text{coarse}}$ as the Casimir energy 
-numerically computed from the formula \eqref{KSSF and CasE} by setting the grid size $h$ as $h_{\text{fine}}$ and $h_{\text{coarse}}$ 
-($h_{\text{fine}}<h_{\text{coarse}}$), separately. Then, the high-accuracy result $\mathcal{E}_{\text{extrapolation}}$ can be generated from the following formula:
-\begin{align}\label{Richardson extrapolation}
-    \mathcal{E}_{\text{extrapolation}} \approx  \frac{h_{\text{coarse}}^{2}\mathcal{E}_{\text{fine}} - h_{\text{fine}}^{2}\mathcal{E}_{\text{coarse}}}{h_{\text{coarse}}^{2} - h_{\text{fine}}^{2}}.
-\end{align}
-In addition, the asymptotic series of the Casimir energy with large separation between scatterers are also available in two spheres' case and the series can be found in \cite{emig2008casimir} 
-for both equal and unequal radii's cases. 
+% !TEX root =  main.tex
+
+
+In this section, we demonstrate numerical results for computing the Casimir energy between two conducting objects, where the objects are spheres, Menger sponges,
+ice crystals and ellipsoids. Reference values for the Casimir energy in each case is computed by grid refinement plus Richardson extrapolation.
+
+%The reference value of the Casimir energy is computed by Richardson extrapolation method which is often used 
+%for obtaining the higher-order estimate at zero grid spacing. Denote $\mathcal{E}_{\text{fine}}$ and $\mathcal{E}_{\text{coarse}}$ as the Casimir energy 
+%numerically computed from the formula \eqref{KSSF and CasE} by setting the grid size $h$ as $h_{\text{fine}}$ and $h_{\text{coarse}}$ 
+%($h_{\text{fine}}<h_{\text{coarse}}$), separately. Then, the high-accuracy result $\mathcal{E}_{\text{extrapolation}}$ can be generated from the following formula:
+%\begin{align}\label{Richardson extrapolation}
+%    \mathcal{E}_{\text{extrapolation}} \approx  \frac{h_{\text{coarse}}^{2}\mathcal{E}_{\text{fine}} - h_{\text{fine}}^{2}\mathcal{E}_{\text{coarse}}}{h_{\text{coarse}}^{2} - h_{\text{fine}}^{2}}.
+%\end{align}
+
+In the case of spheres we also compare with known asymptotic expansions \cite{emig2008casimir}.
 
 \subsection{Two spheres case}
 \begin{figure}[H]
@@ -24,6 +29,10 @@ the asymptotic expression of the integrand of the Casimir integral formula \eqre
     \Xi(k) = -\frac{R_{1}R_{2}}{4Z(R_{1} + R_{2} + Z)}e^{2\mathrm{i}Zk} + o\left(e^{-2Z\text{Im}k}\right),
 \end{align}
 where $R_{1}$ and $R_{2}$ are the radius of the spheres.
+{\color{red} I do not understand why you now use this expansion and in the earlier sentence cite \cite{emig2008casimir}. Is this the same expansion?}
+
+{\color{red} As I have said when we discussed your thesis. It is terrible to start with this Figure. People want to see some kind of validation of your results.
+But you compare with something that has quite different values.}
 
 Figure \ref{Abs equal} plots the quotient of the leading term in \eqref{asymptotic integrand} and the estimated integrand value on different 
 wavenumbers $\mathrm{i}k$. This quotient provides with a good estimate on the upperbound of the integration of the Casimir energy formula \eqref{KSSF and CasE}. 
@@ -58,6 +67,9 @@ of the integration for the distance $Z$ varying from 0.5 to 3.0.
         \epsilon \approx \int_{\kappa}^{\infty}f(k)dk = \frac{Ce^{-2Z\kappa}}{2Z},
     \end{align*}
     where $\kappa$ is the upperbound of the integration. 
+    
+{\color{red} You earlier do a coordinate transformation. So this upper bound turns into a lower bound for your quadrature rule. You should remark on this}.
+    
 Meanwhile, one can also determine the upperbound of the integration with regard to different error tolerance. 
 
 For example, if one aims to have at least three significant digits of the exact value of the Casimir integral, the upperbound can be set as the following 
