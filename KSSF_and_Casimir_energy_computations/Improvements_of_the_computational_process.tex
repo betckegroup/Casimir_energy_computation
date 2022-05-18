@@ -1,24 +1,23 @@
 % !TEX root =  main.tex
-
-
 By Section \ref{Numerical methods for computing the Casimir energy}, to compute the Casimir energy, it is necessary to evaluate the term
-$\log\frac{\det\mathsf{V}_{\mathrm{i}k}}{\det\tilde{\mathsf{V}}_{\mathrm{i}k}} = \log\det(\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1})$ 
+$\log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$ 
 with different values of $k$. In this section, several efficient methods will be introduced to compute this log determinant.
 
-The log determinant of the matrix $\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$ is equal to the sum of the logarithm of the eigenvalues of 
-$\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$. Since $\tilde{\mathsf{V}}_{\mathrm{i}k}$ is a compact perturbation of $\mathsf{V}_{\mathrm{i}k}$,
-most of the eigenvalues of the matrix $\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$ are close to 1 
+The log determinant of the matrix $\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1}$ is equal to the sum of the logarithm of the eigenvalues of 
+$\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1}$. Since $\tilde{\mathsf{V}}(\mathrm{i}k)$ is a compact perturbation of $\mathsf{V}(\mathrm{i}k)$,
+most of the eigenvalues of the matrix $\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1}$ are close to 1 
 (shown in Figure \ref{eigenvalues of VVtilde}) and contribute little to the value of the Casimir energy. Hence, we do not need to compute all eigenvalues but only
 the extremal ones, making subspace methods such as Krylov solvers attractive for this problem.
 
-In what follows we demonstrate and compare iterative solver approaches based on the inverse free Krylov subspace method {\color{red} GIVE REFERENCE}, and based on standard Arnoldi iterations {\color{red} GIVE REFERENCE}.
+In what follows we demonstrate and compare iterative solver approaches based on the inverse free Krylov subspace method \cite{golub2002inverse} \cite{money2005algorithm} {\color{red} GIVE REFERENCE}, 
+and based on standard Arnoldi iterations \cite{arnoldi1951principle}{\color{red} GIVE REFERENCE}.
 We will also discuss on acceleration strategy which is based on the idea of recycling projection bases from one quadrature point to the next. 
 
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.5]{figures/eigenvalue_of_VVtilde.pdf}
-    \caption{The eigenvalues of the matrix $\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$ when $\mathrm{i}k = 0.8\mathrm{i}$.
+    \caption{The eigenvalues of the matrix $\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1}$ when $\mathrm{i}k = 0.8\mathrm{i}$.
     The scatterers are two spheres with equal radii $r_{1} = r_{2} = 1$ and the minimal distance between them is $Z = 0.5$. The grid size of the mesh is $h = 0.1$.}
     \label{eigenvalues of VVtilde}
 \end{figure}
@@ -27,16 +26,16 @@ We will also discuss on acceleration strategy which is based on the idea of recy
 
 Consider the eigenvalue problem: 
 \begin{align} \label{EP}
-    \mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}\boldsymbol{x} = \lambda\boldsymbol{x},
+    \mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1}\boldsymbol{x} = \lambda\boldsymbol{x},
 \end{align}
 where $\lambda$ is the eigenvalue and $\boldsymbol{x}$ is the corresponding eigenvalue. This eigenvalue problem is equivalent to the following generalized eigenvalue problem:
 \begin{align}\label{GEP}
-    \mathsf{V}_{\mathrm{i}k}\tilde{\boldsymbol{x}} = \lambda \tilde{\mathsf{V}}_{\mathrm{i}k}\tilde{\boldsymbol{x}}.
+    \mathsf{V}(\mathrm{i}k)\tilde{\boldsymbol{x}}) = \lambda \tilde{\mathsf{V}}(\mathrm{i}k)\tilde{\boldsymbol{x}}.
 \end{align}
 
 
-An important property of this problem is that as we are only interested in $ik$ along the imaginary axis, the corresponding matrix $\tilde{V}_{ik}$ is positive definite in the scalar case,
-and $V_{ik}$ is still symmetric.
+An important property of this problem is that as we are only interested in $ik$ along the imaginary axis, the corresponding matrix $\tilde{\mathrm{V}}(\mathrm{i}k)$ is positive definite in the scalar case,
+and $\mathrm{V}(\mathrm{i}k)$ is still symmetric.
 
 In \cite{golub2002inverse}\cite{money2005algorithm},
 the authors proposed an inverse-free Krylov subspace method for computing a few extreme eigenvalues of the symmetric definite generalized eigenvalue problem.
@@ -59,17 +58,17 @@ The following algorithms summarizes the method.
     \end{algorithm}
    
     
-Algorithm \ref{Alg for computing the evals kry} approximates $m$ {\color{red} Why do you say extreme? Isn't the algorithm finding eigenvalues close to the shift?}
-extreme eigenvalues for the matrix pencil $(A,B)$ where $m$ is the dimension of the 
+{\color{red} Why do you say extreme? Isn't the algorithm finding eigenvalues close to the shift?} {\color{teal} Algorithm \ref{Alg for computing the evals kry} approximates $m$ eigenvalues close to the shift $\rho$ 
+for the matrix pencil $(A,B)$}, where $m$ is the dimension of the 
 Krylov subspace $K_{m}$ in Step 1, Algorithm \ref{Alg for computing the evals kry}. The question is what shift strategy to use for $\rho$. In numerical experiments it turned
-out that for the KSSF problem choosing $\rho=1$ sufficiently approximate the eigenvalues that have the main contribution to $\log\det(\mathsf{V}_{\mathrm{i}k_{j}}\tilde{\mathsf{V}}_{\mathrm{i}k_{j}}^{-1}) $.
+out that for the KSSF problem choosing $\rho=1$ sufficiently approximate the eigenvalues that have the main contribution to $\log\det(\mathsf{V}(\mathrm{i}k_{j})\tilde{\mathsf{V}}(\mathrm{i}k_{j})^{-1}) $.
 
 The main cost of the inverse free Krylov subspace method is the computation of the Krylov subspace and the projection of the matrices $A$ and $B$. In our case these are large dense matrices representing
-integral operators. In order to reduce the cost of computing a Krylov subspace basis for each wavenumber $ik$ we can use a recycling strategy based on the idea that a Krylov subspace for a previous quadrature
+integral operators. In order to reduce the cost of computing a Krylov subspace basis for each wavenumber $\mathrm{i}k$ we can use a recycling strategy based on the idea that a Krylov subspace for a previous quadrature
 point in the KSSF integral will be a good approximation to a Krylov subspace for the current quadrature point. We initially compute a Krylov basis for the wavenumber $\mathrm{i}k_{1}$ associated with the first
 quadrature point. We then extract several eigenvectors associated with the extremal eigenvalues based on Algorithm \ref{Alg for computing the evals kry} and then orthogonalize to obtain an initial approximation
 basis for the wavenumber $ik_2$. For this wavenumber we project the matrices onto the recycled basis, compute approximate eigenpairs $(\tilde{\lambda}_i, \tilde{\mathbf{x}}_i)$ and then extend the subspace
-basis with the residuals $\boldsymbol{r}_i = V_{ik}\tilde{\boldsymbol{x}}_i - \tilde{\lambda}_i\tilde{V}_{ik}\tilde{\boldsymbol{x}}_i$. With the extended subspace we recompute the eigenpairs for the second wavenumber's
+basis with the residuals $\boldsymbol{r}_i = \mathrm{V}(\mathrm{i}k)\tilde{\boldsymbol{x}}_i - \tilde{\lambda}_i\tilde{\mathrm{V}}(\mathrm{i}k)\tilde{\boldsymbol{x}}_i$. With the extended subspace we recompute the eigenpairs for the second wavenumber's
 case and extract eigenvectors as starting basis for the third wavenumber, and so on.
 
 
@@ -144,13 +143,13 @@ case and extract eigenvectors as starting basis for the third wavenumber, and so
 \subsection{Method II: Standard Arnoldi method}
 
 An alternative to the inverse-free projection method is to use standard Arnoldi to construct the Krylov subspace  
-$K_{m}(\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}, \boldsymbol{b})$, where $\boldsymbol{b}$ is some 
+$K_{m}(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1}, \boldsymbol{b})$, where $\boldsymbol{b}$ is some 
 initial vector and $m$ is the dimension of this Krylov subspace, and to then compute the eigenvalues of the resulting projected Hessenberg matrix $H_m$ (see \cite{saad2011numerical}).
 
-The computation of $V_{\mathrm{i}k}^{-1}\boldsymbol{y}$ for some vector $y$ can be efficiently implemented since $V_{\mathrm{i}k}$ is simply a block-diagonal matrix with the
+The computation of $\tilde{\mathsf{V}}(\mathrm{i}k)^{-1}\boldsymbol{y}$ for some vector $y$ can be efficiently implemented since $\tilde{\mathsf{V}}(\mathrm{i}k)$ is simply a block-diagonal matrix with the
 discretised single-layer potentials for each domain as block matrices. Hence, we just need to compute LU decompositions of these operators, and not of the whole system matrix.
 Similarly to the inverse free method we can again use a recycling approach based on the same idea of expanding our subspace with computed residuals, but now projecting
-$V_{ik}\tilde{V}_{ik}^{-1}$ onto the recycled space.
+$\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1}$ onto the recycled space.
 
 
 %
@@ -258,13 +257,13 @@ $V_{ik}\tilde{V}_{ik}^{-1}$ onto the recycled space.
 In this section we compare the standard Arnoldi, inverse free subspace method, and their recycled variants. The example is 
 two spheres with equal radii $r_{1} = r_{2} = 1$. Again, the minimum distance between them is denoted by $Z$, which is set as 0.5, 1.5 and 3.0. 
 
-The dimension of the Krylov subspace $m$ in Algorithm \ref{Alg for computing the evals kry}, Algorithm \ref{Alg for computing the evals kry recycled}, Step 1 of Algorithm \ref{Alg for computing the evals kry recycled},
-Algorithm \ref{Alg for arno method} and Step 1 of Algorithm \ref{Alg for computing the evals arno recycled} 
-is $m = 100$. The rule for extracting the eigenvectors in recycled scheme is that only the eigenvector associated with the extreme eigenvalue whose 
-logarithm value is greater than $10^{-5}$ would be recycled. {\color{red} I do not understand how many vectors you keep in the recycling strategy. Do you always limit to 100 or do you have more?
+The dimension of the Krylov subspace $m$ in Algorithm \ref{Alg for computing the evals kry} and Arnoldi iterations
+is $m = 100$. {\color{teal} The number of the recycled eigenvectors is not fixed but depends on the number of the relevant eigenvalues in each wavenumber case. 
+In our experiments, we only recycle the eigenvector whose corresponding eigenvalue has the logarithm greater than $10^{-5}$. In this case, the number of the recycled
+eigenvectors becomes less and less as the $k$ gets larger.} {\color{red} I do not understand how many vectors you keep in the recycling strategy. Do you always limit to 100 or do you have more?
 The number anyway seems excessive given that the problem overall is not too large (dimension something around 2 or 3k?)}
 
-Table \ref{Table lists the logdet} lists the relative error for approximating the value of $\log\det\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$ 
+Table \ref{Table lists the logdet} lists the relative error for approximating the value of $\log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$ 
 computed via the inverse-free Krylov subspace method and standard Arnoldi method with or without recycling the subspace. It indicates that for with the settings above, one 
 can have at lease three significant digits accuracy.
  
@@ -295,19 +294,20 @@ can have at lease three significant digits accuracy.
                                    & 0.236    & $2.54\times 10^{-3}$  & $2.13\times 10^{-4}$  &$5.07\times 10^{-9}$  &$1.59\times 10^{-5}$\\ 
     \hline
     \end{tabular}
-    \caption{Relative error for approximating the value of $\log\det\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$ on the first five consecutive 
+    \caption{Relative error for approximating the value of $\log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$ on the first five consecutive 
     quadrature points via the inverse-free Krylov subspace and standard Arnoldi methods with/without subspace recycled. The scatterers are two spheres with 
     equal radii $R = 1$ with distance $Z = 0.5$, 1.5 and 3.0}
     \label{Table lists the logdet}
     \end{table}
     
 For large problems the dominating cost is that of the involved matrix-vector products with the integral operators. In Figures \ref{matvec100} and \ref{matvec200} we
-plot the number of actual matvecs with discretised integral operators for each individual Algorithm. The integral here has been discretized with {\text{color} XXX} quadrature
-points {\color{red} What is the number of quad points? You need to give this information.}
+plot the number of actual matvecs with discretised integral operators for each individual algorithm. {\color{teal} We only consider the number of the matvec associated with the dense matrix 
+$\mathrm{V}(\mathrm{i}k)$ but not $\tilde{\mathrm{V}}(\mathrm{i}k)$. Since $\tilde{\mathrm{V}}(\mathrm{i}k)$ is diagonal, in our algorithm, we always take its diagonal 
+components to multiply with the vectors, which has a half size of the dense matrix $\mathrm{V}(\mathrm{i}k)$.} The integral here has been discretized with {\color {teal} 20} quadrature
+points. {\color{red} What is the number of quad points? You need to give this information.} {\color{red} Do you count the matvec with each component of the
+2x2 block matrices $V_{ik}$ and $\tilde{V}_{ik}$ separately? Not clear from your description.} 
 
- {\color{red} Do you count the matvec with each component of the
-2x2 block matrices $V_{ik}$ and $\tilde{V}_{ik}$ separately? Not clear from your description.} It shows that the recycling strategy significantly reduces the overall number
-of matrix-vector products necessary.
+It shows that the recycling strategy significantly reduces the overall number of matrix-vector products necessary.
 
 %To further compare the efficiency of these methods, we explore the number of matrix-vector multiplications for these methods on computing the Casimir energy
 %and they are list inside Table \ref{4methods FLOP}. In addition, Figure \ref{matvec100} and Figure \ref{matvec200} plot the number of matrix-vector multiplications

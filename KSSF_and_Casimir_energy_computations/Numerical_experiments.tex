@@ -23,13 +23,35 @@ In the case of spheres we also compare with known asymptotic expansions \cite{em
     \label{Two spheres with equal radii}
 \end{figure}
 
-Consider two perfectly conducting spheres with equal radii $R$ in Figure \ref{Two spheres with equal radii}. By denoting the distance between them as $Z$, 
-the asymptotic expression of the integrand of the Casimir integral formula \eqref{KSSF and CasE} introduced in \cite{fang2021singularity} is written as:
+{\color{teal} We start with validating the construction of the integrand function $\Xi$ of the Casimir integral \eqref{KSSF and CasE} in the case when the scatterers
+are two perfectly conducting spheres with equal radii $R$ and distance $Z$ (see Figure \ref{Two spheres with equal radii}). 
+Denote by $\Xi_{h}$ the value of $\Xi$ computed under the refinement level with mesh size $h$ and denote by  $\Xi_{\text{ref}}(\mathrm{i}k)$ the
+reference values computed by discretizing the single-layer boundary integral operators in terms of the spherical harmonic functions, 
+which is suggested by \cite{kenneth2008casimir}. These reference values are accurate within $0.05\%$.
+
+
+Figure \ref{Scalar_Xi_h_conv} shows the relative distance between $\Xi_{h}(\mathrm{i}k)$ and $\Xi_{\text{ref}}(\mathrm{i}k)$ in difference 
+refinement levels with $\mathrm{i}k = 0.8\mathrm{i}$. One can see that $\Xi_{h}$ converges to $\Xi_{\text{ref}}$ with the mesh refined. 
+This figure is plotted in log-log scale plot and the slope of these lines is around 2. This numerical result indicates that this convergence is quadratic.}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = \textwidth]{figures/Scalar_Xi_h_conv_paper.png}
+    \caption{$h$-convergence of $\Xi_{h}(\mathrm{i}k)$ when $\mathrm{i}k = 0.8\mathrm{i}$. The reference value $\Xi_{\text{rel}}$ is accurate within $0.05\%$. The scatterers are two spheres with equal radii 1 and the distance between them is set as $Z = 0.5$, 1.5 and 3.0.
+    The relative distance between $\Xi_{\text{rel}}$ and $\Xi_{h}$ decreases as we refine the mesh.}
+    \label{Scalar_Xi_h_conv}
+\end{figure}
+
+{\color{teal} Having shown the validation of the construction of $\Xi$, we are left with determining a proper upperbound for the Casimir integration. 
+The following asymptotic expression of the integrand of the Casimir integral formula \eqref{KSSF and CasE} introduced in \cite{fang2021singularity}
+can help with determining the upperbound, which is written as:}
 \begin{align}\label{asymptotic integrand}
     \Xi(k) = -\frac{R_{1}R_{2}}{4Z(R_{1} + R_{2} + Z)}e^{2\mathrm{i}Zk} + o\left(e^{-2Z\text{Im}k}\right),
 \end{align}
 where $R_{1}$ and $R_{2}$ are the radius of the spheres.
-{\color{red} I do not understand why you now use this expansion and in the earlier sentence cite \cite{emig2008casimir}. Is this the same expansion?}
+{\color{red} I do not understand why you now use this expansion and in the earlier sentence cite \cite{emig2008casimir}. Is this the same expansion?} {\color{teal} 
+No, they are not the same expansion. [32] is from Alex's result about the asymptotic expression of the integrand and I used it for determine the upperbound of 
+the integration. [24] is the asymptotic expansion of the Casimir energy}
 
 {\color{red} As I have said when we discussed your thesis. It is terrible to start with this Figure. People want to see some kind of validation of your results.
 But you compare with something that has quite different values.}
@@ -66,7 +88,8 @@ of the integration for the distance $Z$ varying from 0.5 to 3.0.
     \begin{align*}
         \epsilon \approx \int_{\kappa}^{\infty}f(k)dk = \frac{Ce^{-2Z\kappa}}{2Z},
     \end{align*}
-    where $\kappa$ is the upperbound of the integration. 
+    where $\kappa$ is the upperbound of the integration. {\color{teal} Recall that we have changed the variable from $k$ to $y = e^{-k}$ when applying the normal
+    trapezoidal rule. This upperbound $\kappa$ corresponds to the lowerbound of $y$, i.e. $e^{-\kappa}$.}
     
 {\color{red} You earlier do a coordinate transformation. So this upper bound turns into a lower bound for your quadrature rule. You should remark on this}.
     
@@ -91,8 +114,7 @@ With the upperbound of the integration determined, one can start to estimate the
 distance of $Z$ via the formula \eqref{KSSF and CasE} in two different refinement levels: $h_{\text{fine}} = 0.05$ 
 ($\text{dim}(\mathsf{V}_{\mathrm{i}k}) = 12603$) and $h_{\text{coarse}} = 0.1$ ($\text{dim}(\mathsf{V}_{\mathrm{i}k}) = 3192$).
 
-Afterwards, the extrapolation result can be obtained by substituting these Casimir energy estimates into 
-the formula \eqref{Richardson extrapolation}. This result would be regarded as the extrapolation value of the Casimir energy, which would be used to compare with the 
+Afterwards, the extrapolation result can be computed by these Casimir energy estimates. This result would be regarded as the extrapolation value of the Casimir energy, which would be used to compare with the 
 estimates derived from the asymptotic series introduced below. 
 
 According to \cite{emig2008casimir}, the Casimir energy between two spheres (with equal radii $R$) at asymptotically 
@@ -178,7 +200,6 @@ energy, the upperbound can be set as:
        \caption{\label{Unqual: distance and upperbound error tolerance} The estimated upperbound for the Casimir energy formula for different minimal distance $Z$ varying from 
        0.5 to 3.0.}
 \end{table}
-
 
 Afterwards, by denoting the centre distance as
 $L = R_{1} + R_{2} + Z$, the asymptotic expansion of the Casimir energy at asymptotically large distance can be written as:
