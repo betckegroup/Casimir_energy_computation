@@ -260,8 +260,16 @@ two spheres with equal radii $r_{1} = r_{2} = 1$. Again, the minimum distance be
 The dimension of the Krylov subspace $m$ in Algorithm \ref{Alg for computing the evals kry} and Arnoldi iterations
 is $m = 100$. {\color{teal} The number of the recycled eigenvectors is not fixed but depends on the number of the relevant eigenvalues in each wavenumber case. 
 In our experiments, we only recycle the eigenvector whose corresponding eigenvalue has the logarithm greater than $10^{-5}$. In this case, the number of the recycled
-eigenvectors becomes less and less as the $k$ gets larger.} {\color{red} I do not understand how many vectors you keep in the recycling strategy. Do you always limit to 100 or do you have more?
+eigenvectors becomes less and less as the $k$ gets larger (see Figure \ref*{number_of_recycled_eigenvectors}).} {\color{red} I do not understand how many vectors you keep in the recycling strategy. Do you always limit to 100 or do you have more?
 The number anyway seems excessive given that the problem overall is not too large (dimension something around 2 or 3k?)}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = \textwidth]{figures/number_of_recycled_eigenvectors.png}
+    \caption{The decreasing number of the recycled eigenvectors for the increasing $k$. The recycled eigenvector has the corresponding eigenvalue whose logarithm
+    is larger than $10^{-5}$.  The scatterers are two spheres with equal radii $R = 1$ with distance $Z = 0.5$, 1.5 and 3.0}
+    \label{number_of_recycled_eigenvectors}
+\end{figure}
 
 Table \ref{Table lists the logdet} lists the relative error for approximating the value of $\log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$ 
 computed via the inverse-free Krylov subspace method and standard Arnoldi method with or without recycling the subspace. It indicates that for with the settings above, one 
