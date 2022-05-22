@@ -28,7 +28,7 @@ For any function $f\in H_{\text{loc}}^1(\Omega)$ we can define the trace $\gamma
 \end{align*}
 We call the range of the trace operator $H^{1/2}(\Gamma)$. This space can be more rigorously defined. But for the purposes of this paper the description of $H^{1/2}(\Gamma)$ is range space of the trace operator is sufficient. We furthermore need the space $H^{-1/2}(\Gamma)$, which is the dual space of $H^{1/2}(\Gamma)$ with $L^2(\Gamma)$ as pivot space.
 
-We can now define the single-layer boundary $\mathcal{V}:H^{-1/2}(\Gamma)\rightarrow H^{1/2}(\Gamma)$ as
+We can now define the single-layer boundary $V_{k}:H^{-1/2}(\Gamma)\rightarrow H^{1/2}(\Gamma)$ as
 
 \begin{align*}
     (V_{k}\mu)(\boldsymbol{x}) := \int_{\Gamma}g_{k}(\boldsymbol{x},\boldsymbol{y})\psi(\boldsymbol{y})dS_{\boldsymbol{y}}, \ \ \ \ \ 
@@ -135,7 +135,7 @@ and the matrix $\tilde{V}_{k}$ is the diagonal part of $V_{k}$:
 Therefore, the element in the $m$th row and $n$th column of the block matrix $\mathsf{V}_{ij}(k)$ is 
 \begin{align}\label{Elements in matrix V}
     \mathsf{V}_{ij}^{(m,n)} (k) = \langle V_{ij}(k)\phi_{m}^{(i)}, \phi_{n}^{(j)}\rangle = 
-    \int_{\Gamma}\overline{\phi_{n}^{(j)}}(\boldsymbol{x})\int_{\Gamma}g_{k}(\boldsymbol{x}, \boldsymbol{y})\phi_{m}^{(i)}(\boldsymbol{y})dS_{\boldsymbol{y}}dS_{\boldsymbol{x}},
+    \int_{\Gamma_{j}}\overline{\phi_{n}^{(j)}}(\boldsymbol{x})\int_{\Gamma_{i}}g_{k}(\boldsymbol{x}, \boldsymbol{y})\phi_{m}^{(i)}(\boldsymbol{y})dS_{\boldsymbol{y}}dS_{\boldsymbol{x}},
 \end{align}
 where $\boldsymbol{\phi}^{(i)} = \begin{bmatrix}
     \phi_{1}^{(i)} & \phi_{2}^{(i)} & \dots & \phi_{N}^{(i)}
