@@ -9,14 +9,14 @@ most of the eigenvalues of the matrix $\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}
 (shown in Figure \ref{eigenvalues of VVtilde}) and contribute little to the value of the Casimir energy. Hence, we do not need to compute all eigenvalues but only
 the extremal ones, making subspace methods such as Krylov solvers attractive for this problem.
 
-In what follows we demonstrate and compare iterative solver approaches based on the inverse free Krylov subspace method \cite{golub2002inverse} \cite{money2005algorithm} {\color{red} GIVE REFERENCE}, 
-and based on standard Arnoldi iterations \cite{arnoldi1951principle}{\color{red} GIVE REFERENCE}.
+In what follows we demonstrate and compare iterative solver approaches based on the inverse free Krylov subspace method \cite{golub2002inverse} \cite{money2005algorithm}, 
+and based on standard Arnoldi iterations \cite{arnoldi1951principle}.
 We will also discuss on acceleration strategy which is based on the idea of recycling projection bases from one quadrature point to the next. 
 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 0.5]{figures/eigenvalue_of_VVtilde.pdf}
+    \includegraphics[scale = 0.4]{figures/eigenvalue_of_VVtilde.pdf}
     \caption{The eigenvalues of the matrix $\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1}$ when $\mathrm{i}k = 0.8\mathrm{i}$.
     The scatterers are two spheres with equal radii $r_{1} = r_{2} = 1$ and the minimal distance between them is $Z = 0.5$. The grid size of the mesh is $h = 0.1$.}
     \label{eigenvalues of VVtilde}
@@ -260,26 +260,31 @@ two spheres with equal radii $r_{1} = r_{2} = 1$. Again, the minimum distance be
 The dimension of the Krylov subspace $m$ in Algorithm \ref{Alg for computing the evals kry} and Arnoldi iterations
 is $m = 100$. {\color{teal} The number of the recycled eigenvectors is not fixed but depends on the number of the relevant eigenvalues in each wavenumber case. 
 In our experiments, we only recycle the eigenvector whose corresponding eigenvalue has the logarithm greater than $10^{-5}$. In this case, the number of the recycled
-eigenvectors becomes less and less as the $k$ gets larger (see Figure \ref*{number_of_recycled_eigenvectors}).} {\color{red} I do not understand how many vectors you keep in the recycling strategy. Do you always limit to 100 or do you have more?
+eigenvectors becomes less and less as the $k$ gets larger.  Figure \ref{Dimension_of_the_extended_subspace} plots the dimension of the extended subspace
+for each wavenumber case. It is equal to the number of the recycled eigenvectors plus the number of the residuals $\{\mathbf{r}_{i}\}_{i}$.} 
+
+{\color{red} I do not understand how many vectors you keep in the recycling strategy. Do you always limit to 100 or do you have more?
 The number anyway seems excessive given that the problem overall is not too large (dimension something around 2 or 3k?)}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width = \textwidth]{figures/number_of_recycled_eigenvectors.png}
-    \caption{The decreasing number of the recycled eigenvectors for the increasing $k$. The recycled eigenvector has the corresponding eigenvalue whose logarithm
-    is larger than $10^{-5}$.  The scatterers are two spheres with equal radii $R = 1$ with distance $Z = 0.5$, 1.5 and 3.0}
-    \label{number_of_recycled_eigenvectors}
+    \includegraphics[width = \textwidth]{figures/Dimension_of_the_extended_subspace.png}
+    \caption{The dimension of the extended subspace in the recycled approach for each wavenumber case, which is equal to the number of the recycled 
+    eigenvectors plus the number of the residuals $\{\mathbf{r}_{i}\}_{i}$. The recycled eigenvector has the corresponding eigenvalue whose logarithm
+    is larger than $10^{-5}$.  The scatterers are two spheres with equal radii $R = 1$ with distance $Z = 0.5$, 1.5 and 3.0.}
+    \label{Dimension_of_the_extended_subspace}
 \end{figure}
 
 Table \ref{Table lists the logdet} lists the relative error for approximating the value of $\log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$ 
-computed via the inverse-free Krylov subspace method and standard Arnoldi method with or without recycling the subspace. It indicates that for with the settings above, one 
+computed via the inverse-free Krylov subspace method and standard Arnoldi method with or without recycling the subspace. {\color{teal}The reference value is computed by the 
+direct dense computation of the log determinant.} It indicates that with the settings above, one 
 can have at lease three significant digits accuracy.
  
 \begin{table}[H]
     \centering
-    \begin{tabular}{ |M{1.5cm}|M{1.7cm}|M{2.2cm} |M{2.2cm}|M{2.2cm}|M{3cm}|M{2.2cm}| } 
+    \begin{tabular}{ |M{1.5cm}|M{2.0cm}|M{2.2cm} |M{2.2cm}|M{3cm}|M{3cm}|M{2.2cm}| } 
     \hline
-    Distance $Z$ & Quadrature points $k$ &  Inverse-free (no recycling) & Inverse-free (recycling) & Standard Arnoldi (no recycling) & Standard Arnoldi (recycling)\\
+    Distance $Z$ & Wavenumber $k$ &  Inverse-free (no recycling) & Inverse-free (recycling) & Standard Arnoldi (no recycling) & Standard Arnoldi (recycling)\\
     \hline
     \multirow{5}{4em}{$Z = 0.5$}   & 0        & $9.79\times 10^{-4}$  & $9.79\times 10^{-4}$  &$9.29\times 10^{-4}$ &$9.29\times 10^{-4}$\\ 
                                    & 0.0540   & $9.67\times 10^{-4}$  & $9.78\times 10^{-5}$  &$4.91\times 10^{-5}$ &$1.37\times 10^{-6}$\\ 
@@ -304,14 +309,12 @@ can have at lease three significant digits accuracy.
     \end{tabular}
     \caption{Relative error for approximating the value of $\log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$ on the first five consecutive 
     quadrature points via the inverse-free Krylov subspace and standard Arnoldi methods with/without subspace recycled. The scatterers are two spheres with 
-    equal radii $R = 1$ with distance $Z = 0.5$, 1.5 and 3.0}
+    equal radii $R = 1$ with distance $Z = 0.5$, 1.5 and 3.0. The sphere meshes are refined with size $h = 0.1$.}
     \label{Table lists the logdet}
     \end{table}
     
-For large problems the dominating cost is that of the involved matrix-vector products with the integral operators. In Figures \ref{matvec100} and \ref{matvec200} we
-plot the number of actual matvecs with discretised integral operators for each individual algorithm. {\color{teal} We only consider the number of the matvec associated with the dense matrix 
-$\mathrm{V}(\mathrm{i}k)$ but not $\tilde{\mathrm{V}}(\mathrm{i}k)$. Since $\tilde{\mathrm{V}}(\mathrm{i}k)$ is diagonal, in our algorithm, we always take its diagonal 
-components to multiply with the vectors, which has a half size of the dense matrix $\mathrm{V}(\mathrm{i}k)$.} The integral here has been discretized with {\color {teal} 20} quadrature
+For large problems the dominating cost is that of the involved matrix-vector products with the integral operators. 
+{\color{teal} In Figures \ref{matvec100} and \ref{matvec200} we plot the number of actual matvecs with the discretised matrix form $\mathrm{V}(\mathrm{i}k)$ for each individual algorithm.} The integral here has been discretized with {\color {teal} 20} quadrature
 points. {\color{red} What is the number of quad points? You need to give this information.} {\color{red} Do you count the matvec with each component of the
 2x2 block matrices $V_{ik}$ and $\tilde{V}_{ik}$ separately? Not clear from your description.} 
 

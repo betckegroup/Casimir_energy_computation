@@ -132,11 +132,12 @@ between two spheres is asymptotically large.
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.5]{figures/Spheres_equal_CasE.pdf}
-    \caption[Caption for LOF]{Normalized Casimir energy\protect\footnotemark in two spheres with equal radii's case. The radius is $R = 1$ and the distance $Z$ 
+    \caption[Caption for LOF]{Normalized Casimir energy \protect\footnotemark in two spheres with equal radii's case. The radius is $R = 1$ and the distance $Z$ 
     ranges from 0.5 to 3.0. The exact value of the (normalized) Casimir energy has been written beside the data point, which is round up to 4 significant digits.}
     \label{Casimir energy between spheres with equal radii}
 \end{figure}
 \footnotetext{The normalized Casimir energy is $\mathcal{E}/\hbar c$, for $\mathcal{E}$ defined in \eqref{KSSF and CasE}.}
+% Our extrapolation results and the results in \cite{kenneth2008casimir} have discrepancy with the results in \cite{reid2009efficient}.
 
 Figure \ref{equal_radii_rel_dist} shows the relative distance between the estimated Casimir energy computed through inverse-free Krylov subspace method with subspace 
 recycled (solid blue triangles), standard Arnoldi method with subspace recycled (solid red circles), asymptotic series (solid black squares) and the extrapolation values.
@@ -387,10 +388,19 @@ In the next example, the scatterers are ice crystals with different number of br
                 \caption{Six-branches ice crystals' case: relative distance between the reference value (computed by Richardson extrapolation) with the estimates evaluated from the standard Arnoldi 
                 method with subspace recycled (solid red circles) and inverse-free Krylov subspace method with subspace recycled (solid blue triangles). The dimension of the Krylov subspace is $m = 100$.}       
              \end{figure}
-
-        
+For large problems, we can apply the fast multipole method method (FMM)\cite{ying2004kernel} when discretizing the operators. Compared with the dense assembly, it reduces 
+the storage memory and also speed up the matrix assembly. Although it takes longer when multiplying the matrix assembled by FMM with the vectors, the running time 
+for computing the $\log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$ decreases with the increasing $k$ due to the decreasing number of 
+the recycled eigenvectors (see Figure \ref{running_time_fmm}). 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = \textwidth]{figures/running_time_fmm.png}
+    \caption{Six-branches ice crystals' case: running time for evaluating the $\log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$ by the recycling approaches with/without 
+    implementing FMM. The expansion order for FMM is 7.}
+    \label{running_time_fmm}
+\end{figure}        
         %==================================================================================================
-It is not hard to imagine that the Casimir energy would be different after the scatterers rotate while keeping the distance between them unchanged. Therefore, 
+It is not hard to imagine that the Casimir energy would be different when rotating the scatterers and keeping the distance between them unchanged. Therefore, 
 in the last example, we would see how the Casimir energy between two identical ellipsoids changes as one of the ellipsoids rotates.
 
 In Figure \ref{Without rotation}, the above ellipsoid is centering at $(0,0,0)$ and the below one is centering at $(0, 0, -(0.5+0.5+Z))$, where $Z$ is the 
@@ -479,7 +489,7 @@ respectively. From the Figure \ref{Four ellipsoids}, it shows that the Casimir e
 
     \begin{figure}[H]
         \centering
-        \includegraphics[scale = 0.5]{figures/CasE_4_ellip.pdf}
+        \includegraphics[scale = 1]{figures/CasE_4_ellip.png}
         \caption{The dependence of the Casimir energy and rotation angle of one of the ellipsoids. Inwards towards the centroid case (solid blue square).
         Outwards towards the centroid case (solid orange triangle).}
         \label{Four ellipsoids}

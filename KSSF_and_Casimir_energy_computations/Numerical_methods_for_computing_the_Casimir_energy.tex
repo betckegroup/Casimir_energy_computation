@@ -83,7 +83,7 @@ Equation \eqref{slp and matrix} is used to compute the Casimir energy between th
 %     Note that the integral $\frac{\hbar c}{2}\int_{0}^{\infty}\xi(k)dk$ in \eqref{KSSF and CasE} is not Lebesgue convergent and requires regularisation for its numerical evaluation. The right-hand side integral does not suffer from this issue.
 % \end{remark}
 
-{\color{red} Corrected to here}
+% {\color{red} Corrected to here}
 
 
 \subsection{Galerkin discretization and boundary element spaces}
@@ -170,7 +170,9 @@ Then it holds for the $i$th eigenvalue $\lambda_i(A)$ and the $i$th eigenvalue $
 $$
 |\lambda_i(A) - \lambda_i(A+E)| \leq \frac{\|E\|^2}{\text{gap}_i},
 $$
-where $\text{gap}_i$ is the distance of $\lambda_i(A)$ to the spectrum of $A_2$ if $\lambda_i(A)$ is an eigenvalue of $A_1$, and to the spectrum of $A_1$ if $\lambda_i(A)$ is an eigenvalue of $A_2$. Details can be found in  \cite{mathias1998quadratic} {\color{red} The reference to Roy Matthias is suddenly missing}.
+where $\text{gap}_i$ is the distance of $\lambda_i(A)$ to the spectrum of $A_2$ if $\lambda_i(A)$ is an eigenvalue of $A_1$, and to the spectrum of $A_1$ if $\lambda_i(A)$ is an eigenvalue of $A_2$. Details can be found in  
+\cite{mathias1998quadratic}.
+% {\color{red} The reference to Roy Matthias is suddenly missing}.
 
 Now assume that we have two different obstacles. Then we have $A_1 = V_{11}(k)$, $A_2 = V_{22}(k)$ and $E_1 = V_{21}$ as the matrix of cross interactions between the two obstacles. The Green's function between two obstacles decays exponentially like $e^{-Zk}$, where $Z$ is the minimal distance between them, resulting in a matrix perturbation result of the form $|\lambda_i(\mathrm{V}) - \lambda_i(\tilde{\mathrm{V}})| = O(e^{-2Zk})$ for increasing $k$, from which the corresponding perturbation result for the log determinant follows.
 
