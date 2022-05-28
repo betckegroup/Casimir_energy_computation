@@ -389,14 +389,15 @@ In the next example, the scatterers are ice crystals with different number of br
                 method with subspace recycled (solid red circles) and inverse-free Krylov subspace method with subspace recycled (solid blue triangles). The dimension of the Krylov subspace is $m = 100$.}       
              \end{figure}
 For large problems, we can apply the fast multipole method method (FMM)\cite{ying2004kernel} when discretizing the operators. Compared with the dense assembly, it reduces 
-the storage memory and also speed up the matrix assembly. Although it takes longer when multiplying the matrix assembled by FMM with the vectors, the running time 
-for computing the $\log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$ decreases with the increasing $k$ due to the decreasing number of 
-the recycled eigenvectors (see Figure \ref{running_time_fmm}). 
+the storage memory and also speed up the matrix assembly. Although it takes longer when multiplying the matrix assembled by FMM with the vectors, 
+the decreasing number of the matrix-vector products (see Figure \ref{running_time_fmm} (Right)) leads to a shorter running time for computing the $\log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$
+(see Figure \ref{running_time_fmm} (Left)). 
 \begin{figure}[H]
     \centering
-    \includegraphics[width = \textwidth]{figures/running_time_fmm.png}
-    \caption{Six-branches ice crystals' case: running time for evaluating the $\log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$ by the recycling approaches with/without 
-    implementing FMM. The expansion order for FMM is 7.}
+    \hspace*{-1.5cm}\includegraphics[width = 1.2\textwidth]{figures/running_time_fmm.png}
+    \caption{Six-branches ice crystals' case: (Left) running time for evaluating the $\log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$ by
+    the direct dense computation and the recycling approaches with/without implementing FMM. The expansion order for FMM is 7. 
+    (Right) The number of the matrix-vector products in the recycling approaches with/without implementing FMM for each wavenumber case.}
     \label{running_time_fmm}
 \end{figure}        
         %==================================================================================================
