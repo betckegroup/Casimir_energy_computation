@@ -142,8 +142,8 @@ between two spheres is asymptotically large.
 Figure \ref{equal_radii_rel_dist} shows the relative distance between the estimated Casimir energy computed through inverse-free Krylov subspace method with subspace 
 recycled (solid blue triangles), standard Arnoldi method with subspace recycled (solid red circles), asymptotic series (solid black squares) and the extrapolation values.
 For both efficient methods introduced in Section \ref{Krylov subspace for generalized eigenvalue problem}, the dimension of the Krylov subspace is set as $m = 100$. 
-In addition, in the recycling process, only the eigenvectors associated with the extreme eigenvalues whose logarithm is larger than $10^{-5}$
-would be extracted and recycled. With these settings, these two methods with subspace recycled can achieve at least three significant digits accuracy on 
+In addition, in the recycling process, only the eigenvectors associated with the extreme eigenvalues whose logarithm is larger than $10^{-s}$, where $s = 3, 4, 5$
+when $Z = 0.5\sim1.25, 1.5\sim 2.75, 3.0$, respectively, would be extracted and recycled. With these settings, these two methods with subspace recycled can achieve at least three significant digits accuracy on 
 approximating the Casimir energy.
 
 \begin{figure}[H]
@@ -151,7 +151,8 @@ approximating the Casimir energy.
     \includegraphics[scale = 0.5]{figures/relative_distance_equal_radii.pdf}
     \caption{Spheres with equal radii's case: relative distance between the reference value (computed by Richardson extrapolation) with the asymptotic series (solid black square)  
     and the estimates evaluated from the standard Arnoldi method with subspace recycled (solid red circles) and inverse-free Krylov subspace method 
-    with subspace recycled (solid blue triangles). The dimension of the Krylov subspace is $m = 100$.}
+    with subspace recycled (solid blue triangles). The dimension of the Krylov subspace is $m = 100$. The recycled eigenvector has the corresponding eigenvalue 
+    whose logarithm is larger than $10^{-s}$, where $s = 3, 4, 5$ when $Z = 0.5\sim1.25, 1.5\sim 2.75, 3.0$, respectively.}
     \label{equal_radii_rel_dist}
 \end{figure}
  
@@ -214,8 +215,7 @@ where the coefficients $\{\tilde{b}_{n}\}$ depend on the parameter $\eta = R_{2}
 \end{align*}
 
 In the following experiment, the radii of the spheres shown in Figure \ref{Two spheres with unequal radii} are set as $R_{1} = 0.5$ and $ R_{2} = 1$. 
-As in the previous example, the exact value of the Casimir energy is computed through the Richardson extrapolation formula \eqref{Richardson extrapolation}, 
-where the coarse and fine grid size are $h_{\text{fine}} = 0.05$ ($\text{dim}(\mathsf{V}_{\mathrm{i}k}) = 7893)$ and 
+As in the previous example, the exact value of the Casimir energy is computed through the Richardson extrapolation and the coarse and fine grid size are $h_{\text{fine}} = 0.05$ ($\text{dim}(\mathsf{V}_{\mathrm{i}k}) = 7893)$ and 
 $h_{\text{coarse}} = 0.1$ ($\text{dim}(\mathsf{V}_{\mathrm{i}k}) = 2023)$, separately. 
 
 
@@ -240,7 +240,8 @@ standard Arnoldi methods with subspace recycled have been done in the unequal ra
     \includegraphics[scale = 0.5]{figures/relative_distance_unequal_radii.pdf}
     \caption{Spheres with unequal radii's case: relative distance between the reference value (computed by Richardson extrapolation) with the asymptotic series (solid black square)  
     and the estimates evaluated from the standard Arnoldi method with subspace recycled (solid red circles) and inverse-free Krylov subspace method 
-    with subspace recycled (solid blue triangles). The dimension of the Krylov subspace is $m = 100$.}
+    with subspace recycled (solid blue triangles). The dimension of the Krylov subspace is $m = 100$. The recycled eigenvector has the corresponding eigenvalue 
+    whose logarithm is larger than $10^{-s}$, where $s = 3, 4, 5$ when $Z = 0.5\sim1.25, 1.5\sim 2.75, 3.0$, respectively.}
     \label{unequal_radii_rel_dist}
 \end{figure}
 
@@ -306,7 +307,8 @@ area gets smaller.
         \includegraphics[scale = 1]{figures/level2_rel_err.png}
         \caption{Menger sponges in Level 2's case: relative distance between the reference value (computed by Richardson extrapolation) with the estimates evaluated from the standard Arnoldi 
         method with subspace recycled (solid red circles) and inverse-free Krylov subspace method 
-        with subspace recycled (solid blue triangles). The dimension of the Krylov subspace is $m = 100$.}
+        with subspace recycled (solid blue triangles). The dimension of the Krylov subspace is $m = 100$. The recycled eigenvector has the corresponding eigenvalue 
+        whose logarithm is larger than $10^{-5}$.}
 \end{figure}
 
 
@@ -386,7 +388,8 @@ In the next example, the scatterers are ice crystals with different number of br
                 \centering
                 \includegraphics[scale = 1]{figures/6branches_rel_err.png}
                 \caption{Six-branches ice crystals' case: relative distance between the reference value (computed by Richardson extrapolation) with the estimates evaluated from the standard Arnoldi 
-                method with subspace recycled (solid red circles) and inverse-free Krylov subspace method with subspace recycled (solid blue triangles). The dimension of the Krylov subspace is $m = 100$.}       
+                method with subspace recycled (solid red circles) and inverse-free Krylov subspace method with subspace recycled (solid blue triangles). The dimension of the Krylov subspace is $m = 100$.
+                The recycled eigenvector has the corresponding eigenvalue whose logarithm is larger than $10^{-5}$.}       
              \end{figure}
 For large problems, we can apply the fast multipole method method (FMM)\cite{ying2004kernel} when discretizing the operators. Compared with the dense assembly, it reduces 
 the storage memory and also speed up the matrix assembly. Although it takes longer when multiplying the matrix assembled by FMM with the vectors, 
