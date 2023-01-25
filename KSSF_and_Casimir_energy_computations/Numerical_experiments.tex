@@ -1,8 +1,12 @@
 % !TEX root =  main.tex
 
 
-In this section, we demonstrate numerical results for computing the Casimir energy between two conducting objects, where the objects are spheres, Menger sponges,
-ice crystals and ellipsoids. Reference values for the Casimir energy in each case is computed by grid refinement plus Richardson extrapolation.
+In this section, we demonstrate numerical results for computing the Casimir energy between two conducting objects, where the objects are spheres, sphere-torus, Menger sponges,
+ice crystals and ellipsoids. One reference value of the Casimir energy is
+computed by the Richardson extrapolation method which is often used for obtaining the
+higher-order estimate at zero grid spacing.
+
+% Reference values for the Casimir energy in each case is computed by grid refinement plus Richardson extrapolation.
 
 %The reference value of the Casimir energy is computed by Richardson extrapolation method which is often used 
 %for obtaining the higher-order estimate at zero grid spacing. Denote $\mathcal{E}_{\text{fine}}$ and $\mathcal{E}_{\text{coarse}}$ as the Casimir energy 
@@ -14,236 +18,256 @@ ice crystals and ellipsoids. Reference values for the Casimir energy in each cas
 
 In the case of spheres we also compare with known asymptotic expansions \cite{emig2008casimir}.
 
-\subsection{Two spheres case}
+\subsection{Sphere-sphere and sphere-torus case}
 \begin{figure}[H]
-    \hspace*{3cm}\includegraphics[scale = 0.6]{figures/Grid_two_spheres_dist.png}
-    \caption{Two spheres with equal radii: $R = 1$ represents the radius of the spheres and $Z$ is the distance between them. 
-    $h_{\text{coarse}} = 0.1$: $\text{dim}(\mathsf{V}_{\mathrm{i}k}) = 3192$,  N\textsuperscript{\underline{o}} of elements on both grids $ = 6384$;
-    $h_{\text{fine}} = 0.05$: $\text{dim}(\mathsf{V}_{\mathrm{i}k}) = 12603$,  N\textsuperscript{\underline{o}} of elements on both grids $ = 25180$}
+    \hspace*{3cm}\includegraphics[scale = 0.6]{figures/Sphere_equal_radii.png}
+    \caption{Two spheres with equal radii $r_{1} = r_{2} = 1$ and $Z$ is the minimal distance between them.
+    \\ \hspace*{1.2cm} $h_{\text{coarse}} = 0.1$: $\text{dim}(\mathrm{V}(\mathrm{i}k)) = 3192$,  N\textsuperscript{\underline{o}} of elements on both grids $ = 6384$;\\
+    \hspace*{1.2cm}$h_{\text{fine}} = 0.05$: $\text{dim}(\mathrm{V}(\mathrm{i}k)) = 12603$,  N\textsuperscript{\underline{o}} of elements on both grids $ = 25180$}
     \label{Two spheres with equal radii}
 \end{figure}
 
-{\color{teal} We start with validating the construction of the integrand function $\Xi$ of the Casimir integral \eqref{KSSF and CasE} in the case when the scatterers
-are two perfectly conducting spheres with equal radii $R$ and distance $Z$ (see Figure \ref{Two spheres with equal radii}). 
-Denote by $\Xi_{h}$ the value of $\Xi$ computed under the refinement level with mesh size $h$ and denote by  $\Xi_{\text{ref}}(\mathrm{i}k)$ the
-reference values computed by discretizing the single-layer boundary integral operators in terms of the spherical harmonic functions, 
-which is suggested by \cite{kenneth2008casimir}. These reference values are accurate within $0.05\%$.
+
+Consider two spheres with the equal radii $r_1 = r_2 = 1$ and the spacing $Z$ (see Figure \ref{Two spheres with equal radii}) as the scatterers.
+We denote $\Xi_{h}$, the value of $\Xi$ computed under the refinement level with mesh size $h$ and denote $\Xi_{h = 0}$, the higher-order estimate of 
+$\Xi_{h}$ at zero grid space, which is computed by Richardson extrapolation,
+\begin{align}\label{Extrapolation formula}
+    \Xi_{h = 0} \approx \frac{h_{\text{coarse}}^{2}\Xi_{h_\text{fine}}  - h_{\text{fine}}^{2}\Xi_{h_\text{coarse}}}{h_{\text{coarse}}^{2}  - h_{\text{fine}}^{2}},
+\end{align}
+where $h_{\text{fine}}$ and $h_{\text{coarse}}$ are two different mesh sizes with $h_{\text{fine}} < h_{\text{coarse}}$. In this example, we set $h_{\text{coarse}} = 0.1$ and $h_{\text{fine}} = 0.05$.
+
+We begin with validating the construction of the integrand function $\Xi$ of the Casimir integral \eqref{KSSF and CasE} by comparing the value of 
+$\Xi_{h}(\mathrm{i}k)$ for different refinement levels with the extrapolation value $\Xi_{h = 0}$ for $\mathrm{i}k = 0.8\mathrm{i}$ (see Figure \ref{Scalar_Xi_h_conv}). In the tables of 
+Figure \ref{Scalar_Xi_h_conv}, we also provide reference values provided by Alexander Strohmaier, one of the authors of \cite{hanisch2020relative}.
+These have been computed by discretizing the single-layer boundary integral operators in terms of the spherical harmonic functions as suggested by \cite{kenneth2008casimir}.
+They are believed to be accurate within $0.05\%$.
 
 
-Figure \ref{Scalar_Xi_h_conv} shows the relative distance between $\Xi_{h}(\mathrm{i}k)$ and $\Xi_{\text{ref}}(\mathrm{i}k)$ in difference 
-refinement levels with $\mathrm{i}k = 0.8\mathrm{i}$. One can see that $\Xi_{h}$ converges to $\Xi_{\text{ref}}$ with the mesh refined. 
-This figure is plotted in log-log scale plot and the slope of these lines is around 2. This numerical result indicates that this convergence is quadratic.}
+In Figure \ref{Scalar_Xi_h_conv}, one can see that $\Xi_{h}(\mathrm{i}k)$ converges to $\Xi_{h = 0}$ as $h$ increases.
+This figure is plotted in log-log scale plot and the slope of these lines is around 2. This numerical result indicates that this convergence is quadratic.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width = \textwidth]{figures/Scalar_Xi_h_conv_paper.png}
-    \caption{$h$-convergence of $\Xi_{h}(\mathrm{i}k)$ when $\mathrm{i}k = 0.8\mathrm{i}$. The reference value $\Xi_{\text{rel}}$ is accurate within $0.05\%$. The scatterers are two spheres with equal radii 1 and the distance between them is set as $Z = 0.5$, 1.5 and 3.0.
-    The relative distance between $\Xi_{\text{rel}}$ and $\Xi_{h}$ decreases as we refine the mesh.}
+    \includegraphics[width = \textwidth]{figures/Scalar_Xi_h_conv.png}
+    \caption{$h$-convergence of $\Xi_{h}(\mathrm{i}k)$ to the extrapolation value $\Xi_{h = 0}(\mathrm{i}k)$ when $\mathrm{i}k = 0.8\mathrm{i}$. The provided reference values are accurate within $0.05\%$. The scatterers are two spheres with equal radii 1 and the distance between them is set as $Z = 0.5$, 1.5 and 3.0.
+    The relative distance between $\Xi_{h}$ and $\Xi_{h = 0}$ decreases as we refine the mesh. The dashed line shows order 2 convergence. The tables list the values of $\Xi_{h}(0.8\mathrm{i})$ for $h = 0$, 0.05, 0.1, 0.15 and $0.2$, and the provided reference values.}
     \label{Scalar_Xi_h_conv}
 \end{figure}
 
-{\color{teal} Having shown the validation of the construction of $\Xi$, we are left with determining a proper upperbound for the Casimir integration. 
-The following asymptotic expression of the integrand of the Casimir integral formula \eqref{KSSF and CasE} introduced in \cite{fang2021singularity}
-can help with determining the upperbound, which is written as:}
-\begin{align}\label{asymptotic integrand}
-    \Xi(k) = -\frac{R_{1}R_{2}}{4Z(R_{1} + R_{2} + Z)}e^{2\mathrm{i}Zk} + o\left(e^{-2Z\text{Im}k}\right),
-\end{align}
-where $R_{1}$ and $R_{2}$ are the radius of the spheres.
-{\color{red} I do not understand why you now use this expansion and in the earlier sentence cite \cite{emig2008casimir}. Is this the same expansion?} {\color{teal} 
-No, they are not the same expansion. [32] is from Alex's result about the asymptotic expression of the integrand and I used it for determine the upperbound of 
-the integration. [24] is the asymptotic expansion of the Casimir energy}
-
-{\color{red} As I have said when we discussed your thesis. It is terrible to start with this Figure. People want to see some kind of validation of your results.
-But you compare with something that has quite different values.}
-
-Figure \ref{Abs equal} plots the quotient of the leading term in \eqref{asymptotic integrand} and the estimated integrand value on different 
-wavenumbers $\mathrm{i}k$. This quotient provides with a good estimate on the upperbound of the integration of the Casimir energy formula \eqref{KSSF and CasE}. 
-For example, when the distance $Z = 1.5$, if $k$ in wavenumber $\mathrm{i}k$ is larger than 7, the quotient gets far away from 1, which means the approximated 
-integrand value is not close to the asymptotic term and $7\mathrm{i}$ is chosen as the upperbound when $Z = 1.5$. The following table lists the upperbound 
-of the integration for the distance $Z$ varying from 0.5 to 3.0.
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{ |c|c|c|c|c|c|c|c|c|c|c|c| }
-        \hline
-        Distance $Z$ & $ 0.5$ & $ 0.75$  & $ 1.0$ & $1.25$ & $ 1.5$ & $1.75$  & $2.0$ & $2.25$ & $ 2.5$ & $ 2.75$  & $3.0$ \\\hline
-        Upperbound & $24\mathrm{i}$ & $17\mathrm{i}$ & $13\mathrm{i}$ & $9\mathrm{i}$ & $7\mathrm{i}$ & $6\mathrm{i}$ & $6\mathrm{i}$ & $5\mathrm{i}$ & $5\mathrm{i}$ & $4\mathrm{i}$ & $4\mathrm{i}$ \\\hline
-       \end{tabular}
-       \caption{\label{Equal: distance and upperbound} The estimated upperbound for the Casimir energy formula for different minimal distance $Z$ varying from 
-       0.5 to 3.0.}
-\end{table}
+ Having shown the validation of the construction of $\Xi$, we are left with determining a proper upperbound for the Casimir integration. 
+ The method for determining the upperbound of the integration is inspired by the asymptotic decay behavior of its integrand function.  
+ By Figure \ref{Distinct:The integrand decays exponentially} and Figure \ref{The integrand decays exponentially}, the integrand value $\log\det\mathrm{V}(\mathrm{i}k)\tilde{\mathrm{V}}(\mathrm{i}k)^{-1}$ shares the same trend with $e^{-2Zk}$, this inspires us to apply the function $f(k) = Ce^{-2Zk}$ to fit the curve of the estimated integrand
+ values. With the coefficient $C$ determined, one can estimate the absolute error for approximating the Casimir integral by computing:  
+ \begin{align} \label{determine ub}
+     \epsilon = \int_{\kappa}^{\infty}f(k)dk = \frac{Ce^{-2Z\kappa}}{2Z},
+ \end{align}
+ where $\kappa$ is the upperbound of the integration. Recall that we have changed the variable from $k$ to $y = e^{-k}$ when applying the normal trapezodial rule. This upperbound $\kappa$ corresponds to the lowerbound of $y$.
  
-\begin{figure}[H]
-    \centering
-    \hspace*{-1.4cm}\includegraphics[scale = 0.37]{figures/rel_err_equal.pdf}
-    \caption{The quotient of the leading term of the series \eqref{asymptotic integrand} and the estimated integrand value along the imaginary axis
-    with grid size $h$ set as $h_{\text{coarse}} = 0.1$ and $ h_{\text{fine}} = 0.05$ in two spheres with equal radii's case. The radius of the spheres is $R = 1$ and the minimal distance between them is $Z = 0.5$, 1.5 and 3.0. }
-    \label{Abs equal}
-\end{figure}
-
-\begin{remark}[Determine the upperbound of the integration from the error tolerance]\label{remark for upperbound determination}
-    By Figure \ref{The integrand decays exponentially}, since the integrand value $\log\det\mathsf{V}_{\mathrm{i}k}\tilde{\mathsf{V}}_{\mathrm{i}k}^{-1}$ 
-    shares the same trend with $e^{-2Zk}$ in \eqref{KSSF and CasE}, one can apply the function $f(k) = Ce^{-2Zk}$ to fit the curve of the estimated integrand
-    values. With the coefficient $C$ determined, one can estimate the absolute error for approximating the Casimir integral by computing:  
-    \begin{align*}
-        \epsilon \approx \int_{\kappa}^{\infty}f(k)dk = \frac{Ce^{-2Z\kappa}}{2Z},
-    \end{align*}
-    where $\kappa$ is the upperbound of the integration. {\color{teal} Recall that we have changed the variable from $k$ to $y = e^{-k}$ when applying the normal
-    trapezoidal rule. This upperbound $\kappa$ corresponds to the lowerbound of $y$, i.e. $e^{-\kappa}$.}
-    
-{\color{red} You earlier do a coordinate transformation. So this upper bound turns into a lower bound for your quadrature rule. You should remark on this}.
-    
-Meanwhile, one can also determine the upperbound of the integration with regard to different error tolerance. 
-
-For example, if one aims to have at least three significant digits of the exact value of the Casimir integral, the upperbound can be set as the following 
-table lists:
-
+With \eqref{determine ub}, one can determine the upperbound of the integration with regard to the desired error tolerance. For example, if one aims to have at least three significant digits of the exact value of the Casimir integral, the upperbound can be set as the ones listing in Table \ref{Table: scalar upperbound same radii}
 \begin{table}[H]
-    \centering
-    \begin{tabular}{ |c|c|c|c|c|c|c|c|c|c|c|c| }
-        \hline
-        Distance $Z$ & $ 0.5$ & $ 0.75$  & $ 1.0$ & $1.25$ & $ 1.5$ & $1.75$  & $2.0$ & $2.25$ & $ 2.5$ & $ 2.75$  & $3.0$ \\\hline
-        Upperbound & $10\mathrm{i}$ & $7\mathrm{i}$ & $5\mathrm{i}$ & $5\mathrm{i}$ & $4\mathrm{i}$ & $3\mathrm{i}$ & $3\mathrm{i}$ & $2\mathrm{i}$ & $2\mathrm{i}$ & $2\mathrm{i}$ & $2\mathrm{i}$ \\\hline
-       \end{tabular}
-       \caption{\label{Equal: distance and upperbound error tolerance} The estimated upperbound for the Casimir energy formula for different minimal distance $Z$ varying from 
-       0.5 to 3.0.}
+ \centering
+ \begin{tabular}{ ||c||c|c|c|c|c|c|c|c|c|c|c| }
+     \hline
+     Distance $Z$ & $ 0.5$ & $ 0.75$  & $ 1.0$ & $1.25$ & $ 1.5$ & $1.75$  & $2.0$ & $2.25$ & $ 2.5$ & $ 2.75$  & $3.0$ \\\hline
+     Upperbound of $k$ & $10$ & $7$ & $5$ & $5$ & $4$ & $3$ & $3$ & $2$ & $2$ & $2$ & $2$ \\\hline
+    \end{tabular}
+    \bigskip
+    \caption{\label{Equal: distance and upperbound error tolerance} The estimated upperbound for the Casimir energy formula for different minimal distance $Z$ varying from 
+    0.5 to 3.0.}
+    \label{Table: scalar upperbound same radii}
 \end{table}
-\end{remark}
 
-With the upperbound of the integration determined, one can start to estimate the Casimir energy between two spheres with radius $R = 1$ at the 
+% The following asymptotic expression of the integrand of the Casimir integral formula \eqref{KSSF and CasE} introduced in \cite{fang2021singularity}
+% can help with determining the upperbound, which is written as:
+% \begin{align}\label{asymptotic integrand}
+%     \Xi(k) = -\frac{R_{1}R_{2}}{4Z(R_{1} + R_{2} + Z)}e^{2\mathrm{i}Zk} + o\left(e^{-2Z\text{Im}k}\right),
+% \end{align}
+% where $R_{1}$ and $R_{2}$ are the radius of the spheres.
+
+% Figure \ref{Abs equal} plots the quotient of the leading term in \eqref{asymptotic integrand} and the estimated integrand value on different 
+% wavenumbers $\mathrm{i}k$. This quotient provides with a good estimate on the upperbound of the integration of the Casimir energy formula \eqref{KSSF and CasE}. 
+% For example, when the distance $Z = 1.5$, if $k$ in wavenumber $\mathrm{i}k$ is larger than 7, the quotient gets far away from 1, which means the approximated 
+% integrand value is not close to the asymptotic term and $7\mathrm{i}$ is chosen as the upperbound when $Z = 1.5$. The following table lists the upperbound 
+% of the integration for the distance $Z$ varying from 0.5 to 3.0.
+
+% \begin{table}[H]
+%     \centering
+%     \begin{tabular}{ |c|c|c|c|c|c|c|c|c|c|c|c| }
+%         \hline
+%         Distance $Z$ & $ 0.5$ & $ 0.75$  & $ 1.0$ & $1.25$ & $ 1.5$ & $1.75$  & $2.0$ & $2.25$ & $ 2.5$ & $ 2.75$  & $3.0$ \\\hline
+%         Upperbound & $24\mathrm{i}$ & $17\mathrm{i}$ & $13\mathrm{i}$ & $9\mathrm{i}$ & $7\mathrm{i}$ & $6\mathrm{i}$ & $6\mathrm{i}$ & $5\mathrm{i}$ & $5\mathrm{i}$ & $4\mathrm{i}$ & $4\mathrm{i}$ \\\hline
+%        \end{tabular}
+%        \caption{\label{Equal: distance and upperbound} The estimated upperbound for the Casimir energy formula for different minimal distance $Z$ varying from 
+%        0.5 to 3.0.}
+% \end{table}
+ 
+% \begin{figure}[H]
+%     \centering
+%     \hspace*{-1.4cm}\includegraphics[scale = 0.37]{figures/rel_err_equal.pdf}
+%     \caption{The quotient of the leading term of the series \eqref{asymptotic integrand} and the estimated integrand value along the imaginary axis
+%     with grid size $h$ set as $h_{\text{coarse}} = 0.1$ and $ h_{\text{fine}} = 0.05$ in two spheres with equal radii's case. The radius of the spheres is $R = 1$ and the minimal distance between them is $Z = 0.5$, 1.5 and 3.0. }
+%     \label{Abs equal}
+% \end{figure}
+
+With the upperbound of the integration determined, one can start to estimate the Casimir energy between two spheres with radius $r_1 = r_2 = 1$ at the 
 distance of $Z$ via the formula \eqref{KSSF and CasE} in two different refinement levels: $h_{\text{fine}} = 0.05$ 
 ($\text{dim}(\mathsf{V}_{\mathrm{i}k}) = 12603$) and $h_{\text{coarse}} = 0.1$ ($\text{dim}(\mathsf{V}_{\mathrm{i}k}) = 3192$).
 
-Afterwards, the extrapolation result can be computed by these Casimir energy estimates. This result would be regarded as the extrapolation value of the Casimir energy, which would be used to compare with the 
+Afterwards, the extrapolation result can be computed by these Casimir energy estimates. This result would be regarded as the extrapolation value of the 
+Casimir energy, which would be used to compare with the 
 estimates derived from the asymptotic series introduced below. 
 
-According to \cite{emig2008casimir}, the Casimir energy between two spheres (with equal radii $R$) at asymptotically 
-large separations can be obtained as a series in terms of the ratio of centre distance $L$ ($L = 2R + Z$) to sphere radius $R$:
+According to \cite{emig2008casimir}, the Casimir energy between two spheres (with equal radii $r$) at asymptotically 
+large separations can be obtained as a series in terms of the ratio of centre distance $L$ ($l = 2r + Z$) to sphere radius $R$:
 \begin{align}\label{Asymptotic equal radii}
-   \mathcal{E} = -\frac{\hbar c}{\pi}\frac{1}{L}\sum_{n=0}^{\infty}b_{n}\left(\frac{R}{L}\right)^{n+2},
+   \zeta_{\text{asy}} = -\frac{\hbar c}{\pi}\frac{1}{L}\sum_{n=0}^{\infty}b_{n}\left(\frac{r}{l}\right)^{n+2},
 \end{align}
 where the first six coefficients are 
 $b_{0} = -1/4$, $b_{1} = -1/4$,  $b_{2} = -77/48$,  $b_{3} = -25/16$,  $b_{4} = -29837/2880$, $b_{5} = -6491/1152$. Figure 
 \ref{Casimir energy between spheres with equal radii} shows the comparison between the Casimir energy computed from asymptotic series 
-\eqref{Asymptotic equal radii} and the exact value evaluated through {Richardson extrapolation}. Here, we observe that the asymptotic value gradually 
+\eqref{Asymptotic equal radii} and the exact value evaluated through Richardson extrapolation and the reference value $\zeta_{\text{ref}}$ provided in \cite[Equation (64)]{kenneth2008casimir}. Here, we observe that the asymptotic value gradually 
 approaches to the exact value as the distance $Z$ increases since the asymptotic expansion \eqref{Asymptotic equal radii} only works when the distance 
 between two spheres is asymptotically large.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 0.5]{figures/Spheres_equal_CasE.pdf}
-    \caption[Caption for LOF]{Normalized Casimir energy \protect\footnotemark in two spheres with equal radii's case. The radius is $R = 1$ and the distance $Z$ 
-    ranges from 0.5 to 3.0. The exact value of the (normalized) Casimir energy has been written beside the data point, which is round up to 4 significant digits.}
+    \includegraphics[width = \textwidth]{figures/Scalar_sp_equal_CasE.png}
+    \caption[Caption for LOF]{{\color{gray}Left:} Normalized Casimir energy  \protect\footnotemark computed by the extrapolation (blue circle), asymptotic series (orange hollow circle) in two spheres with equal radii's case. The radius is $r_{1} = r_{2} = 1$ and the distance $Z$ 
+    ranges from 0.5 to 3.0. The green hollow square represents the data of \cite{kenneth2008casimir}. {\color{gray}Right:} The table lists all the relevant data values in the figure.}
     \label{Casimir energy between spheres with equal radii}
 \end{figure}
-\footnotetext{The normalized Casimir energy is $\mathcal{E}/\hbar c$, for $\mathcal{E}$ defined in \eqref{KSSF and CasE}.}
+\footnotetext{The normalized Casimir energy is $-\mathcal{E}/\hbar c$, for $\mathcal{E}$ defined in \eqref{KSSF and CasE}.}
 % Our extrapolation results and the results in \cite{kenneth2008casimir} have discrepancy with the results in \cite{reid2009efficient}.
 
-Figure \ref{equal_radii_rel_dist} shows the relative distance between the estimated Casimir energy computed through inverse-free Krylov subspace method with subspace 
-recycled (solid blue triangles), standard Arnoldi method with subspace recycled (solid red circles), asymptotic series (solid black squares) and the extrapolation values.
-For both efficient methods introduced in Section \ref{Krylov subspace for generalized eigenvalue problem}, the dimension of the Krylov subspace is set as $m = 100$. 
-In addition, in the recycling process, only the eigenvectors associated with the extreme eigenvalues whose logarithm is larger than $10^{-s}$, where $s = 3, 4, 5$
-when $Z = 0.5\sim1.25, 1.5\sim 2.75, 3.0$, respectively, would be extracted and recycled. With these settings, these two methods with subspace recycled can achieve at least three significant digits accuracy on 
-approximating the Casimir energy.
+% Figure \ref{equal_radii_rel_dist} shows the relative distance between the estimated Casimir energy computed through inverse-free Krylov subspace method with subspace 
+% recycled (solid blue triangles), standard Arnoldi method with subspace recycled (solid red circles), asymptotic series (solid black squares) and the extrapolation values.
+% For both efficient methods introduced in Section \ref{Krylov subspace for generalized eigenvalue problem}, the dimension of the Krylov subspace is set as $m = 100$. 
+% In addition, in the recycling process, only the eigenvectors associated with the extreme eigenvalues whose logarithm is larger than $10^{-s}$, where $s = 3, 4, 5$
+% when $Z = 0.5\sim1.25, 1.5\sim 2.75, 3.0$, respectively, would be extracted and recycled. With these settings, these two methods with subspace recycled can achieve at least three significant digits accuracy on 
+% approximating the Casimir energy.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.5]{figures/relative_distance_equal_radii.pdf}
-    \caption{Spheres with equal radii's case: relative distance between the reference value (computed by Richardson extrapolation) with the asymptotic series (solid black square)  
-    and the estimates evaluated from the standard Arnoldi method with subspace recycled (solid red circles) and inverse-free Krylov subspace method 
-    with subspace recycled (solid blue triangles). The dimension of the Krylov subspace is $m = 100$. The recycled eigenvector has the corresponding eigenvalue 
-    whose logarithm is larger than $10^{-s}$, where $s = 3, 4, 5$ when $Z = 0.5\sim1.25, 1.5\sim 2.75, 3.0$, respectively.}
-    \label{equal_radii_rel_dist}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[scale = 0.5]{figures/relative_distance_equal_radii.pdf}
+%     \caption{Spheres with equal radii's case: relative distance between the reference value (computed by Richardson extrapolation) with the asymptotic series (solid black square)  
+%     and the estimates evaluated from the standard Arnoldi method with subspace recycled (solid red circles) and inverse-free Krylov subspace method 
+%     with subspace recycled (solid blue triangles). The dimension of the Krylov subspace is $m = 100$. The recycled eigenvector has the corresponding eigenvalue 
+%     whose logarithm is larger than $10^{-s}$, where $s = 3, 4, 5$ when $Z = 0.5\sim1.25, 1.5\sim 2.75, 3.0$, respectively.}
+%     \label{equal_radii_rel_dist}
+% \end{figure}
  
 %================================================================================================================
 \begin{figure}[H]
-    \hspace*{2cm}\includegraphics[scale = 0.6]{figures/Grid_two_spheres_unequal_radii.png}
-    \caption{Two spheres with unequal radii: $R_{1} = 0.5$ and $R_{2} = 1$ represent the radius of the spheres and $Z$ is the distance between them.
-    $h_{\text{coarse}} = 0.1$: $\text{dim}(\mathsf{V}_{\mathrm{i}k}) = 2023$,  N\textsuperscript{\underline{o}} of elements on both grids $ = 4038$;
-    $h_{\text{fine}} = 0.05$: $\text{dim}(\mathsf{V}_{\mathrm{i}k}) = 7891$,  N\textsuperscript{\underline{o}} of elements on both grids $ = 15774$}
+    \centering
+    \includegraphics[scale = 0.5]{figures/Sphere_unequal_radii.png}
+    \caption{Two spheres with unequal radii $r_{1} = 0.5$ and $r_{2} = 1$ and $Z$ is the minimal distance between them.\\
+    \hspace*{1.5cm}$h_{\text{coarse}} = 0.1$: $\text{dim}(\mathrm{V}_{\mathrm{i}k}) = 2023$,  N\textsuperscript{\underline{o}} of elements on both grids $ = 4038$;\\
+    \hspace*{1.5cm}$h_{\text{fine}} = 0.05$: $\text{dim}(\mathrm{V}_{\mathrm{i}k}) = 7891$,  N\textsuperscript{\underline{o}} of elements on both grids $ = 15774$}
     \label{Two spheres with unequal radii}
 \end{figure}
 
-When the perfectly conducting spheres have different radii $R_{1}$, $R_{2}$ (see Figure \ref{Two spheres with unequal radii}), one can still use the 
-asymptotic expansion \eqref{asymptotic integrand} to determine the upperbound of the integration in the Casimir energy formula. 
+Now, let us consider the case when two spheres have different radii $r_{1}$, $r_{2}$ (see Figure \ref{Two spheres with unequal radii}). 
 
-    \begin{figure}[H]
-        \centering
-        \hspace*{-1.4cm}\includegraphics[scale = 0.37]{figures/rel_err_unequal.pdf}
-        \caption{Absolute distance between the approximated integrand value of the Casimir energy formula and the first term in 
-        asymptotic expansion \eqref{asymptotic integrand}, and compare this value with the exponential $e^{-2Z\text{Im}k}$. The radii of the spheres are equal to 
-        $R_{1} = 1$ and $R_{2} = 0.5$, and the minimal distance $Z$ between them is 0.5, 1.5 and 3.0. The absolute distance is in solid blue triangles when grid size 
-        $h = 0.1$ and in solid orange circles when $h = 0.05$.}
-        \label{Abs unequal}
-    \end{figure}
+% When the perfectly conducting spheres have different radii $R_{1}$, $R_{2}$ (see Figure \ref{Two spheres with unequal radii}), one can still use the 
+% asymptotic expansion \eqref{asymptotic integrand} to determine the upperbound of the integration in the Casimir energy formula. 
 
-Again, with Figure \ref{Abs unequal}, one can easily estimate the upperbound and the results are listed in Table \ref{Unequal: distance and upperbound}.
+%     \begin{figure}[H]
+%         \centering
+%         \hspace*{-1.4cm}\includegraphics[scale = 0.37]{figures/rel_err_unequal.pdf}
+%         \caption{Absolute distance between the approximated integrand value of the Casimir energy formula and the first term in 
+%         asymptotic expansion \eqref{asymptotic integrand}, and compare this value with the exponential $e^{-2Z\text{Im}k}$. The radii of the spheres are equal to 
+%         $R_{1} = 1$ and $R_{2} = 0.5$, and the minimal distance $Z$ between them is 0.5, 1.5 and 3.0. The absolute distance is in solid blue triangles when grid size 
+%         $h = 0.1$ and in solid orange circles when $h = 0.05$.}
+%         \label{Abs unequal}
+%     \end{figure}
+
+% Again, with Figure \ref{Abs unequal}, one can easily estimate the upperbound and the results are listed in Table \ref{Unequal: distance and upperbound}.
+% \begin{table}[H]
+%     \centering
+%     \begin{tabular}{ |c|c|c|c|c|c|c|c|c|c|c|c| }
+%         \hline
+%         Distance $Z$ & $ 0.5$ & $ 0.75$  & $ 1.0$ & $1.25$ & $ 1.5$ & $1.75$  & $2.0$ & $2.25$ & $ 2.5$ & $ 2.75$  & $3.0$ \\\hline
+%         Upperbound & $24\mathrm{i}$ & $17\mathrm{i}$ & $13\mathrm{i}$ & $9\mathrm{i}$ & $7\mathrm{i}$ & $6\mathrm{i}$ & $6\mathrm{i}$ & $5\mathrm{i}$ & $5\mathrm{i}$ & $4\mathrm{i}$ & $4\mathrm{i}$ \\\hline
+%        \end{tabular}
+%        \caption{\label{Unequal: distance and upperbound} The estimated upperbound for the Casimir energy formula for different minimal distance $Z$ varying from 
+%        0.5 to 3.0.}
+% \end{table}
+
+In this case, one can still determine the upperbound of the integration by fitting the integrand function curve and considering the error tolerance.
+In order to have at least three significant digits matching with the exact value of the Casimir energy, the upperbound can be set as the ones listing in Table \ref{Table: scalar upperbound diff radii}:
 \begin{table}[H]
     \centering
-    \begin{tabular}{ |c|c|c|c|c|c|c|c|c|c|c|c| }
+    \begin{tabular}{ ||c||c|c|c|c|c|c|c|c|c|c|c| }
         \hline
         Distance $Z$ & $ 0.5$ & $ 0.75$  & $ 1.0$ & $1.25$ & $ 1.5$ & $1.75$  & $2.0$ & $2.25$ & $ 2.5$ & $ 2.75$  & $3.0$ \\\hline
-        Upperbound & $24\mathrm{i}$ & $17\mathrm{i}$ & $13\mathrm{i}$ & $9\mathrm{i}$ & $7\mathrm{i}$ & $6\mathrm{i}$ & $6\mathrm{i}$ & $5\mathrm{i}$ & $5\mathrm{i}$ & $4\mathrm{i}$ & $4\mathrm{i}$ \\\hline
+        Upperbound of $k$ & $10$ & $6$ & $6$ & $4$ & $4$ & $3$ & $3$ & $3$ & $3$ & $3$ & $3$ \\\hline
        \end{tabular}
-       \caption{\label{Unequal: distance and upperbound} The estimated upperbound for the Casimir energy formula for different minimal distance $Z$ varying from 
-       0.5 to 3.0.}
-\end{table}
-
-By recalling the Remark \ref{remark for upperbound determination}, in order to have at least three significant digits matching with the exact value of the Casimir
-energy, the upperbound can be set as:
-\begin{table}[H]
-    \centering
-    \begin{tabular}{ |c|c|c|c|c|c|c|c|c|c|c|c| }
-        \hline
-        Distance $Z$ & $ 0.5$ & $ 0.75$  & $ 1.0$ & $1.25$ & $ 1.5$ & $1.75$  & $2.0$ & $2.25$ & $ 2.5$ & $ 2.75$  & $3.0$ \\\hline
-        Upperbound & $10\mathrm{i}$ & $6\mathrm{i}$ & $6\mathrm{i}$ & $4\mathrm{i}$ & $4\mathrm{i}$ & $3\mathrm{i}$ & $3\mathrm{i}$ & $3\mathrm{i}$ & $3\mathrm{i}$ & $3\mathrm{i}$ & $3\mathrm{i}$ \\\hline
-       \end{tabular}
+       \bigskip
        \caption{\label{Unqual: distance and upperbound error tolerance} The estimated upperbound for the Casimir energy formula for different minimal distance $Z$ varying from 
        0.5 to 3.0.}
+       \label{Table: scalar upperbound diff radii}
 \end{table}
 
-Afterwards, by denoting the centre distance as
-$L = R_{1} + R_{2} + Z$, the asymptotic expansion of the Casimir energy at asymptotically large distance can be written as:
+Afterwards, we would like to compare the extrapolation value of the Casimir energy computed through the Richardson extrapolation with the asymptotic expansion. By denoting the centre distance as
+$l = r_{1} + r_{2} + Z$, the asymptotic series of the Casimir energy between these two spheres is written by
 \begin{align}\label{Asymptotic unequal radii}
-    \mathcal{E} = -\frac{\hbar c}{\pi}\frac{1}{L}\sum_{n=0}^{\infty}\tilde{b}_{n}(\eta)\left(\frac{R_{1}}{L}\right)^{n+2},
+    \zeta_{\text{asy}} = -\frac{\hbar c}{\pi}\frac{1}{l}\sum_{n=0}^{\infty}\tilde{b}_{n}(\eta)\left(\frac{r_{1}}{L}\right)^{n+2},
 \end{align}
-where the coefficients $\{\tilde{b}_{n}\}$ depend on the parameter $\eta = R_{2}/R_{1}$ and the first six coefficients are
+where the coefficients $\{\tilde{b}_{n}\}$ depend on the parameter $\eta = r_{2}/r_{1}$ and the first six coefficients are
 \begin{align*}
     \tilde{b}_{0} &= -\frac{\eta}{4}, \ \ \ \ \ \tilde{b}_{1} = -\frac{\eta + \eta^{2}}{8}, \ \ \ \ \  \tilde{b}_{2} = -\frac{34(\eta+\eta^{3})+ 9\eta^{2}}{48}, \ \ \ \ \ \tilde{b}_{3} = -\frac{2(\eta+\eta^{4}) + 23(\eta^{2} + \eta^{3})}{32}, \\ 
     \tilde{b}_{4} &= -\frac{8352(\eta + \eta^{5})+ 1995(\eta^{2} + \eta^{4}) + 38980\eta^{3}}{5760}, \ \ \ \ \ \tilde{b}_{5} = -\frac{-1344(\eta+\eta^{6}) + 5478(\eta^{2} + \eta^{5})+2357(\eta^{3} + \eta^{4})}{2304}.
 \end{align*}
 
-In the following experiment, the radii of the spheres shown in Figure \ref{Two spheres with unequal radii} are set as $R_{1} = 0.5$ and $ R_{2} = 1$. 
+In the following experiment, the radii of the spheres shown in Figure \ref{Two spheres with unequal radii} are set as $r_{1} = 0.5$ and $ r_{2} = 1$. 
 As in the previous example, the exact value of the Casimir energy is computed through the Richardson extrapolation and the coarse and fine grid size are $h_{\text{fine}} = 0.05$ ($\text{dim}(\mathsf{V}_{\mathrm{i}k}) = 7893)$ and 
 $h_{\text{coarse}} = 0.1$ ($\text{dim}(\mathsf{V}_{\mathrm{i}k}) = 2023)$, separately. 
 
-
 In this case, the asymptotic value of the Casimir 
-energy was estimated by the series \eqref{Asymptotic unequal radii} and the comparison between the exact value and asymptotic one is shown in Figure 
+energy was estimated by the series \eqref{Asymptotic unequal radii} and the comparison between the extrapolation value and asymptotic one is shown in Figure 
 \ref{Casimir energy between spheres with unequal radii}. Again, one can notice that when the distance between two spheres decreases, the asymptotic value gets 
-close to the exact one and the reason for this is clearly stated in the above equal radii's case.
+close to the extrapolation one.
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 0.5]{figures/Spheres_unequal_CasE.pdf}
+    \includegraphics[width = \textwidth]{figures/Spheres_unequal_CasE.png}
     \caption{Normalized Casimir energy in two spheres with unequal radii's case. The radius is $R = 1$ and the distance $Z$ 
     ranges from 0.5 to 3.0. The exact value of the (normalized) Casimir energy has been written 
     beside the data point, which is round up to 4 significant digits.}
     \label{Casimir energy between spheres with unequal radii}
 \end{figure}
 
-By keeping all the experimental settings being the same with the equal radii's case, the numerical experiments on testing the performance of the inverse-free and 
-standard Arnoldi methods with subspace recycled have been done in the unequal radii's case and the results are shown in Figure \ref{unequal_radii_rel_dist}.
+% By keeping all the experimental settings being the same with the equal radii's case, the numerical experiments on testing the performance of the inverse-free and 
+% standard Arnoldi methods with subspace recycled have been done in the unequal radii's case and the results are shown in Figure \ref{unequal_radii_rel_dist}.
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[scale = 0.5]{figures/relative_distance_unequal_radii.pdf}
+%     \caption{Spheres with unequal radii's case: relative distance between the reference value (computed by Richardson extrapolation) with the asymptotic series (solid black square)  
+%     and the estimates evaluated from the standard Arnoldi method with subspace recycled (solid red circles) and inverse-free Krylov subspace method 
+%     with subspace recycled (solid blue triangles). The dimension of the Krylov subspace is $m = 100$. The recycled eigenvector has the corresponding eigenvalue 
+%     whose logarithm is larger than $10^{-s}$, where $s = 3, 4, 5$ when $Z = 0.5\sim1.25, 1.5\sim 2.75, 3.0$, respectively.}
+%     \label{unequal_radii_rel_dist}
+% \end{figure}
+After showing the validation of the numerical framework for computing the Casmir energy, we would like to end this section with computing the normalized Casimir energy between one torus and one sphere. For the torus, it is centering at the origin and the distance from the center of the tube to the center of the torus is $l_1 = 2$ and the radius of the tube is $l_2 = 0.5$; for the sphere, it has radius $r = 1$ and its center is always on the $z$-axis (see Figure \ref{fig:Torus_sphere_CasE} (Right)). By  Figure \ref{fig:Torus_sphere_CasE} (Left), one can see that when the sphere and the torus share the same center, the normalized Casimir energy has the largest magnitude. This means if one put this sphere at the origin in the beginning, this attractive effect will make the torus hold the sphere stationary. 
+
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.5]{figures/relative_distance_unequal_radii.pdf}
-    \caption{Spheres with unequal radii's case: relative distance between the reference value (computed by Richardson extrapolation) with the asymptotic series (solid black square)  
-    and the estimates evaluated from the standard Arnoldi method with subspace recycled (solid red circles) and inverse-free Krylov subspace method 
-    with subspace recycled (solid blue triangles). The dimension of the Krylov subspace is $m = 100$. The recycled eigenvector has the corresponding eigenvalue 
-    whose logarithm is larger than $10^{-s}$, where $s = 3, 4, 5$ when $Z = 0.5\sim1.25, 1.5\sim 2.75, 3.0$, respectively.}
-    \label{unequal_radii_rel_dist}
+\centering
+\begin{minipage}{.65\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{figures/Torus_sphere_CasE.png}
+\end{minipage}%
+\begin{minipage}{.35\textwidth}
+  \centering
+  \vspace*{-0.6cm}
+  \includegraphics[width=\textwidth]{figures/Sphere_torus.png}
+%   \caption{A subfigure}
+%   \label{fig:Sphere_torus}
+\end{minipage}
+\caption{Normalized Casimir energy between a torus and a sphere when the sphere moves along the $z$-axis. The parameters of the torus are $l_1 = 2$, $l_2 = 0.5$ and the radius of the sphere is $r = 1$.}
+\label{fig:Torus_sphere_CasE}
 \end{figure}
+
 
 \subsection{Realistic objects case}
 In this part, the Casimir energy between the objects with special shapes such as the menger sponges, ice crystals and ellipsoids will be computed 
@@ -304,7 +328,7 @@ area gets smaller.
 
 \begin{figure}[H]
         \centering
-        \includegraphics[scale = 1]{figures/level2_rel_err.png}
+        \includegraphics[width = \textwidth]{figures/level2_rel_err.png}
         \caption{Menger sponges in Level 2's case: relative distance between the reference value (computed by Richardson extrapolation) with the estimates evaluated from the standard Arnoldi 
         method with subspace recycled (solid red circles) and inverse-free Krylov subspace method 
         with subspace recycled (solid blue triangles). The dimension of the Krylov subspace is $m = 100$. The recycled eigenvector has the corresponding eigenvalue 
@@ -386,7 +410,7 @@ In the next example, the scatterers are ice crystals with different number of br
         
         \begin{figure}[H]
                 \centering
-                \includegraphics[scale = 1]{figures/6branches_rel_err.png}
+                \includegraphics[width = \textwidth]{figures/6branches_rel_err.png}
                 \caption{Six-branches ice crystals' case: relative distance between the reference value (computed by Richardson extrapolation) with the estimates evaluated from the standard Arnoldi 
                 method with subspace recycled (solid red circles) and inverse-free Krylov subspace method with subspace recycled (solid blue triangles). The dimension of the Krylov subspace is $m = 100$.
                 The recycled eigenvector has the corresponding eigenvalue whose logarithm is larger than $10^{-5}$.}       

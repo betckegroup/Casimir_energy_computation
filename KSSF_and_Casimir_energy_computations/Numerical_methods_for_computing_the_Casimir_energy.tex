@@ -2,7 +2,7 @@
 
 In this section, we give details of computing the Casimir energy via boundary integral operator discretisations. 
 Assume 
-$\Omega^{-}\in\mathbb{R}^{d}$, for $d \geq 2$ is the interior bounded Lebesgue-measurable domain that the scatterer occupies with piecewise smooth Lipschitz boundary $\Gamma$. The exterior domain is denoted as 
+$\Omega^{-}\subset \mathbb{R}^{d}$, for $d \geq 2$ is the interior bounded Lebesgue-measurable domain that the scatterer occupies with piecewise smooth Lipschitz boundary $\Gamma$. The exterior domain is denoted as 
 $\Omega^{+} = \mathbb{R}^{d}\backslash\overline{\Omega^{-}}$. $\boldsymbol{n}$ is the exterior unit normal to the surface $\Gamma$ pointing outwards from $\Omega^{-}$ and 
 $\boldsymbol{n}_{\boldsymbol{x}}$ is normal to $\Gamma$ at the point $\boldsymbol{x}\in\Gamma$.
 
@@ -76,7 +76,7 @@ The following theorem links the single-layer boundary operator with the Krein sp
 
 Equation \eqref{slp and matrix} is used to compute the Casimir energy between the objects and the formula is written as
 \begin{align}\label{KSSF and CasE}
-    \mathcal{E} = -\frac{\hbar c}{2\pi}\int_{0}^{\infty}\Xi(\mathrm{i}k)dk.
+    \zeta = \frac{\hbar c}{2\pi}\int_{0}^{\infty}\Xi(\mathrm{i}k)dk.
 \end{align}
 
 % \begin{remark}
@@ -114,7 +114,7 @@ Since $H^{-1/2}(\Gamma)$ does not require continuity we could use a space of sim
 \end{remark}
 
 Having defined the basis function $\phi_j$, we can represent each element inside the Galerkin discretization form. Assume there are $N$ objects,
-then the matrix of the operator $V_{k}$ is an $N$ by $N$ block matrix, written as 
+then the matrix of the operator $V_k$ is an $N$ by $N$ block matrix, written as 
 \begin{align}\label{matrix V}
     \mathsf{V}(k) = \begin{bmatrix}
         \mathsf{V}_{11}(k) & \mathsf{V}_{12}(k) & \cdots & \mathsf{V}_{1N}(k) \\
@@ -146,7 +146,7 @@ where $\boldsymbol{\phi}^{(i)} = \begin{bmatrix}
 denotes the standard $L^{2}(\Gamma)$ inner product.
 
 
-The value of $\Xi(\mathrm{i}k) = \log\det(\mathrm{V}(\mathrm{i}k)\tilde{\mathrm{V}}(\mathrm{i}k)^{-1})$ can now be explicitly computed by evaluating the corresponding log determinants.
+The value of $\Xi(\mathrm{i}k) = \log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$ can now be explicitly computed by evaluating the corresponding log determinants.
 
 The function $\Xi(\mathrm{i}k)$ has a very favourable decay behaviour for growing $k$ that we can use to limit the number of quadrature points necessary to evaluate the corresponding Casimir integral, namely under certain convexity assumptions on the obstacles it holds that
 $$
@@ -174,16 +174,31 @@ where $\text{gap}_i$ is the distance of $\lambda_i(A)$ to the spectrum of $A_2$ 
 \cite{mathias1998quadratic}.
 % {\color{red} The reference to Roy Matthias is suddenly missing}.
 
-Now assume that we have two different obstacles. Then we have $A_1 = V_{11}(k)$, $A_2 = V_{22}(k)$ and $E_1 = V_{21}$ as the matrix of cross interactions between the two obstacles. The Green's function between two obstacles decays exponentially like $e^{-Zk}$, where $Z$ is the minimal distance between them, resulting in a matrix perturbation result of the form $|\lambda_i(\mathrm{V}) - \lambda_i(\tilde{\mathrm{V}})| = O(e^{-2Zk})$ for increasing $k$, from which the corresponding perturbation result for the log determinant follows.
+Now assume that we have two different obstacles. Then we have $A_1 = \mathsf{V}_{11}(k)$, $A_2 = \mathsf{V}_{22}(k)$ and $E_1 = \mathsf{V}_{21}$ as the matrix of cross interactions 
+between the two obstacles. The Green's function between two obstacles decays exponentially like $e^{-Zk}$, where $Z$ is the minimal distance between them, 
+resulting in a matrix perturbation result of the form $|\lambda_i(\mathsf{V}) - \lambda_i(\tilde{\mathsf{V}})| = O(e^{-2Zk})$ for increasing $k$ (see Figure 
+), from 
+which the corresponding perturbation result for the log determinant follows.
 
-This purely linear algebraic consideration is not fully robust as it ignores the importance of the eigenvalue gap in the perturbation result. But we can heuristically explain the $\text{gap}$ as follows. On the continuous level the perturbations $E_1$ and $E_2$ are compact, so the tail end of the spectrum that converges to zero with small values of $\text{gap}_i$, is little effected by $E$, and the corresponding eigenvalues have a contribution of $\log \left|\frac{\lambda_i(A)}{\lambda_i(A+E)}\right| \approx 0$ to the value of $\Xi$. The relevant eigenvalues are the larger ones who for distinct obstacles have a sufficiently large value of $\text{gap}_i$.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.7]{figures/Scalar_integ_decay_unequal.png}
+    \caption{Exponential decay of $\Xi(\textrm{i}k)$ for two distinct spheres with radii $r_{1} = 0.5$ and $r_{2} = 1$ and minimum distance $Z=1.5$. The red line is the decay bound and the blue line is the actual decay.}
+    \label{Distinct:The integrand decays exponentially}
+\end{figure}
+
+This purely linear algebraic consideration is not fully robust as it ignores the importance of the eigenvalue gap in the perturbation result. But we can 
+heuristically explain the $\text{gap}$ as follows. On the continuous level the perturbations $E_1$ and $E_2$ are compact, so the tail end of the spectrum 
+that converges to zero with small values of $\text{gap}_i$, is little effected by $E$, and the corresponding eigenvalues have a contribution of 
+$\log \left|\frac{\lambda_i(A)}{\lambda_i(A+E)}\right| \approx 0$ to the value of $\Xi$. The relevant eigenvalues are the larger ones who for distinct obstacles 
+have a sufficiently large value of $\text{gap}_i$.
 
 While the linear algebra argument is useful to give a heuristical explanation, it is not as rigorous as the analytical result in \cite{fang2022trace}. In particular, we want to emphasize that the exponential decay bound with the quadratic factor also holds if the two obstacles are identical, which is not obvious from pure linear algebraic considerations. An example of this is given in Figure \ref{The integrand decays exponentially}.
 
 \begin{figure}[H]
     \centering
-    \hspace*{-1cm}\includegraphics[scale = 0.4]{figures/integ_exp_decay.pdf}
-    \caption{(Left) Exponential decay of $\Xi(\textrm{i}k)$ for two identical spheres with radius $R=1$ and minimum distance $Z=1.5$. The red line is the decay bound and the blue line is the actual decay. (Right). The integrand $\Xi(ik)$ after varlable transformation to apply a numerical trapezoid rule for its evaluation.}
+    \includegraphics[width = \textwidth]{figures/Scalar_integ_decay.png}
+    \caption{(Left) Exponential decay of $\Xi(\textrm{i}k)$ for two identical spheres with radius $r_1 = r_2 =1$ and minimum distance $Z=1.5$. The red line is the decay bound and the blue line is the actual decay. (Right) The integrand $\Xi(ik)$ after varlable transformation to apply a numerical trapezoid rule for its evaluation.}
     \label{The integrand decays exponentially}
 \end{figure}
 
