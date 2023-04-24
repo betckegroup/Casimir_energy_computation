@@ -17,8 +17,8 @@ the extremal ones, making subspace methods such as Krylov solvers attractive for
     \label{eigenvalues of VVtilde}
 \end{figure}
 
-In what follows we demonstrate and compare iterative solver approaches based on standard Arnoldi iterations \cite{arnoldi1951principle}\cite{MR3396212}, and based on the 
-inverse free Krylov subspace method \cite{golub2002inverse} \cite{money2005algorithm}.
+In what follows we demonstrate and compare iterative solver approaches based on standard Arnoldi iterations \cite{arnoldi1951principle, MR3396212}, and based on the 
+inverse free Krylov subspace method \cite{golub2002inverse, money2005algorithm}.
 We will also discuss on acceleration strategy which is based on the idea of recycling projection bases from one quadrature point to the next. 
 \subsection{Method I: Standard Arnoldi method}
 The first efficient method for solving our eigenvalue problem $\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1}\boldsymbol{x} = \lambda\boldsymbol{x}$ 
@@ -41,10 +41,10 @@ it is equivalent to the following generalized eigenvalue problem:
     \mathsf{V}(\mathrm{i}k)\tilde{\boldsymbol{x}} = \lambda \tilde{\mathsf{V}}(\mathrm{i}k)\tilde{\boldsymbol{x}}.
 \end{align}
 
-An important property of this problem is that as we are only interested in $\mathrm{i}k$ along the imaginary axis, the corresponding matrix $\tilde{\mathrm{V}}(\mathrm{i}k)$ is positive definite in the scalar case,
+An important property of this problem is that as we are only interested in $\mathrm{i}k$ along the imaginary axis, the corresponding matrix $\tilde{\mathrm{V}}(\mathrm{i}k)$ is positive definite,
 and $\mathrm{V}(\mathrm{i}k)$ is still symmetric.
 
-In \cite{golub2002inverse}\cite{money2005algorithm},
+In \cite{golub2002inverse, money2005algorithm},
 the authors proposed an inverse-free Krylov subspace method for computing a few extreme eigenvalues of the symmetric definite generalized eigenvalue problem.
 The following algorithm summarizes the method.
 
@@ -94,7 +94,7 @@ In this section, we compare the performance of standard Arnoldi and inverse-free
 determinant term of $\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1}$. As the dominant cost of these methods is the matrix-vector products (matvec) 
 associated with the discretized boundary integral operators, 
 we will also compare the number of the matvecs between these methods. All the tests are performed on two spheres with equal radii $r_1 = r_2 = 1$. 
-The sphere meshes are refined with size $h = 0.1$. Again, the minimum distance between them is denoted by $Z$, which is set as 0.5, 1.5 and 3.0. 
+The sphere meshes are refined with size $h = 0.1$ and this results in the matrix size $\mathrm{V}(\mathrm{i}k)$ being $3192\times 3192$. Again, the minimum distance between them is denoted by $Z$, which is set as 0.5, 1.5 and 3.0. 
 The number of the quadrature points is 20.
 
 We start by comparing the relative error for approximating the $\log\det\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1}$ using all these methods. 
@@ -121,7 +121,7 @@ whose corresponding log determinant values account for a great proportion in the
 
 This table indicates that with the settings above, one can have at least three significant digits accuracy and the performance of the methods with subspace 
 recycled is similar to the ones without any recycling processes. As for the performance of these methods and their variants at larger quadrature points, we 
-cannot always have three digits accuracy due to the smaller size of the recycled subspace. However, this will not affect the estimates of the Casimir energy too 
+cannot always have three digits accuracy. However, this will not affect the estimates of the Casimir energy too 
 much as their corresponding log determinant value is relatively smaller than the others and contributes very little to the Casimir energy. 
  
 \begin{table}[H]
@@ -190,7 +190,7 @@ much as their corresponding log determinant value is relatively smaller than the
         \centering
         \includegraphics[width = \textwidth]{figures/Num_matvec.png}
         \caption{The number of matvecs inside the inverse-free and standard Arnoldi methods with or without recycling subspace when 
-        computing the normalized Casimir energy between two spheres with equal radii $R = 1$ and the distance $Z$ is 0.5, 1.5 and 3.0 in the scalar case. 
+        computing the normalized Casimir energy between two spheres with equal radii $R = 1$ and the distance $Z$ is 0.5, 1.5 and 3.0. 
         The number of the quadrature point is $N_q = 20$. The dimension of the Krylov subspace is set as $m = 100$ ({\color{gray} Left}) and 
         $200$ ({\color{gray} Right}).}
         \label{fig:Num_matvec}

@@ -10,7 +10,7 @@ massless scalar field.
 This force was measured experimentally by Sparnaay 
 about 10 years later \cite{sparnaay1958measurements} and the Casimir effect has since become famous for its intriguing derivation and its counterintuitive nature.
 In 1996, precision measurements of the Casimir force between 
-the extended bodies were conducted by S.K. Lamoreaux \cite{lamoreaux1997demonstration}  confirming the theoretical predictions including the corrections for 
+ extended bodies were conducted by S.K. Lamoreaux \cite{lamoreaux1997demonstration}  confirming the theoretical predictions including corrections for 
 realistic materials. From 2000 to 2008, the Casimir force has been measured in various 
 experimental configurations, such as cylinder-cylinder \cite{ederth2000template}, plate-plate \cite{bressi2002measurement}, 
 sphere-plate \cite{krause2007experimental} and sphere-comb \cite{chan2008measurement}. 
@@ -42,7 +42,7 @@ give path-integral considerations based on considerations of surface current flu
 and were also very useful to obtain asymptotic formulae for Casimir forces for large and small separations. The mathematical relation between the various 
 approaches remained unclear, with proofs of equality only available in special cases.
 A full mathematical justification of the determinant formulae as the trace of an operator describing the Casimir energy was only recently achieved in 
-\cite{hanisch2020relative} for the scalar field and \cite{strohmaier2021classical} for the electromagnetic field. It was also proved recently in \cite{fang2021mathematical} that the 
+\cite{MR4484208} for the scalar field and \cite{strohmaier2021classical} for the electromagnetic field. It was also proved recently in \cite{fang2021mathematical} that the 
 formulae arising from Zeta regularistation, from the stress energy tensor, and from the determinant of the single layer operator all give the same Casimir forces.
 
 We will now describe the precise mathematical setting and review the theory.
@@ -66,7 +66,7 @@ $f(\Delta^{\frac{1}{2}}), f(\Delta_{j}^{\frac{1}{2}})$, and $f(\Delta_{0}^{\frac
 $$
  D_{f} = f(\Delta^{\frac{1}{2}}) - f(\Delta_{0}^{\frac{1}{2}}) - \left(\sum_{j = 1}^{N}[f(\Delta_{j}^{\frac{1}{2}}) - f(\Delta_{0}^{\frac{1}{2}})]\right)
 $$
-is densely defined. It was shown in \cite{hanisch2020relative} that under additional analyticity assumptions on $f$ the operator
+is densely defined. It was shown in \cite{MR4484208} that under additional analyticity assumptions on $f$ the operator
 $D_{f}$ is bounded and extends by continuity to a trace-class operator on $L^2(\mathbb{R}^{d})$. 
 These analyticity assumptions are in particular satisfied by $f(k) = (k^{2}+ m^{2})^{\frac{s}{2}}$ for any $s > 0, m \geq 0$ and one has
 \begin{align}\label{trace formula in terms of the boundary op}
@@ -77,7 +77,10 @@ $$
  \Xi(k) = \log \det V_{k} \tilde V_{k}^{-1}
 $$
 and the operators $V_{k}$ and $\tilde V_{k}$ are certain boundary layer operators that will be defined later. 
-It was proved in  \cite{hanisch2020relative} that this $V_{k} \tilde V_{k}^{-1}-1$ near the positive imaginary axis is indeed a holomorphic family of trace-class operators on the Sobolev space $H^\frac{1}{2}(\partial \Omega)$  so that the above determinant is well-defined in the sense of Fredholm. We remark here that the paper \cite{hanisch2020relative} assumed the boundary to be smooth and the operators $V_k  \tilde V_k^{-1}$ was considered as a map on $L^2(\partial \Omega)$. The main result of the paper also holds for Lipschitz boundaries if $L^2(\partial \Omega)$ is replaced by $H^\frac{1}{2}(\partial \Omega)$. This requires minor modifications of the proof but we will not discuss this further here, as we are now focusing on computational aspects.
+It was proved in  \cite{MR4484208} that the above determinant is well-defined in the sense of Fredholm as the operator $V_{k} \tilde V_{k}^{-1}$ near the positive imaginary axis differs
+from the identity operator by a trace-class operator on the Sobolev space $H^\frac{1}{2}(\partial \Omega)$.
+We remark here that the paper \cite{MR4484208} assumed the boundary to be smooth and the operators $V_k  \tilde V_k^{-1}$ was considered as a 
+map on $L^2(\partial \Omega)$. The main result of the paper also holds for Lipschitz boundaries if $L^2(\partial \Omega)$ is replaced by $H^\frac{1}{2}(\partial \Omega)$. This requires minor modifications of the proof but we will not discuss this further here, as we are now focusing on computational aspects.
 
 We also recall that by the Birman-Krein formula we have for any even function $h \in \mathcal{S}(\mathbb{R})$ the equality
 \begin{align}\label{B-K formula}
@@ -88,7 +91,7 @@ where
     \xi(k) = \frac{1}{2\pi \mathrm{i}}\log\left(\frac{\det(S(k))}{\det(S_{1,k})\cdots\det(S_{N,k}(k))}\right)
 \end{align*}
 will be called the relative Krein spectral shift function. Here, $S_{j,k}$ are the scattering matrices of $\Delta_{j}$ associated to the objects $\Omega_{j}$. Note here that the class of functions for which this is true can be relaxed to a certain extent, but even the most general version does not allow unbounded functions such as $f(k)$ with $s>0, m\geq 0$.
-The relative spectral shift function can however be related via a Laplace transform to the Fourier transform of the relative spectral shift function (see \cite{fang2021singularity}). Under mild convexity assumptions this can be connected to the Duistermaat-Guillemin trace formula in obstacle scattering theory to give an asymptotic expansion of  $\Xi(k)$ 
+The relative spectral shift function can however be related via a Laplace transform to the Fourier transform of the relative spectral shift function (see \cite{MR4396069}). Under mild convexity assumptions this can be connected to the Duistermaat-Guillemin trace formula in obstacle scattering theory to give an asymptotic expansion of  $\Xi(k)$ 
 in terms of the minimal distance $\delta>0$ between the obstacles and the linearised Poincar\'e map of the bouncing ball orbits between the obstacles of that length. One has
 $$
  \Xi(k) =- \sum_{j} \frac{1}{|\det(I - P_{\gamma_j})|^{\frac{1}{2}}} e^{2 i \delta k} + o(e^{- 2 \delta \text{Im}{k}}),

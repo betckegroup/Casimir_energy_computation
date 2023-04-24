@@ -11,7 +11,7 @@ In the scalar case, the Casimir energy can be expressed in terms of certain sing
 \subsection{The single-layer boundary operator}
 For the bounded interior domain $\Omega^{-}$ or the unbounded exterior domain $\Omega^{+}$, the space of the (locally) square integrable functions is 
 \begin{align*}
-    L^{2}(\Omega^{-}) &:= \left\{f:\Omega^{\pm}\rightarrow\mathbb{C}, f \text{ is Lebesgue measurable and} \int_{\Omega^{-}}|f|^{2} < \infty \right\},\\
+    L^{2}(\Omega^{-}) &:= \left\{f:\Omega^{-}\rightarrow\mathbb{C}, f \text{ is Lebesgue measurable and} \int_{\Omega^{-}}|f|^{2} < \infty \right\},\\
     L_{\text{loc}}^{2}(\Omega^{+}) &:= \left\{f:\Omega^{+}\rightarrow\mathbb{C},\ f \text{ is Lebesgue measurable and} \int_{K}|f|^{2} < \infty, \ \text{for all compact}\ K \subset \Omega^{+} \right\}
 \end{align*}
 and note that the subscript ``loc'' can be removed if the domain is bounded (i.e. $L_{\text{loc}}^{2}(\Omega^{-}) = L^{2}(\Omega^{-})$).
@@ -45,30 +45,28 @@ with $H_{0}^{(1)}$  a Hankel function of the first kind.
 
 
 
-\subsection{Relation between the Krein spectral shift function and the single-layer boundary operator}
-By \cite{hanisch2020relative}, the Krein spectral shift function is defined as 
-\begin{align*}
-    \xi(k) = \frac{1}{2\pi \mathrm{i}}\log\left(\frac{\det(S(k))}{\det(S_{1,k})\cdots\det(S_{N,k})}\right),
-\end{align*}
-where $S_{i,n}$ is the scattering matrix associated with the $n$th scatterer. These scattering matrices can be constructed  $S_{i,n} = I + 2T_{i,n}$, where 
-$I$ is the identity matrix and $T_{i,n}$ is the $T$-matrix. The method of computing the $T$-matrix is fully discussed in \cite{waterman1969new} and 
-\cite{ganesh2008far}.
-
-The following theorem links the single-layer boundary operator with the Krein spectral shift function.
-\begin{theorem}\cite{hanisch2020relative}
+\subsection{The formula of the Casimir energy}
+% By \cite{MR4484208}, the Krein spectral shift function is defined as 
+% \begin{align*}
+%     \xi(k) = \frac{1}{2\pi \mathrm{i}}\log\left(\frac{\det(S(k))}{\det(S_{1,k})\cdots\det(S_{N,k})}\right),
+% \end{align*}
+% where $S_{i,n}$ is the scattering matrix associated with the $n$th scatterer. These scattering matrices can be constructed  $S_{i,n} = I + 2T_{i,n}$, where 
+% $I$ is the identity matrix and $T_{i,n}$ is the $T$-matrix. The method of computing the $T$-matrix is fully discussed in \cite{waterman1969new} and 
+% \cite{ganesh2008far}.
+Before we present the formula of the Casimir energy, let us introduce the following theorem.
+\begin{theorem}\cite{MR4484208}
     Consider $\Omega$ as a domain assembling from individual objects $\Omega_{i}$. Let $V_{k}$ be the single-layer boundary operator defined on the boundary 
     $\partial\Omega = \bigcup_{i = 1}^{N}\partial\Omega_{i}$, and $\tilde{V}_{k}$ is the ``diagonal part'' of $V_{k}$ by restricting the integral 
     kernel to the subset $\bigcup_{i = 1}^{N}\partial\Omega_{i}\times\partial\Omega_{i}\subset\partial\Omega\times\partial\Omega$ then the operator 
-    $V_{k}\tilde{V}_{k}^{-1}$ is trace-class and 
+    $V_{k}\tilde{V}_{k}^{-1} - I$ with $I$ the identity operator is trace-class and 
     \begin{align*}
-        \Xi(k) = \log\det\left(V_{k}\tilde{V}_{k}^{-1}\right).
+        \Xi(k) = \log\det\left(V_{k}\tilde{V}_{k}^{-1}\right),
     \end{align*}
-
-    Then for $k > 0$, we have 
-    \begin{align*}
-        -\frac{1}{\pi}\emph{\text{Im}}\Xi(k) = \frac{\mathrm{i}}{2\pi}(\Xi(k) - \Xi(-k)) = \xi(k)
-    \end{align*}
-    and by taking $m = 0$ and $s = 1$ in \eqref{trace formula in terms of the boundary op}, this gives the formula 
+    where the Fredholm determinant $\det(V_{k}\tilde{V}_{k}^{-1})$ is well-defined 
+    \footnote{The Fredholm determinant is a generalization of a determinant of finite dimensional matrix to finite dimensional linear operator 
+    which differ from the identity operator by a trace class operator \cite[Section 6.5.2]{MR2300779}. Since the operator $V_{k}\tilde{V}_{k}^{-1} - I$ 
+    with $I$ the identity operator is trace-class in the close upper half space \cite[Theorem 1.7]{MR4484208}, the determinant $\det(V_{k}\tilde{V}_{k}^{-1})$ is well-defined.}.
+   and by taking $m = 0$ and $s = 1$ in \eqref{trace formula in terms of the boundary op}, this gives the formula 
     \begin{align}\label{slp and matrix}
         \emph{\text{Tr}}\left(\Delta^{\frac{1}{2}} + (N - 1)\Delta_{0}^{\frac{1}{2}} - \sum_{i = 1}^{N}\Delta_{j}^{\frac{1}{2}}\right)  =  \frac{1}{\pi}\int_{0}^{\infty}\Xi(\mathrm{i}k)dk.
     \end{align}
@@ -78,7 +76,16 @@ Equation \eqref{slp and matrix} is used to compute the Casimir energy between th
 \begin{align}\label{KSSF and CasE}
     \zeta = \frac{\hbar c}{2\pi}\int_{0}^{\infty}\Xi(\mathrm{i}k)dk.
 \end{align}
+This formula is the same with the one proposed in the numerical work by Johnson et al. who derive this formula by ill-defined path integrals\cite{reid2009efficient},
+which makes it non-rigorous.
 
+\begin{remark}
+    There is a relation between the relative Krein spectral shift function and the single-layer boundary integral operator. That is,
+    for $k > 0$, 
+    \begin{align*}
+        -\frac{1}{\pi}\emph{\text{Im}}\Xi(k) = \frac{\mathrm{i}}{2\pi}(\Xi(k) - \Xi(-k)) = \xi(k).
+    \end{align*}
+\end{remark}
 % \begin{remark}
 %     Note that the integral $\frac{\hbar c}{2}\int_{0}^{\infty}\xi(k)dk$ in \eqref{KSSF and CasE} is not Lebesgue convergent and requires regularisation for its numerical evaluation. The right-hand side integral does not suffer from this issue.
 % \end{remark}
@@ -134,8 +141,8 @@ and the matrix $\tilde{V}_{k}$ is the diagonal part of $V_{k}$:
 \end{align}
 Therefore, the element in the $m$th row and $n$th column of the block matrix $\mathsf{V}_{ij}(k)$ is 
 \begin{align}\label{Elements in matrix V}
-    \mathsf{V}_{ij}^{(m,n)} (k) = \langle V_{ij}(k)\phi_{m}^{(i)}, \phi_{n}^{(j)}\rangle = 
-    \int_{\Gamma_{j}}\overline{\phi_{n}^{(j)}}(\boldsymbol{x})\int_{\Gamma_{i}}g_{k}(\boldsymbol{x}, \boldsymbol{y})\phi_{m}^{(i)}(\boldsymbol{y})dS_{\boldsymbol{y}}dS_{\boldsymbol{x}},
+    \mathsf{V}_{ij}^{(m,n)} (k) = \langle V_{ij}(k)\phi_{n}^{(j)}, \phi_{m}^{(i)}\rangle = 
+    \int_{\Gamma_{j}}\overline{\phi_{m}^{(i)}}(\boldsymbol{x})\int_{\Gamma_{i}}g_{k}(\boldsymbol{x}, \boldsymbol{y})\phi_{n}^{(j)}(\boldsymbol{y})dS_{\boldsymbol{y}}dS_{\boldsymbol{x}},
 \end{align}
 where $\boldsymbol{\phi}^{(i)} = \begin{bmatrix}
     \phi_{1}^{(i)} & \phi_{2}^{(i)} & \dots & \phi_{N}^{(i)}
@@ -189,7 +196,7 @@ which the corresponding perturbation result for the log determinant follows.
 
 This purely linear algebraic consideration is not fully robust as it ignores the importance of the eigenvalue gap in the perturbation result. But we can 
 heuristically explain the $\text{gap}$ as follows. On the continuous level the perturbations $E_1$ and $E_2$ are compact, so the tail end of the spectrum 
-that converges to zero with small values of $\text{gap}_i$, is little effected by $E$, and the corresponding eigenvalues have a contribution of 
+that converges to zero with small values of $\text{gap}_i$, is little affected by $E$, and the corresponding eigenvalues have a contribution of 
 $\log \left|\frac{\lambda_i(A)}{\lambda_i(A+E)}\right| \approx 0$ to the value of $\Xi$. The relevant eigenvalues are the larger ones who for distinct obstacles 
 have a sufficiently large value of $\text{gap}_i$.
 
