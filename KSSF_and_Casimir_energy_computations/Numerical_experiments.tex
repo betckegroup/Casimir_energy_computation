@@ -53,17 +53,17 @@ This figure is plotted in log-log scale plot and the slope of these lines is aro
     \label{Scalar_Xi_h_conv}
 \end{figure}
 
- Having shown the validation of the construction of $\Xi$, we are left with determining a proper upperbound for the Casimir integration. 
- The method for determining the upperbound of the integration is inspired by the asymptotic decay behavior of its integrand function.  
+ Having shown the validation of the construction of $\Xi$, we are left with determining a proper upper bound for the Casimir integration. 
+ The method for determining the upper bound of the integration is inspired by the asymptotic decay behavior of its integrand function.  
  By Figure \ref{Distinct:The integrand decays exponentially} and Figure \ref{The integrand decays exponentially}, the integrand value $\log\det\mathrm{V}(\mathrm{i}k)\tilde{\mathrm{V}}(\mathrm{i}k)^{-1}$ shares the same trend with $e^{-2Zk}$, this inspires us to apply the function $f(k) = Ce^{-2Zk}$ to fit the curve of the estimated integrand
  values. With the coefficient $C$ determined, one can estimate the absolute error for approximating the Casimir integral by computing:  
  \begin{align} \label{determine ub}
      \epsilon = \int_{\kappa}^{\infty}f(k)dk = \frac{Ce^{-2Z\kappa}}{2Z},
  \end{align}
- where $\kappa$ is the upperbound of the integration. Recall that we have changed the variable from $k$ to $y = e^{-k}$ when applying the normal trapezodial rule. This upperbound $\kappa$ corresponds to the lowerbound of $y$.
+ where $\kappa$ is the  bound of the integration. Recall that we have changed the variable from $k$ to $y = e^{-k}$ when applying the normal trapezodial rule. This upper bound $\kappa$ corresponds to the lowerbound of $y$.
  
 
-With the upperbound of the integration determined, one can start to estimate the Casimir energy between two spheres with radius $r_1 = r_2 = 1$ at the 
+With the upper bound of the integration determined, one can start to estimate the Casimir energy between two spheres with radius $r_1 = r_2 = 1$ at the 
 distance of $Z$ via the formula \eqref{KSSF and CasE} in two different refinement levels: $h_{\text{fine}} = 0.05$ 
 ($\text{dim}(\mathsf{V}_{\mathrm{i}k}) = 12603$) and $h_{\text{coarse}} = 0.1$ ($\text{dim}(\mathsf{V}_{\mathrm{i}k}) = 3192$).
 
@@ -90,7 +90,8 @@ between two spheres is asymptotically large.
     ranges from 0.5 to 3.0. The green hollow square represents the data of \cite{kenneth2008casimir}. {\color{gray}Right:} The table lists all the relevant data values in the figure.}
     \label{Casimir energy between spheres with equal radii}
 \end{figure}
-\footnotetext{The negative normalized Casimir energy is $-\mathcal{E}/\hbar c$, for $\mathcal{E}$ defined in \eqref{KSSF and CasE}.}
+\footnotetext{The negative normalized Casimir energy is $-\xi/\hbar c$, for $\xi$ defined in \eqref{KSSF and CasE}. Note that for the labels in all the figures,
+the normalized Casimir energy means the negative normalized.}
 
 \begin{figure}[H]
     \centering
@@ -103,7 +104,7 @@ between two spheres is asymptotically large.
 
 Now, let us consider the case when two spheres have different radii $r_{1}$, $r_{2}$ (see Figure \ref{Two spheres with unequal radii}). 
 
-In this case, one can still determine the upperbound of the integration by fitting the integrand function curve and considering the error tolerance.
+In this case, one can still determine the upper bound of the integration by fitting the integrand function curve and considering the error tolerance.
 Afterwards, we would like to compare the extrapolation value of the Casimir energy computed through the Richardson extrapolation with the asymptotic expansion. By denoting the centre distance as
 $l = r_{1} + r_{2} + Z$, the asymptotic series of the Casimir energy between these two spheres is written by
 \begin{align}\label{Asymptotic unequal radii}

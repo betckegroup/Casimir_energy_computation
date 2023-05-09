@@ -62,6 +62,9 @@
 \begin{frontmatter}
 
 \title{Numerical aspects of Casimir energy computation in acoustic scattering}
+% \tnotetext[tnote1]{This is an example for title footnote coding.}
+\tnotetext[mytitlenote]{Supported by Leverhulme grant RPG-2017-329.}
+
 %\tnotetext[mytitlenote]{Fully 	documented templates are available in the elsarticle package on \href{http://www.ctan.org/tex-archive/macros/latex/contrib/elsarticle}{CTAN}.}
 
 %% Group authors per affiliation:
@@ -76,6 +79,7 @@
 \author[mysecondaryaddress]{Alexander Strohmaier}
 \ead{a.strohmaier@leeds.ac.uk}
 \address[mysecondaryaddress]{School of Mathematics, University of Leeds, Leeds, LS2 9JT, UK}
+
 
 %% or include affiliations in footnotes:
 
@@ -96,15 +100,11 @@ Krein spectral shift function \sep Casimir energy \sep Krylov subspace \sep inve
 
 \end{frontmatter}
 
-%\linenumbers
 \section{Introduction}\label{Introduction}
 \input{Introduction_and_Settings.tex}
 
 \section{Numerical methods for computing the Casimir energy  in acoustic scattering}\label{Numerical methods for computing the Casimir energy}
 \input{Numerical_methods_for_computing_the_Casimir_energy.tex}
-
-% \section{Spectral property of the integral operators}\label{Spectral property of the integral operators}
-% \input{Spectral_properties.tex}
 
 \section{Efficient methods for computing $\log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$}\label{Krylov subspace for generalized eigenvalue problem}
 \input{Improvements_of_the_computational_process.tex}
