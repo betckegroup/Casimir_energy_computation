@@ -58,9 +58,9 @@ This figure is plotted in log-log scale plot and the slope of these lines is aro
  By Figure \ref{Distinct:The integrand decays exponentially} and Figure \ref{The integrand decays exponentially}, the integrand value $\log\det\mathrm{V}(\mathrm{i}k)\tilde{\mathrm{V}}(\mathrm{i}k)^{-1}$ shares the same trend with $e^{-2Zk}$, this inspires us to apply the function $f(k) = Ce^{-2Zk}$ to fit the curve of the estimated integrand
  values. With the coefficient $C$ determined, one can estimate the absolute error for approximating the Casimir integral by computing:  
  \begin{align} \label{determine ub}
-     \epsilon = \int_{\kappa}^{\infty}f(k)dk = \frac{Ce^{-2Z\kappa}}{2Z},
+     \epsilon = \int_{\kappa}^{\infty}f(k)dk \approx \frac{Ce^{-2Z\kappa}}{2Z},
  \end{align}
- where $\kappa$ is the  bound of the integration. Recall that we have changed the variable from $k$ to $y = e^{-k}$ when applying the normal trapezodial rule. This upper bound $\kappa$ corresponds to the lowerbound of $y$.
+ where $\kappa$ is the upper bound of the integration. Recall that we have changed the variable from $k$ to $y = e^{-k}$ when applying the normal trapezodial rule. This upper bound $\kappa$ corresponds to the lowerbound of $y$.
  
 
 With the upper bound of the integration determined, one can start to estimate the Casimir energy between two spheres with radius $r_1 = r_2 = 1$ at the 

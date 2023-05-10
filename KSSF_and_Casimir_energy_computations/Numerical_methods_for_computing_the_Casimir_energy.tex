@@ -26,7 +26,7 @@ For any function $f\in H_{\text{loc}}^1(\Omega)$ we can define the trace $\gamma
 \begin{align*}
     \gamma_{\text{D}}^{\pm}p(\boldsymbol{x}):=\lim_{\Omega^{\pm}\ni\boldsymbol{x'}\rightarrow\boldsymbol{x}\in\Gamma}p(\boldsymbol{x'}).
 \end{align*}
-We call the range of the trace operator $H^{1/2}(\Gamma)$. This space can be more rigorously defined. But for the purposes of this paper the description of $H^{1/2}(\Gamma)$ is range space of the trace operator is sufficient. We furthermore need the space $H^{-1/2}(\Gamma)$, which is the dual space of $H^{1/2}(\Gamma)$ with $L^2(\Gamma)$ as pivot space.
+We call the range of the trace operator $H^{1/2}(\Gamma)$. This space can be more rigorously defined. But for the purposes of this paper the description of $H^{1/2}(\Gamma)$ as range space of the trace operator is sufficient. We furthermore need the space $H^{-1/2}(\Gamma)$, which is the dual space of $H^{1/2}(\Gamma)$ with $L^2(\Gamma)$ as pivot space.
 
 We can now define the single-layer boundary $V_{k}:H^{-1/2}(\Gamma)\rightarrow H^{1/2}(\Gamma)$ as
 
@@ -76,8 +76,7 @@ Equation \eqref{slp and matrix} is used to compute the Casimir energy between th
 \begin{align}\label{KSSF and CasE}
     \zeta = \frac{\hbar c}{2\pi}\int_{0}^{\infty}\Xi(\mathrm{i}k)dk.
 \end{align}
-This formula is the same with the one proposed in the numerical work by Johnson et al. who derive this formula by ill-defined path integrals\cite{reid2009efficient},
-which makes it non-rigorous.
+This formula is identical to the one proposed by Johnson in \cite{reid2009efficient} who uses a non-rigorous path integral argument for its derivation
 
 \begin{remark}
     There is a relation between the relative Krein spectral shift function and the single-layer boundary integral operator. That is,
@@ -142,14 +141,11 @@ and the matrix $\tilde{V}_{k}$ is the diagonal part of $V_{k}$:
 Therefore, the element in the $m$th row and $n$th column of the block matrix $\mathsf{V}_{ij}(k)$ is 
 \begin{align}\label{Elements in matrix V}
     \mathsf{V}_{ij}^{(m,n)} (k) = \langle V_{ij}(k)\phi_{n}^{(j)}, \phi_{m}^{(i)}\rangle = 
-    \int_{\Gamma_{j}}\overline{\phi_{m}^{(i)}}(\boldsymbol{x})\int_{\Gamma_{i}}g_{k}(\boldsymbol{x}, \boldsymbol{y})\phi_{n}^{(j)}(\boldsymbol{y})dS_{\boldsymbol{y}}dS_{\boldsymbol{x}},
+    \int_{\Gamma_{j}}\phi_{m}^{(i)}(\boldsymbol{x})\int_{\Gamma_{i}}g_{k}(\boldsymbol{x}, \boldsymbol{y})\phi_{n}^{(j)}(\boldsymbol{y})dS_{\boldsymbol{y}}dS_{\boldsymbol{x}},
 \end{align}
 where $\boldsymbol{\phi}^{(i)} = \begin{bmatrix}
     \phi_{1}^{(i)} & \phi_{2}^{(i)} & \dots & \phi_{N}^{(i)}
-\end{bmatrix}$ is the set of basis functions defined on the $i$th object and 
-\begin{align*}
-    \langle f, g \rangle = \int_{\Gamma}{f(\boldsymbol{x})}\overline{g(\boldsymbol{x})}dS_{x}
-\end{align*}
+\end{bmatrix}$ is the set of basis functions defined on the $i$th object and $\langle \cdot, \cdot \rangle$
 denotes the standard $L^{2}(\Gamma)$ inner product.
 
 
@@ -181,11 +177,10 @@ where $\text{gap}_i$ is the distance of $\lambda_i(A)$ to the spectrum of $A_2$ 
 \cite{mathias1998quadratic}.
 % {\color{red} The reference to Roy Matthias is suddenly missing}.
 
-Now assume that we have two different obstacles. Then we have $A_1 = \mathsf{V}_{11}(k)$, $A_2 = \mathsf{V}_{22}(k)$ and $E_1 = \mathsf{V}_{21}$ as the matrix of cross interactions 
-between the two obstacles. The Green's function between two obstacles decays exponentially like $e^{-Zk}$, where $Z$ is the minimal distance between them, 
-resulting in a matrix perturbation result of the form $|\lambda_i(\mathsf{V}) - \lambda_i(\tilde{\mathsf{V}})| = O(e^{-2Zk})$ for increasing $k$ (see Figure 
-), from 
-which the corresponding perturbation result for the log determinant follows.
+Now assume that we have two different obstacles. Then we have $A_1 = \mathsf{V}_{11}(\mathrm{i}k)$, $A_2 = \mathsf{V}_{22}(\mathrm{i}k)$ and $E_1 = \mathsf{V}_{21}(\mathrm{i}k)$ as the matrix of cross interactions 
+between the two obstacles. For complex wavenumbers $\mathrm{i}k$, the Green's function between two obstacles decays exponentially like $e^{-Zk}$, where $Z$ is the minimal distance between them, 
+resulting in a matrix perturbation result of the form $|\lambda_i(\mathsf{V}) - \lambda_i(\tilde{\mathsf{V}})| = O(e^{-2Zk})$ for increasing $k$ (see Figure \ref{Distinct:The integrand decays exponentially}
+), from which the corresponding perturbation result for the log determinant follows.
 
 \begin{figure}[H]
     \centering
@@ -209,6 +204,5 @@ While the linear algebra argument is useful to give a heuristical explanation, i
     \label{The integrand decays exponentially}
 \end{figure}
 
-This nice numerical property for the integrand $\Xi(\mathrm{i}k)$  simplifies the numerical integration. One can apply the normal trapezoidal rule to calculate the integral 
-$\int_{0}^{\infty}\Xi(\mathrm{i}k)dk = \int_{0}^{\infty}\log\frac{\det\mathsf{V}(\mathrm{i}k)}{\det\tilde{\mathrm{V}}(\mathrm{i}k)}dk$ with $k$ changed to $y$ with $y = e^{-k}$. 
-Figure \ref{The integrand decays exponentially} (Right) plots the integrand with regard to the new variable $y$.
+The exponentially decay property motivates a simple change of variables through $y = e^{-k}$ in the integrant $\Xi(\mathrm{i}k) = \log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$, 
+which after transformation we can numerically evaluate with a simple trapezoidal rule. Figure \ref{The integrand decays exponentially} (Right) plots the integrand with regard to the new variable $y$.

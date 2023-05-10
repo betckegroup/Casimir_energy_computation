@@ -108,11 +108,12 @@ for each wavenumber case. It is equal to the number of the recycled eigenvectors
 \begin{figure}[H]
     \centering
     \includegraphics[width = \textwidth]{figures/Dimension_of_the_extended_subspace.png}
-    \caption{The dimension of the extended subspace in the inverse-free Krylov subspace/standard Arnoldi methods with subspace recycled for each $k$ in $\log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$, which is equal to the number of the recycled 
+    \caption[Caption for LOF]{The dimension of the extended subspace in the inverse-free Krylov subspace\protect\footnotemark with subspace recycled for each $k$ in $\log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$, which is equal to the number of the recycled 
     eigenvectors plus the number of the residuals $\{\mathbf{r}_{i}\}_{i}$. The recycled eigenvector has the corresponding eigenvalue whose logarithm
     is larger than $10^{-s}$, where $s = 3, 4, 5$ when $Z = 0.5, 1.5, 3.0$, respectively.}
     \label{Dimension_of_the_extended_subspace}
 \end{figure}
+\footnotetext{Same figure also applies for standard Arnoldi methods.}
 
 Table \ref{Table lists the logdet} lists the relative error for approximating the value of $\log\det(\mathsf{V}(\mathrm{i}k)\tilde{\mathsf{V}}(\mathrm{i}k)^{-1})$ 
 computed via the inverse-free Krylov subspace method and standard Arnoldi method with or without recycling the subspace. The reference value is computed by the 
